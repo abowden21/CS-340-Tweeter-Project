@@ -15,12 +15,13 @@ import edu.byu.cs.tweeter.model.service.response.LoginResponse;
 import edu.byu.cs.tweeter.presenter.LoginPresenter;
 import edu.byu.cs.tweeter.view.asyncTasks.LoginTask;
 import edu.byu.cs.tweeter.view.main.MainActivity;
+import edu.byu.cs.tweeter.view.observer.ObserverInterface;
 
 /**
  * Contains the minimum UI required to allow the user to login with a hard-coded user. Most or all
  * of this should be replaced when the back-end is implemented.
  */
-public class LoginActivity extends AppCompatActivity implements LoginPresenter.View, LoginTask.Observer {
+public class LoginActivity extends AppCompatActivity implements LoginPresenter.View, LoginTask.Observer, ObserverInterface {
 
     private static final String LOG_TAG = "LoginActivity";
 
@@ -33,6 +34,14 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.V
         setContentView(R.layout.activity_login);
 
         presenter = new LoginPresenter(this);
+
+        Button testButton = findViewById(R.id.testButton);
+        testButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                presenter.test();
+            }
+        });
 
         Button loginButton = findViewById(R.id.LoginButton);
         loginButton.setOnClickListener(new View.OnClickListener() {
@@ -93,5 +102,11 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.V
     public void handleException(Exception exception) {
         Log.e(LOG_TAG, exception.getMessage(), exception);
         Toast.makeText(this, "Failed to login because of exception: " + exception.getMessage(), Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void update(Object data) {
+        // Test
+        Toast.makeText(this, data.toString(), Toast.LENGTH_LONG).show();
     }
 }

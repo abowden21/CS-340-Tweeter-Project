@@ -5,11 +5,13 @@ import java.io.IOException;
 import edu.byu.cs.tweeter.model.service.LoginService;
 import edu.byu.cs.tweeter.model.service.request.LoginRequest;
 import edu.byu.cs.tweeter.model.service.response.LoginResponse;
+import edu.byu.cs.tweeter.view.LoginActivity;
+import edu.byu.cs.tweeter.view.observer.AbstractSubject;
 
 /**
  * The presenter for the login functionality of the application.
  */
-public class LoginPresenter {
+public class LoginPresenter extends AbstractSubject {
 
     private final View view;
 
@@ -26,7 +28,14 @@ public class LoginPresenter {
      * @param view the view for which this class is the presenter.
      */
     public LoginPresenter(View view) {
+
         this.view = view;
+        //
+        this.registerObserver((LoginActivity)this.view);
+    }
+
+    public void test() {
+        notifyObservers("You clicked the button");
     }
 
     /**
@@ -37,5 +46,6 @@ public class LoginPresenter {
     public LoginResponse login(LoginRequest loginRequest) throws IOException {
         LoginService loginService = new LoginService();
         return loginService.login(loginRequest);
+
     }
 }
