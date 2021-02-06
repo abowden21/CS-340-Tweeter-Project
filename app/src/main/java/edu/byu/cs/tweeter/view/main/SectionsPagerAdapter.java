@@ -13,6 +13,7 @@ import edu.byu.cs.tweeter.model.domain.AuthToken;
 import edu.byu.cs.tweeter.model.domain.User;
 import edu.byu.cs.tweeter.view.main.followers.FollowersFragment;
 import edu.byu.cs.tweeter.view.main.following.FollowingFragment;
+import edu.byu.cs.tweeter.view.main.story.StoryFragment;
 
 /**
  * A [FragmentPagerAdapter] that returns a fragment corresponding to one of the sections/tabs/pages
@@ -44,6 +45,9 @@ class SectionsPagerAdapter extends FragmentPagerAdapter {
             return FollowingFragment.newInstance(user, authToken);
         } else if (position == FOLLOWERS_FRAGMENT_POSITION) {
             return FollowersFragment.newInstance(user, authToken);
+        }
+        else if (position == STORY_FRAGMENT_POSITION) {
+            return StoryFragment.newInstance(user, authToken);
         }
         else {
             return PlaceholderFragment.newInstance(position + 1);
