@@ -2,19 +2,14 @@ package edu.byu.cs.tweeter.presenter;
 
 import java.io.IOException;
 
-import edu.byu.cs.tweeter.model.service.FollowersService;
-import edu.byu.cs.tweeter.model.service.request.FollowersRequest;
-import edu.byu.cs.tweeter.model.service.request.FollowingRequest;
-import edu.byu.cs.tweeter.model.service.response.FollowersResponse;
-
 //import edu.byu.cs.tweeter.model.service.FollowingService;
 //import edu.byu.cs.tweeter.model.service.request.FollowingRequest;
 //import edu.byu.cs.tweeter.model.service.response.FollowingResponse;
 
 /**
- * The presenter for the "following" functionality of the application.
+ * The presenter for the "feed" functionality of the application.
  */
-public class FollowersPresenter {
+public class FeedPresenter {
 
     private final View view;
 
@@ -30,7 +25,7 @@ public class FollowersPresenter {
      *
      * @param view the view for which this class is the presenter.
      */
-    public FollowersPresenter(View view) {
+    public FeedPresenter(View view) {
         this.view = view;
     }
 
@@ -42,19 +37,19 @@ public class FollowersPresenter {
      * @param request contains the data required to fulfill the request.
      * @return the followees.
      */
-    public FollowersResponse getFollowers(FollowersRequest request) throws IOException {
-        FollowersService followingService = getFollowersService();
-        return followingService.getFollowers(request);
-    }
+//    public FollowersResponse getFollowing(FollowingRequest request) throws IOException {
+//        FollowersService followingService = getFollowingService();
+//        return followingService.getFollowees(request);
+//    }
 
     /**
-     * Returns an instance of {@link FollowersService}. Allows mocking of the FollowingService class
+     * Returns an instance of {@link FollowingService}. Allows mocking of the FollowingService class
      * for testing purposes. All usages of FollowingService should get their FollowingService
      * instance from this method to allow for mocking of the instance.
      *
      * @return the instance.
      */
-    private FollowersService getFollowersService() {
-        return new FollowersService();
-    }
+//    FollowersService getFollowersService() {
+//        return new FollowersService();
+//    }
 }

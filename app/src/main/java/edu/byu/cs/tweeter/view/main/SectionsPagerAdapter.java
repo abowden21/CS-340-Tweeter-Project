@@ -11,6 +11,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import edu.byu.cs.tweeter.R;
 import edu.byu.cs.tweeter.model.domain.AuthToken;
 import edu.byu.cs.tweeter.model.domain.User;
+import edu.byu.cs.tweeter.view.main.feed.FeedFragment;
 import edu.byu.cs.tweeter.view.main.followers.FollowersFragment;
 import edu.byu.cs.tweeter.view.main.following.FollowingFragment;
 import edu.byu.cs.tweeter.view.main.story.StoryFragment;
@@ -48,6 +49,9 @@ class SectionsPagerAdapter extends FragmentPagerAdapter {
         }
         else if (position == STORY_FRAGMENT_POSITION) {
             return StoryFragment.newInstance(user, authToken);
+        }
+        else if (position == FEED_FRAGMENT_POSITION) {
+            return FeedFragment.newInstance(user, authToken);
         }
         else {
             return PlaceholderFragment.newInstance(position + 1);
