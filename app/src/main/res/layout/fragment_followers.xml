@@ -7,14 +7,14 @@
     android:orientation="vertical"
     tools:context=".view.main.followers.FollowersFragment">
 
-<!--    <androidx.recyclerview.widget.RecyclerView-->
-<!--        android:id="@+id/followersRecyclerView"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"/>-->
-
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/followersRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Andrew, how is your laundry coming?" />
+        android:layout_height="match_parent"/>
+
+<!--    <TextView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:text="Andrew, how is your laundry coming?" />-->
 
 </LinearLayout>
