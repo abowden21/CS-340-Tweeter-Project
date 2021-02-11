@@ -10,9 +10,11 @@ import edu.byu.cs.tweeter.model.domain.User;
 import edu.byu.cs.tweeter.model.service.request.FollowersRequest;
 import edu.byu.cs.tweeter.model.service.request.FollowingRequest;
 import edu.byu.cs.tweeter.model.service.request.LoginRequest;
+import edu.byu.cs.tweeter.model.service.request.StoryRequest;
 import edu.byu.cs.tweeter.model.service.response.FollowersResponse;
 import edu.byu.cs.tweeter.model.service.response.FollowingResponse;
 import edu.byu.cs.tweeter.model.service.response.LoginResponse;
+import edu.byu.cs.tweeter.model.service.response.StoryResponse;
 
 /**
  * Acts as a Facade to the Tweeter server. All network requests to the server should go through
@@ -215,5 +217,9 @@ public class ServerFacade {
         return Arrays.asList(user2, user4, user6, user7,
                 user8, user15, user16, user17, user18,
                 user19, user20, user21, user22, user23);
+    }
+
+    public StoryResponse getStory(StoryRequest request) {
+        return new StoryResponse();
     }
 }

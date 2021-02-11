@@ -1,6 +1,11 @@
 package edu.byu.cs.tweeter.model.domain;
 
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
+
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 /**
@@ -13,6 +18,7 @@ public class User implements Comparable<User>, Serializable {
     private final String alias;
     private final String imageUrl;
     private byte [] imageBytes;
+    private LocalDateTime timeStamp;
 
     public User(String firstName, String lastName, String imageURL) {
         this(firstName, lastName, String.format("@%s%s", firstName, lastName), imageURL);

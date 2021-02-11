@@ -7,10 +7,10 @@
     android:orientation="vertical"
     tools:context=".view.main.story.StoryFragment">
 
-    <!--    <androidx.recyclerview.widget.RecyclerView-->
-    <!--        android:id="@+id/followersRecyclerView"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="match_parent"/>-->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/storyRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
 
     <TextView
         android:layout_width="match_parent"
