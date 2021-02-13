@@ -129,6 +129,7 @@ public class StoryFragment extends Fragment implements StoryPresenter.View {
          *
          * @param user the user.
          */
+        //TODO:
         void bindUser(User user) {
             userImage.setImageDrawable(ImageUtils.drawableFromByteArray(user.getImageBytes()));
             userAlias.setText(user.getAlias());

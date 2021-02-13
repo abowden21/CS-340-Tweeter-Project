@@ -1,5 +1,9 @@
 package edu.byu.cs.tweeter.model.service;
 
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
+
 import java.io.IOException;
 
 import edu.byu.cs.tweeter.model.domain.Status;
@@ -25,6 +29,7 @@ public class StoryService extends ServiceBase {
      * @param request contains the data required to fulfill the request.
      * @return the followees.
      */
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public StoryResponse getStory(StoryRequest request) throws IOException {
         StoryResponse response = getServerFacade().getStory(request);
 

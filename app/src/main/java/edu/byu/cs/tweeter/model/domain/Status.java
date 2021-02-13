@@ -8,12 +8,14 @@ public class Status {
     private final String message;
     private final List<String> urls;
     private final List<String> mentions;
+    private final User associatedUser;
 
-    public Status(LocalDateTime timeStamp, String message, List<String> urls, List<String> mentions) {
+    public Status(LocalDateTime timeStamp, String message, List<String> urls, List<String> mentions, User associatedUser) {
         this.timeStamp = timeStamp;
         this.message = message;
         this.urls = urls;
         this.mentions = mentions;
+        this.associatedUser = associatedUser;
     }
     public LocalDateTime getTimeStamp() {
         return timeStamp;
@@ -29,6 +31,10 @@ public class Status {
 
     public List<String> getMentions() {
         return mentions;
+    }
+
+    public User getUser() {
+        return associatedUser;
     }
 
 
