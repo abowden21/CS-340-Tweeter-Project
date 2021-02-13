@@ -1,11 +1,17 @@
 package edu.byu.cs.tweeter.model.net;
 
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
+
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import edu.byu.cs.tweeter.BuildConfig;
 import edu.byu.cs.tweeter.model.domain.AuthToken;
+import edu.byu.cs.tweeter.model.domain.Status;
 import edu.byu.cs.tweeter.model.domain.User;
 import edu.byu.cs.tweeter.model.service.request.FollowersRequest;
 import edu.byu.cs.tweeter.model.service.request.FollowingRequest;
@@ -18,6 +24,7 @@ import edu.byu.cs.tweeter.model.service.response.LoginResponse;
  * Acts as a Facade to the Tweeter server. All network requests to the server should go through
  * this class.
  */
+@RequiresApi(api = Build.VERSION_CODES.O)
 public class ServerFacade {
     // This is the hard coded followee data returned by the 'getFollowees()' method
     private static final String MALE_IMAGE_URL = "https://faculty.cs.byu.edu/~jwilkerson/cs340/tweeter/images/donald_duck.png";
@@ -46,6 +53,9 @@ public class ServerFacade {
     private final User user21 = new User("Andrew", "Bowden", MALE_IMAGE_URL);
     private final User user22 = new User("Ryan", "Bryson", MALE_IMAGE_URL);
     private final User user23 = new User("John", "Simmons", MALE_IMAGE_URL);
+
+    private final Status status1 = new Status(LocalDateTime.now(), "message1", null ,null);
+    private final Status status2 = new Status(LocalDateTime.now(), "message2", null, null);
 
     /**
      * Performs a login and if successful, returns the logged in user and an auth token. The current

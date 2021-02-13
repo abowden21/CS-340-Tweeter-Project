@@ -1,6 +1,7 @@
 package edu.byu.cs.tweeter.model.domain;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -13,16 +14,22 @@ public class User implements Comparable<User>, Serializable {
     private final String alias;
     private final String imageUrl;
     private byte [] imageBytes;
+    private Story story;
+    private Feed feed;
+    private List<User> followers;
+    private List<User> following;
 
     public User(String firstName, String lastName, String imageURL) {
-        this(firstName, lastName, String.format("@%s%s", firstName, lastName), imageURL);
+        this(firstName, lastName, String.format("@%s%s", firstName, lastName), imageURL, null, null);
     }
 
-    public User(String firstName, String lastName, String alias, String imageURL) {
+    public User(String firstName, String lastName, String alias, String imageURL, Story story, Feed feed) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.alias = alias;
         this.imageUrl = imageURL;
+        this.story = story;
+        this.feed = feed;
     }
 
     public String getFirstName() {
@@ -47,6 +54,14 @@ public class User implements Comparable<User>, Serializable {
 
     public byte [] getImageBytes() {
         return imageBytes;
+    }
+
+    public Story getStory() {
+        return story;
+    }
+
+    public Feed getFeed() {
+        return feed;
     }
 
     public void setImageBytes(byte[] imageBytes) {
