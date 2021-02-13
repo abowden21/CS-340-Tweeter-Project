@@ -1,8 +1,10 @@
 package edu.byu.cs.tweeter.view.main.story;
 
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,11 +21,17 @@ import java.util.List;
 
 import edu.byu.cs.tweeter.R;
 import edu.byu.cs.tweeter.model.domain.AuthToken;
+import edu.byu.cs.tweeter.model.domain.Status;
 import edu.byu.cs.tweeter.model.domain.User;
 import edu.byu.cs.tweeter.model.service.request.FollowersRequest;
+import edu.byu.cs.tweeter.model.service.request.StoryRequest;
 import edu.byu.cs.tweeter.model.service.response.FollowersResponse;
+import edu.byu.cs.tweeter.model.service.response.StoryResponse;
 import edu.byu.cs.tweeter.presenter.StoryPresenter;
 import edu.byu.cs.tweeter.view.asyncTasks.GetFollowersTask;
+import edu.byu.cs.tweeter.view.asyncTasks.GetStoryTask;
+import edu.byu.cs.tweeter.view.main.StatusRecyclerViewAdapter;
+import edu.byu.cs.tweeter.view.main.StatusRecyclerViewPaginationScrollListener;
 import edu.byu.cs.tweeter.view.main.UserRecyclerViewAdapter;
 import edu.byu.cs.tweeter.view.main.followers.FollowersFragment;
 import edu.byu.cs.tweeter.view.util.ImageUtils;
@@ -67,6 +75,7 @@ public class StoryFragment extends Fragment implements StoryPresenter.View {
         return fragment;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -86,8 +95,7 @@ public class StoryFragment extends Fragment implements StoryPresenter.View {
         storyRecyclerViewAdapter = new StoryRecyclerViewAdapter();
         storyRecyclerView.setAdapter(storyRecyclerViewAdapter);
 
-        //TODO:
-        //storyRecyclerView.addOnScrollListener(new FollowRecyclerViewPaginationScrollListener(layoutManager));
+        storyRecyclerView.addOnScrollListener(new StatusRecyclerViewPaginationScrollListener(layoutManager, storyRecyclerViewAdapter));
 
         return view;
     }
@@ -97,12 +105,9 @@ public class StoryFragment extends Fragment implements StoryPresenter.View {
         private final ImageView userImage;
         private final TextView userAlias;
         private final TextView userName;
+        private final TextView statusBody;
+        private final TextView timestamp;
 
-        /**
-         * Creates an instance and sets an OnClickListener for the user's row.
-         *
-         * @param itemView the view on which the user will be displayed.
-         */
         StoryHolder(@NonNull View itemView, int viewType) {
             super(itemView);
 
@@ -110,6 +115,8 @@ public class StoryFragment extends Fragment implements StoryPresenter.View {
                 userImage = itemView.findViewById(R.id.userImage);
                 userAlias = itemView.findViewById(R.id.userAlias);
                 userName = itemView.findViewById(R.id.userName);
+                statusBody = itemView.findViewById(R.id.statusBody);
+                timestamp = itemView.findViewById(R.id.timestamp);
 
                 itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -121,38 +128,37 @@ public class StoryFragment extends Fragment implements StoryPresenter.View {
                 userImage = null;
                 userAlias = null;
                 userName = null;
+                statusBody = null;
+                timestamp = null;
             }
         }
 
-        /**
-         * Binds the user's data to the view.
-         *
-         * @param user the user.
-         */
-        //TODO:
-        void bindUser(User user) {
-            userImage.setImageDrawable(ImageUtils.drawableFromByteArray(user.getImageBytes()));
-            userAlias.setText(user.getAlias());
-            userName.setText(user.getName());
+        void bindUser(Status status) {
+            userImage.setImageDrawable(ImageUtils.drawableFromByteArray(status.getUser().getImageBytes()));
+            userAlias.setText(status.getUser().getAlias());
+            userName.setText(status.getUser().getName());
+            statusBody.setText(status.getMessage());
+            timestamp.setText(status.getTimeStamp().toString());
         }
     }
 
-    private class StoryRecyclerViewAdapter extends UserRecyclerViewAdapter<StoryFragment.StoryHolder> implements GetFollowersTask.Observer {
+    private class StoryRecyclerViewAdapter extends StatusRecyclerViewAdapter<StoryHolder> implements GetStoryTask.Observer {
 
-        private User lastFollower;
+        private Status lastStatus;
 
+        @RequiresApi(api = Build.VERSION_CODES.O)
         StoryRecyclerViewAdapter() {
             super(LOADING_DATA_VIEW, ITEM_VIEW);
         }
 
+        @RequiresApi(api = Build.VERSION_CODES.O)
         @Override
         protected void loadMoreItems() {
             super.loadMoreItems();
 
-            //TODO:
-//            GetFollowersTask getFollowingTask = new GetFollowersTask(presenter, this);
-//            FollowersRequest request = new FollowersRequest(user.getAlias(), PAGE_SIZE, (lastFollower == null ? null : lastFollower.getAlias()));
-//            getFollowingTask.execute(request);
+            GetStoryTask getStoryTask = new GetStoryTask(presenter, this);
+            StoryRequest request = new StoryRequest(user.getAlias(), PAGE_SIZE, (lastStatus == null ? null : lastStatus.getTimeStamp()));
+            getStoryTask.execute(request);
         }
 
         @Override
@@ -163,21 +169,21 @@ public class StoryFragment extends Fragment implements StoryPresenter.View {
         }
 
         @Override
-        public void followersRetrieved(FollowersResponse followingResponse) {
-            List<User> followers = followingResponse.getFollowers();
+        public void storyRetrieved(StoryResponse storyResponse) {
+            List<Status> statuses = storyResponse.getStatuses();
 
-            lastFollower = (followers.size() > 0) ? followers.get(followers.size() -1) : null;
-            hasMorePages = followingResponse.getHasMorePages();
+            lastStatus = (statuses.size() > 0) ? statuses.get(statuses.size() -1) : null;
+            hasMorePages = storyResponse.getHasMorePages();
 
             isLoading = false;
             removeLoadingFooter();
-            storyRecyclerViewAdapter.addItems(followers);
+            storyRecyclerViewAdapter.addItems(statuses);
         }
 
         @Override
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder storyHolder, int position) {
             if(!isLoading) {
-                ((StoryFragment.StoryHolder)storyHolder).bindUser(users.get(position));
+                ((StoryFragment.StoryHolder)storyHolder).bindUser(statuses.get(position));
             }
         }
 

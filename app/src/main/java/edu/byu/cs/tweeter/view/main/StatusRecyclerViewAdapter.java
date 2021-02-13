@@ -1,15 +1,21 @@
 package edu.byu.cs.tweeter.view.main;
 
+import android.os.Build;
 import android.view.ViewGroup;
+
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+
+import edu.byu.cs.tweeter.model.domain.Status;
 import edu.byu.cs.tweeter.model.domain.User;
 
-public class UserRecyclerViewAdapter<T_Holder> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    protected final List<User> users = new ArrayList<>();
+public class StatusRecyclerViewAdapter<T_Holder> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    protected final List<Status> statuses = new ArrayList<>();
 
     protected boolean hasMorePages;
     protected boolean isLoading = false;
@@ -17,7 +23,8 @@ public class UserRecyclerViewAdapter<T_Holder> extends RecyclerView.Adapter<Recy
     private int LOADING_DATA_VIEW;
     private int ITEM_VIEW;
 
-    public UserRecyclerViewAdapter(int loadingDataView, int itemView) {
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public StatusRecyclerViewAdapter(int loadingDataView, int itemView) {
         this.LOADING_DATA_VIEW = loadingDataView;
         this.ITEM_VIEW = itemView;
         loadMoreItems();
@@ -31,23 +38,23 @@ public class UserRecyclerViewAdapter<T_Holder> extends RecyclerView.Adapter<Recy
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        
+
     }
 
-    protected void addItems(List<User> newUsers) {
-        int startInsertPosition = users.size();
-        users.addAll(newUsers);
-        this.notifyItemRangeInserted(startInsertPosition, newUsers.size());
+    protected void addItems(List<Status> newStatuses) {
+        int startInsertPosition = statuses.size();
+        statuses.addAll(newStatuses);
+        this.notifyItemRangeInserted(startInsertPosition, newStatuses.size());
     }
 
-    private void addItem(User user) {
-        users.add(user);
-        this.notifyItemInserted(users.size() - 1);
+    private void addItem(Status status) {
+        statuses.add(status);
+        this.notifyItemInserted(statuses.size() - 1);
     }
 
-    private void removeItem(User user) {
-        int position = users.indexOf(user);
-        users.remove(position);
+    private void removeItem(Status status) {
+        int position = statuses.indexOf(status);
+        statuses.remove(position);
         this.notifyItemRemoved(position);
     }
 
@@ -55,6 +62,7 @@ public class UserRecyclerViewAdapter<T_Holder> extends RecyclerView.Adapter<Recy
         removeLoadingFooter();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     protected void loadMoreItems() {
         isLoading = true;
         addLoadingFooter();
@@ -62,20 +70,22 @@ public class UserRecyclerViewAdapter<T_Holder> extends RecyclerView.Adapter<Recy
 
     @Override
     public int getItemCount() {
-        return users.size();
+        return statuses.size();
     }
 
     @Override
     public int getItemViewType(int position) {
-        return (position == users.size() - 1 && isLoading) ? LOADING_DATA_VIEW : ITEM_VIEW;
+        return (position == statuses.size() - 1 && isLoading) ? LOADING_DATA_VIEW : ITEM_VIEW;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     protected void addLoadingFooter() {
-        addItem(new User("Dummy", "User", ""));
+        User u = new User("Dummy", "User", "");
+        addItem(new Status(LocalDateTime.now(), "", new ArrayList<String>(), new ArrayList<String>(), u));
     }
 
     protected void removeLoadingFooter() {
-        removeItem(users.get(users.size() - 1));
+        removeItem(statuses.get(statuses.size() - 1));
     }
 
     public boolean getIsLoading() {
@@ -85,5 +95,4 @@ public class UserRecyclerViewAdapter<T_Holder> extends RecyclerView.Adapter<Recy
     public boolean getHasMorePages() {
         return this.hasMorePages;
     }
-
 }

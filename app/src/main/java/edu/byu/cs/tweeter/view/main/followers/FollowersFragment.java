@@ -14,10 +14,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import org.jetbrains.annotations.NotNull;
-
-import java.util.ArrayList;
 import java.util.List;
 
 import edu.byu.cs.tweeter.R;
@@ -30,11 +26,6 @@ import edu.byu.cs.tweeter.view.asyncTasks.GetFollowersTask;
 import edu.byu.cs.tweeter.view.main.FollowRecyclerViewPaginationScrollListener;
 import edu.byu.cs.tweeter.view.main.UserRecyclerViewAdapter;
 import edu.byu.cs.tweeter.view.util.ImageUtils;
-//import edu.byu.cs.tweeter.model.service.request.FollowersRequest;
-//import edu.byu.cs.tweeter.model.service.response.FollowersResponse;
-//import edu.byu.cs.tweeter.presenter.FollowersPresenter;
-//import edu.byu.cs.tweeter.view.asyncTasks.GetFollowersTask;
-//import edu.byu.cs.tweeter.view.util.ImageUtils;
 
 /**
  * The fragment that displays on the 'Followers' tab.

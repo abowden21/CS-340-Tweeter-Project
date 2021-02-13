@@ -12,6 +12,7 @@ import java.util.List;
 import edu.byu.cs.tweeter.BuildConfig;
 import edu.byu.cs.tweeter.model.domain.AuthToken;
 import edu.byu.cs.tweeter.model.domain.Status;
+import edu.byu.cs.tweeter.model.domain.Story;
 import edu.byu.cs.tweeter.model.domain.User;
 import edu.byu.cs.tweeter.model.service.request.FollowersRequest;
 import edu.byu.cs.tweeter.model.service.request.FollowingRequest;
@@ -56,8 +57,8 @@ public class ServerFacade {
     private final User user22 = new User("Ryan", "Bryson", MALE_IMAGE_URL);
     private final User user23 = new User("John", "Simmons", MALE_IMAGE_URL);
 
-    private final Status status1 = new Status(LocalDateTime.now(), "message1", null ,null, associatedUser);
-    private final Status status2 = new Status(LocalDateTime.now(), "message2", null, null, associatedUser);
+    private final Status status1 = new Status(LocalDateTime.now(), "message1", null ,null, user22);
+    private final Status status2 = new Status(LocalDateTime.now(), "message2", null, null, user23);
 
     /**
      * Performs a login and if successful, returns the logged in user and an auth token. The current
@@ -230,6 +231,13 @@ public class ServerFacade {
     }
 
     public StoryResponse getStory(StoryRequest request) {
-        return new StoryResponse();
+
+        // MAJOR TODO: Implement pagination.
+
+        return new StoryResponse(getDummyStatuses(), true);
+    }
+
+    List<Status> getDummyStatuses() {
+        return Arrays.asList(status1, status2);
     }
 }

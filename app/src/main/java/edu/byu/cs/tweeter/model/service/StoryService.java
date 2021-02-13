@@ -34,7 +34,7 @@ public class StoryService extends ServiceBase {
         StoryResponse response = getServerFacade().getStory(request);
 
         if(response.isSuccess()) {
-            //loadImages(response);
+            loadImages(response);
         }
 
         return response;
@@ -45,10 +45,11 @@ public class StoryService extends ServiceBase {
      *
      * @param response the response from the followee request.
      */
-//    private void loadImages(StoryResponse response) throws IOException {
-//        for(Status status : response.getStatuses()) {
-//            byte [] bytes = ByteArrayUtils.bytesFromUrl(u.getImageUrl());
-//            status.setImageBytes(bytes);
-//        }
-//    }
+    private void loadImages(StoryResponse response) throws IOException {
+        for(Status status : response.getStatuses()) {
+            // TODO: only load image once per user.
+            byte [] bytes = ByteArrayUtils.bytesFromUrl(status.getUser().getImageUrl());
+            status.getUser().setImageBytes(bytes);
+        }
+    }
 }
