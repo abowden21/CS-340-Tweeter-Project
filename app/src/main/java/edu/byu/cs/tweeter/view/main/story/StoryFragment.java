@@ -137,7 +137,8 @@ public class StoryFragment extends Fragment implements StoryPresenter.View {
             userImage.setImageDrawable(ImageUtils.drawableFromByteArray(status.getUser().getImageBytes()));
             userAlias.setText(status.getUser().getAlias());
             userName.setText(status.getUser().getName());
-            statusBody.setText(status.getMessage());
+            statusBody.setText(storyRecyclerViewAdapter.makeSpannableString(status));
+            //statusBody.setText(status.getMessage());
             timestamp.setText(status.getTimeStamp().toString());
         }
     }
@@ -159,6 +160,11 @@ public class StoryFragment extends Fragment implements StoryPresenter.View {
             GetStoryTask getStoryTask = new GetStoryTask(presenter, this);
             StoryRequest request = new StoryRequest(user.getAlias(), PAGE_SIZE, (lastStatus == null ? null : lastStatus.getTimeStamp()));
             getStoryTask.execute(request);
+        }
+
+        @Override
+        public void mentionedClicked(String alias) {
+            Toast.makeText(getContext(), alias, Toast.LENGTH_LONG).show();
         }
 
         @Override

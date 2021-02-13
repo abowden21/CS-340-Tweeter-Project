@@ -1,7 +1,13 @@
 package edu.byu.cs.tweeter.view.main;
 
+import android.content.Intent;
 import android.os.Build;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.ClickableSpan;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -14,7 +20,7 @@ import java.util.List;
 import edu.byu.cs.tweeter.model.domain.Status;
 import edu.byu.cs.tweeter.model.domain.User;
 
-public class StatusRecyclerViewAdapter<T_Holder> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public abstract class StatusRecyclerViewAdapter<T_Holder> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     protected final List<Status> statuses = new ArrayList<>();
 
     protected boolean hasMorePages;
@@ -22,6 +28,7 @@ public class StatusRecyclerViewAdapter<T_Holder> extends RecyclerView.Adapter<Re
 
     private int LOADING_DATA_VIEW;
     private int ITEM_VIEW;
+
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public StatusRecyclerViewAdapter(int loadingDataView, int itemView) {
@@ -95,4 +102,32 @@ public class StatusRecyclerViewAdapter<T_Holder> extends RecyclerView.Adapter<Re
     public boolean getHasMorePages() {
         return this.hasMorePages;
     }
+
+    public SpannableString makeSpannableString(Status status) {
+        String message = status.getMessage();
+        SpannableString spannableString = new SpannableString(message);
+        String[] slices = message.split(" ");
+
+        int currentIndex = 0;
+
+        for(String slice : slices) {
+            if (slice.length() > 0 && slice.charAt(0) == '@') {
+                ClickableSpan clickSpan = new ClickableSpan() {
+                    @Override
+                    public void onClick(@NonNull View widget) {
+                        mentionedClicked(slice);
+                    }
+                };
+
+                spannableString.setSpan(clickSpan, currentIndex, currentIndex + slice.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            }
+
+            currentIndex += slice.length() + 1;
+        }
+
+        return spannableString;
+    }
+
+    public abstract void mentionedClicked(String alias);
 }
+
