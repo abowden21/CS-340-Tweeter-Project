@@ -2,12 +2,12 @@ package edu.byu.cs.tweeter.presenter;
 
 import java.io.IOException;
 
-//import edu.byu.cs.tweeter.model.service.FollowingService;
-//import edu.byu.cs.tweeter.model.service.request.FollowingRequest;
-//import edu.byu.cs.tweeter.model.service.response.FollowingResponse;
+import edu.byu.cs.tweeter.model.service.StoryService;
+import edu.byu.cs.tweeter.model.service.request.StoryRequest;
+import edu.byu.cs.tweeter.model.service.response.StoryResponse;
 
 /**
- * The presenter for the "following" functionality of the application.
+ * The presenter for the "story" functionality of the application.
  */
 public class StoryPresenter {
 
@@ -37,19 +37,19 @@ public class StoryPresenter {
      * @param request contains the data required to fulfill the request.
      * @return the followees.
      */
-//    public FollowersResponse getFollowing(FollowingRequest request) throws IOException {
-//        FollowersService followingService = getFollowingService();
-//        return followingService.getFollowees(request);
-//    }
+    public StoryResponse getStory(StoryRequest request) throws IOException {
+        StoryService storyService = getStoryService();
+        return storyService.getStory(request);
+    }
 
     /**
-     * Returns an instance of {@link FollowingService}. Allows mocking of the FollowingService class
+     * Returns an instance of {@link StoryService}. Allows mocking of the FollowingService class
      * for testing purposes. All usages of FollowingService should get their FollowingService
      * instance from this method to allow for mocking of the instance.
      *
      * @return the instance.
      */
-//    FollowersService getFollowersService() {
-//        return new FollowersService();
-//    }
+    StoryService getStoryService() {
+        return new StoryService();
+    }
 }

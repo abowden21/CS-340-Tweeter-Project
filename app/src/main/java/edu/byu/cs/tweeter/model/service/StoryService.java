@@ -2,18 +2,19 @@ package edu.byu.cs.tweeter.model.service;
 
 import java.io.IOException;
 
+import edu.byu.cs.tweeter.model.domain.Status;
 import edu.byu.cs.tweeter.model.domain.User;
 import edu.byu.cs.tweeter.model.net.ServerFacade;
-import edu.byu.cs.tweeter.model.service.request.FollowersRequest;
 import edu.byu.cs.tweeter.model.service.request.FollowingRequest;
-import edu.byu.cs.tweeter.model.service.response.FollowersResponse;
+import edu.byu.cs.tweeter.model.service.request.StoryRequest;
 import edu.byu.cs.tweeter.model.service.response.FollowingResponse;
+import edu.byu.cs.tweeter.model.service.response.StoryResponse;
 import edu.byu.cs.tweeter.util.ByteArrayUtils;
 
 /**
- * Contains the business logic for getting the users a user is following.
+ * Contains the business logic for getting the statuses for the user's story.
  */
-public class FollowersService extends ServiceBase  {
+public class StoryService extends ServiceBase {
 
     /**
      * Returns the users that the user specified in the request is following. Uses information in
@@ -24,11 +25,11 @@ public class FollowersService extends ServiceBase  {
      * @param request contains the data required to fulfill the request.
      * @return the followees.
      */
-    public FollowersResponse getFollowers(FollowersRequest request) throws IOException {
-        FollowersResponse response = getServerFacade().getFollowers(request);
+    public StoryResponse getStory(StoryRequest request) throws IOException {
+        StoryResponse response = getServerFacade().getStory(request);
 
         if(response.isSuccess()) {
-            loadImages(response);
+            //loadImages(response);
         }
 
         return response;
@@ -39,10 +40,10 @@ public class FollowersService extends ServiceBase  {
      *
      * @param response the response from the followee request.
      */
-    private void loadImages(FollowersResponse response) throws IOException {
-        for(User user : response.getFollowers()) {
-            byte [] bytes = ByteArrayUtils.bytesFromUrl(user.getImageUrl());
-            user.setImageBytes(bytes);
-        }
-    }
+//    private void loadImages(StoryResponse response) throws IOException {
+//        for(Status status : response.getStatuses()) {
+//            byte [] bytes = ByteArrayUtils.bytesFromUrl(u.getImageUrl());
+//            status.setImageBytes(bytes);
+//        }
+//    }
 }

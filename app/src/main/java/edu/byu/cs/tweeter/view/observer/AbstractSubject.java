@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class AbstractSubject {
+
+    //Do we still need this package?
     private List<ObserverInterface> observers;
 
     public void registerObserver(ObserverInterface observer) {
