@@ -1,5 +1,6 @@
 package edu.byu.cs.tweeter.view.main.followers;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -24,6 +25,7 @@ import edu.byu.cs.tweeter.model.service.response.FollowersResponse;
 import edu.byu.cs.tweeter.presenter.FollowersPresenter;
 import edu.byu.cs.tweeter.view.asyncTasks.GetFollowersTask;
 import edu.byu.cs.tweeter.view.main.FollowRecyclerViewPaginationScrollListener;
+import edu.byu.cs.tweeter.view.main.ProfileActivity;
 import edu.byu.cs.tweeter.view.main.UserRecyclerViewAdapter;
 import edu.byu.cs.tweeter.view.util.ImageUtils;
 
@@ -41,7 +43,7 @@ public class FollowersFragment extends Fragment implements FollowersPresenter.Vi
 
     private static final int PAGE_SIZE = 10;
 
-    private User user;
+    private User loggedInUser;
     private AuthToken authToken;
     private FollowersPresenter presenter;
 
@@ -72,7 +74,7 @@ public class FollowersFragment extends Fragment implements FollowersPresenter.Vi
         View view = inflater.inflate(R.layout.fragment_followers, container, false);
 
         //noinspection ConstantConditions
-        user = (User) getArguments().getSerializable(USER_KEY);
+        loggedInUser = (User) getArguments().getSerializable(USER_KEY);
         authToken = (AuthToken) getArguments().getSerializable(AUTH_TOKEN_KEY);
 
         presenter = new FollowersPresenter(this);
@@ -94,6 +96,7 @@ public class FollowersFragment extends Fragment implements FollowersPresenter.Vi
         private final ImageView userImage;
         private final TextView userAlias;
         private final TextView userName;
+        private User currentUser;
 
         /**
          * Creates an instance and sets an OnClickListener for the user's row.
@@ -111,7 +114,12 @@ public class FollowersFragment extends Fragment implements FollowersPresenter.Vi
                 itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Toast.makeText(getContext(), "[Follower] You selected '" + userName.getText() + "'.", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(getContext(), ProfileActivity.class);
+                        intent.putExtra(ProfileActivity.LOGGED_IN_USER_KEY, loggedInUser);
+                        intent.putExtra(ProfileActivity.CURRENT_USER_KEY, currentUser);
+                        intent.putExtra(ProfileActivity.AUTH_TOKEN_KEY, authToken);
+
+                        startActivity(intent);
                     }
                 });
             } else {
@@ -130,6 +138,7 @@ public class FollowersFragment extends Fragment implements FollowersPresenter.Vi
             userImage.setImageDrawable(ImageUtils.drawableFromByteArray(user.getImageBytes()));
             userAlias.setText(user.getAlias());
             userName.setText(user.getName());
+            currentUser = user;
         }
     }
 
@@ -145,7 +154,7 @@ public class FollowersFragment extends Fragment implements FollowersPresenter.Vi
         protected void loadMoreItems() {
             super.loadMoreItems();
             GetFollowersTask getFollowingTask = new GetFollowersTask(presenter, this);
-            FollowersRequest request = new FollowersRequest(user.getAlias(), PAGE_SIZE, (lastFollower == null ? null : lastFollower.getAlias()));
+            FollowersRequest request = new FollowersRequest(loggedInUser.getAlias(), PAGE_SIZE, (lastFollower == null ? null : lastFollower.getAlias()));
             getFollowingTask.execute(request);
         }
 

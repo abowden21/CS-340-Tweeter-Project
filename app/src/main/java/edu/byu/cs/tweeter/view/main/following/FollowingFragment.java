@@ -16,9 +16,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.jetbrains.annotations.NotNull;
-
-import java.util.ArrayList;
 import java.util.List;
 
 import edu.byu.cs.tweeter.R;
@@ -29,7 +26,6 @@ import edu.byu.cs.tweeter.model.service.response.FollowingResponse;
 import edu.byu.cs.tweeter.presenter.FollowingPresenter;
 import edu.byu.cs.tweeter.view.asyncTasks.GetFollowingTask;
 import edu.byu.cs.tweeter.view.main.FollowRecyclerViewPaginationScrollListener;
-import edu.byu.cs.tweeter.view.main.MainActivity;
 import edu.byu.cs.tweeter.view.main.ProfileActivity;
 import edu.byu.cs.tweeter.view.main.UserRecyclerViewAdapter;
 import edu.byu.cs.tweeter.view.util.ImageUtils;
@@ -48,7 +44,7 @@ public class FollowingFragment extends Fragment implements FollowingPresenter.Vi
 
     private static final int PAGE_SIZE = 10;
 
-    private User user;
+    private User loggedInUser;
     private AuthToken authToken;
     private FollowingPresenter presenter;
 
@@ -79,7 +75,7 @@ public class FollowingFragment extends Fragment implements FollowingPresenter.Vi
         View view = inflater.inflate(R.layout.fragment_following, container, false);
 
         //noinspection ConstantConditions
-        user = (User) getArguments().getSerializable(USER_KEY);
+        loggedInUser = (User) getArguments().getSerializable(USER_KEY);
         authToken = (AuthToken) getArguments().getSerializable(AUTH_TOKEN_KEY);
 
         presenter = new FollowingPresenter(this);
@@ -123,9 +119,8 @@ public class FollowingFragment extends Fragment implements FollowingPresenter.Vi
                 itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        //Toast.makeText(getContext(), "You selected '" + userName.getText() + "'.", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(getContext(), ProfileActivity.class);
-
+                        intent.putExtra(ProfileActivity.LOGGED_IN_USER_KEY, loggedInUser);
                         intent.putExtra(ProfileActivity.CURRENT_USER_KEY, currentUser);
                         intent.putExtra(ProfileActivity.AUTH_TOKEN_KEY, authToken);
 
@@ -164,7 +159,7 @@ public class FollowingFragment extends Fragment implements FollowingPresenter.Vi
         protected void loadMoreItems() {
             super.loadMoreItems();
             GetFollowingTask getFollowingTask = new GetFollowingTask(presenter, this);
-            FollowingRequest request = new FollowingRequest(user.getAlias(), PAGE_SIZE, (lastFollowee == null ? null : lastFollowee.getAlias()));
+            FollowingRequest request = new FollowingRequest(loggedInUser.getAlias(), PAGE_SIZE, (lastFollowee == null ? null : lastFollowee.getAlias()));
             getFollowingTask.execute(request);
         }
 

@@ -24,7 +24,6 @@ import edu.byu.cs.tweeter.view.util.ImageUtils;
  * The main activity for the application. Contains tabs for feed, story, following, and followers.
  */
 public class MainActivity extends AppCompatActivity {
-
     public static final String CURRENT_USER_KEY = "CurrentUser";
     public static final String AUTH_TOKEN_KEY = "AuthTokenKey";
 

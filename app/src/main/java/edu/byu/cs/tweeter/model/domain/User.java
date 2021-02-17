@@ -3,8 +3,11 @@ package edu.byu.cs.tweeter.model.domain;
 import android.os.Build;
 
 import androidx.annotation.RequiresApi;
+import androidx.recyclerview.widget.SortedList;
 
 import java.io.Serializable;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.List;
 
 import java.time.LocalDateTime;
@@ -22,8 +25,6 @@ public class User implements Comparable<User>, Serializable {
     private byte [] imageBytes;
     private Story story;
     private Feed feed;
-    private List<User> followers;
-    private List<User> following;
 
     public User(String firstName, String lastName, String imageURL) {
         this(firstName, lastName, String.format("@%s%s", firstName, lastName), imageURL, null, null);
