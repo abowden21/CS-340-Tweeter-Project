@@ -7,23 +7,22 @@ import androidx.annotation.RequiresApi;
 
 import java.io.IOException;
 
-import edu.byu.cs.tweeter.model.service.request.StoryRequest;
-import edu.byu.cs.tweeter.model.service.response.StoryResponse;
-import edu.byu.cs.tweeter.presenter.StoryPresenter;
+import edu.byu.cs.tweeter.model.service.request.FeedRequest;
+import edu.byu.cs.tweeter.model.service.response.FeedResponse;
+import edu.byu.cs.tweeter.presenter.FeedPresenter;
 
-public class GetStoryTask extends AsyncTask<StoryRequest, Void, StoryResponse> {
 
-    private final StoryPresenter presenter;
-    private final Observer observer;
+public class GetFeedTask extends AsyncTask<FeedRequest, Void, FeedResponse> {
+    private final FeedPresenter presenter;
+    private final GetFeedTask.Observer observer;
     private Exception exception;
 
-
     public interface Observer {
-        void storyRetrieved(StoryResponse storyResponse);
+        void feedRetrieved(FeedResponse feedResponse);
         void handleException(Exception exception);
     }
 
-    public GetStoryTask(StoryPresenter presenter, Observer observer) {
+    public GetFeedTask(FeedPresenter presenter, GetFeedTask.Observer observer) {
         if(observer == null) {
             throw new NullPointerException();
         }
@@ -34,12 +33,12 @@ public class GetStoryTask extends AsyncTask<StoryRequest, Void, StoryResponse> {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
-    protected StoryResponse doInBackground(StoryRequest... storyRequests) {
+    protected FeedResponse doInBackground(FeedRequest... feedRequests) {
 
-        StoryResponse response = null;
+        FeedResponse response = null;
 
         try {
-            response = presenter.getStory(storyRequests[0]);
+            response = presenter.getFeed(feedRequests[0]);
         } catch (IOException ex) {
             exception = ex;
         }
@@ -48,11 +47,11 @@ public class GetStoryTask extends AsyncTask<StoryRequest, Void, StoryResponse> {
     }
 
     @Override
-    protected void onPostExecute(StoryResponse storyResponse) {
+    protected void onPostExecute(FeedResponse feedResponse) {
         if(exception != null) {
             observer.handleException(exception);
         } else {
-            observer.storyRetrieved(storyResponse);
+            observer.feedRetrieved(feedResponse);
         }
     }
 }
