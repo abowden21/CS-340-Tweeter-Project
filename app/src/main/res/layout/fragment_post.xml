@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".view.main.PostStatusFragment"
+    android:background="#999999">
+
+    <EditText
+        android:id="@+id/editText_status"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#EEEEEE"
+        android:gravity="top"
+        android:padding="5dp"
+        android:layout_margin="2dp"
+        android:hint="Type your post here." />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/button_sendStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        android:scaleType="center"
+        app:backgroundTint="@color/white"
+        app:srcCompat="@drawable/send" />
+
+</FrameLayout>

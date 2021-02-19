@@ -21,7 +21,7 @@
     <string name="followeeCount">Following: %d</string>
     <string name="followerCount">Followers: %d</string>
 
-<!--    Added from CS240-->
+    <!--    Added from CS240-->
 
     <string name="login_host">Server Host:</string>
     <string name="login_port">Server Port:</string>
@@ -36,5 +36,4 @@
 
     <string name="firstName">First Name</string>
     <string name="lastName">Last Name</string>
-    <string name="gender">Gender</string>
 </resources>
