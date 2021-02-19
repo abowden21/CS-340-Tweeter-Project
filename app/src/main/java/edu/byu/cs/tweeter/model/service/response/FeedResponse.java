@@ -4,11 +4,8 @@ import java.util.List;
 import java.util.Objects;
 
 import edu.byu.cs.tweeter.model.domain.Status;
-import edu.byu.cs.tweeter.model.domain.Story;
-import edu.byu.cs.tweeter.model.domain.User;
 
-public class StoryResponse extends PagedResponse {
-
+public class FeedResponse extends PagedResponse {
     private List<Status> statuses;
 
     /**
@@ -17,7 +14,7 @@ public class StoryResponse extends PagedResponse {
      *
      * @param message a message describing why the request was unsuccessful.
      */
-    public StoryResponse(String message) {
+    public FeedResponse(String message) {
         super(false, message, false);
     }
 
@@ -27,7 +24,7 @@ public class StoryResponse extends PagedResponse {
      * @param statuses the statuses to be included in the result.
      * @param hasMorePages an indicator of whether more data is available for the request.
      */
-    public StoryResponse(List<Status> statuses, boolean hasMorePages) {
+    public FeedResponse(List<Status> statuses, boolean hasMorePages) {
         super(true, hasMorePages);
         this.statuses = statuses;
     }
@@ -46,7 +43,7 @@ public class StoryResponse extends PagedResponse {
             return false;
         }
 
-        StoryResponse that = (StoryResponse) param;
+        FeedResponse that = (FeedResponse) param;
 
         return (Objects.equals(statuses, that.statuses) &&
                 Objects.equals(this.getMessage(), that.getMessage()) &&
@@ -57,5 +54,4 @@ public class StoryResponse extends PagedResponse {
     public int hashCode() {
         return Objects.hash(statuses);
     }
-
 }

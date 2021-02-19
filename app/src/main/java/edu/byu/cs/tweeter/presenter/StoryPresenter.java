@@ -33,27 +33,12 @@ public class StoryPresenter {
         this.view = view;
     }
 
-    /**
-     * Returns the users that the user specified in the request is following. Uses information in
-     * the request object to limit the number of followees returned and to return the next set of
-     * followees after any that were returned in a previous request.
-     *
-     * @param request contains the data required to fulfill the request.
-     * @return the followees.
-     */
     @RequiresApi(api = Build.VERSION_CODES.O)
     public StoryResponse getStory(StoryRequest request) throws IOException {
         StoryService storyService = getStoryService();
         return storyService.getStory(request);
     }
 
-    /**
-     * Returns an instance of {@link StoryService}. Allows mocking of the FollowingService class
-     * for testing purposes. All usages of FollowingService should get their FollowingService
-     * instance from this method to allow for mocking of the instance.
-     *
-     * @return the instance.
-     */
     StoryService getStoryService() {
         return new StoryService();
     }
