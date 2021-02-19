@@ -15,6 +15,7 @@ import edu.byu.cs.tweeter.model.domain.Status;
 import edu.byu.cs.tweeter.model.domain.Story;
 import edu.byu.cs.tweeter.model.domain.User;
 import edu.byu.cs.tweeter.model.service.request.FollowRequest;
+import edu.byu.cs.tweeter.model.service.request.FollowStatusRequest;
 import edu.byu.cs.tweeter.model.service.request.FollowersRequest;
 import edu.byu.cs.tweeter.model.service.request.FollowingRequest;
 import edu.byu.cs.tweeter.model.service.request.GetUserRequest;
@@ -24,6 +25,7 @@ import edu.byu.cs.tweeter.model.service.request.PostStatusRequest;
 import edu.byu.cs.tweeter.model.service.request.RegisterRequest;
 import edu.byu.cs.tweeter.model.service.request.StoryRequest;
 import edu.byu.cs.tweeter.model.service.response.FollowResponse;
+import edu.byu.cs.tweeter.model.service.response.FollowStatusResponse;
 import edu.byu.cs.tweeter.model.service.response.FollowersResponse;
 import edu.byu.cs.tweeter.model.service.response.FollowingResponse;
 import edu.byu.cs.tweeter.model.service.response.GetUserResponse;
@@ -337,6 +339,10 @@ public class ServerFacade {
 
     public PostStatusResponse sendStatus(PostStatusRequest postStatusRequest) {
         return new PostStatusResponse(true);
+    }
+
+    public FollowStatusResponse getFollowStatus(FollowStatusRequest request) {
+        return new FollowStatusResponse(true, true);
     }
 
 }

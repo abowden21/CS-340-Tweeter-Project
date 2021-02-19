@@ -20,16 +20,19 @@ import edu.byu.cs.tweeter.R;
 import edu.byu.cs.tweeter.model.domain.AuthToken;
 import edu.byu.cs.tweeter.model.domain.User;
 import edu.byu.cs.tweeter.model.service.request.FollowRequest;
+import edu.byu.cs.tweeter.model.service.request.FollowStatusRequest;
 import edu.byu.cs.tweeter.model.service.request.LoginRequest;
 import edu.byu.cs.tweeter.model.service.response.FollowResponse;
+import edu.byu.cs.tweeter.model.service.response.FollowStatusResponse;
 import edu.byu.cs.tweeter.presenter.FollowPresenter;
 import edu.byu.cs.tweeter.presenter.StoryPresenter;
 import edu.byu.cs.tweeter.view.LoginActivity;
+import edu.byu.cs.tweeter.view.asyncTasks.FollowStatusTask;
 import edu.byu.cs.tweeter.view.asyncTasks.FollowTask;
 import edu.byu.cs.tweeter.view.asyncTasks.LoginTask;
 import edu.byu.cs.tweeter.view.util.ImageUtils;
 
-public class ProfileActivity  extends AppCompatActivity implements FollowTask.Observer {
+public class ProfileActivity  extends AppCompatActivity implements FollowTask.Observer, FollowStatusTask.Observer {
     private static final String LOG_TAG = "LoginActivity";
     public static final String LOGGED_IN_USER_KEY = "LoggedInUser";
     public static final String CURRENT_USER_KEY = "CurrentUser";
@@ -38,7 +41,7 @@ public class ProfileActivity  extends AppCompatActivity implements FollowTask.Ob
     private FollowPresenter presenter;
 
     //TODO: back end needs to check status
-    private boolean isFollowingUser = false;
+    private boolean isFollowingUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,10 +56,9 @@ public class ProfileActivity  extends AppCompatActivity implements FollowTask.Ob
         AuthToken authToken = (AuthToken) getIntent().getSerializableExtra(AUTH_TOKEN_KEY);
         presenter = new FollowPresenter();
 
-        //TODO: call if isFollowingUser is set
-        //reuse follow presenter and follow service
-        //make request and response using a boolean and a async task
-        //profile activity implements the new task.observer
+        FollowStatusTask followStatusTask = new FollowStatusTask(presenter, ProfileActivity.this);
+        FollowStatusRequest followStatusRequest = new FollowStatusRequest(loggedInUser.getAlias(), currentUser.getAlias());
+        followStatusTask.execute(followStatusRequest);
 
         ProfilePagerAdapter profilePagerAdapter = new ProfilePagerAdapter(this, getSupportFragmentManager(), currentUser, authToken);
         ViewPager viewPager = findViewById(R.id.view_pager);
@@ -80,13 +82,12 @@ public class ProfileActivity  extends AppCompatActivity implements FollowTask.Ob
         followerCount.setText(getString(R.string.followerCount, 27));
 
         followButton = findViewById(R.id.followButton);
-        followButton.setBackgroundColor(Color.GRAY);
 
         followButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 
-                FollowRequest followRequest = new FollowRequest(!isFollowingUser, loggedInUser.getAlias(), currentUser.getAlias());
+                FollowRequest followRequest = new FollowRequest(authToken, !isFollowingUser, loggedInUser.getAlias(), currentUser.getAlias());
                 FollowTask followTask = new FollowTask(presenter,  ProfileActivity.this);
                 followTask.execute(followRequest);
             }
@@ -110,6 +111,23 @@ public class ProfileActivity  extends AppCompatActivity implements FollowTask.Ob
     @Override
     public void actionUnsuccessful(FollowResponse followResponse) {
         Toast.makeText(this, "Failed to follow/unfollow", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void followStatusSuccessful(FollowStatusResponse followStatusResponse) {
+        isFollowingUser = followStatusResponse.isFollowingUser();
+        if (isFollowingUser) {
+            followButton.setText("Following");
+            followButton.setBackgroundColor(Color.RED);
+        } else {
+            followButton.setText("Follow");
+            followButton.setBackgroundColor(Color.GRAY);
+        }
+    }
+
+    @Override
+    public void followStatusUnsuccessful(FollowStatusResponse followStatusResponse) {
+        Toast.makeText(this, "Failed to retrieve follow status", Toast.LENGTH_LONG).show();
     }
 
     @Override
