@@ -123,7 +123,7 @@
                     android:text="@string/login_signIn" />
 
                 <Button
-                    android:id="@+id/logIn_Register"
+                    android:id="@+id/login_Register"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:enabled="false"
@@ -132,19 +132,6 @@
 
             </LinearLayout>
 
-
-            <Button
-                android:id="@+id/testButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="TEST" />
-
-            <Button
-                android:id="@+id/LoginButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Push this Button to Login with a Hard-Coded User"
-                android:layout_centerInParent="true"/>
 
         </LinearLayout>
     </ScrollView>

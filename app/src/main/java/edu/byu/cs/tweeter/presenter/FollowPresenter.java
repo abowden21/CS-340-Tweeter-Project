@@ -9,7 +9,6 @@ import java.io.IOException;
 import edu.byu.cs.tweeter.model.service.FollowService;
 import edu.byu.cs.tweeter.model.service.request.FollowRequest;
 import edu.byu.cs.tweeter.model.service.response.FollowResponse;
-import edu.byu.cs.tweeter.view.observer.AbstractSubject;
 
 
 public class FollowPresenter {
