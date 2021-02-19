@@ -53,6 +53,11 @@ public class ProfileActivity  extends AppCompatActivity implements FollowTask.Ob
         AuthToken authToken = (AuthToken) getIntent().getSerializableExtra(AUTH_TOKEN_KEY);
         presenter = new FollowPresenter();
 
+        //TODO: call if isFollowingUser is set
+        //reuse follow presenter and follow service
+        //make request and response using a boolean and a async task
+        //profile activity implements the new task.observer
+
         ProfilePagerAdapter profilePagerAdapter = new ProfilePagerAdapter(this, getSupportFragmentManager(), currentUser, authToken);
         ViewPager viewPager = findViewById(R.id.view_pager);
         viewPager.setAdapter(profilePagerAdapter);
