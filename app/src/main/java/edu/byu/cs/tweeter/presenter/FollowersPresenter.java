@@ -1,5 +1,9 @@
 package edu.byu.cs.tweeter.presenter;
 
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
+
 import java.io.IOException;
 
 import edu.byu.cs.tweeter.model.service.FollowersService;
@@ -42,6 +46,7 @@ public class FollowersPresenter {
      * @param request contains the data required to fulfill the request.
      * @return the followees.
      */
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public FollowersResponse getFollowers(FollowersRequest request) throws IOException {
         FollowersService followingService = getFollowersService();
         return followingService.getFollowers(request);
@@ -54,7 +59,7 @@ public class FollowersPresenter {
      *
      * @return the instance.
      */
-    private FollowersService getFollowersService() {
+    public FollowersService getFollowersService() {
         return new FollowersService();
     }
 }

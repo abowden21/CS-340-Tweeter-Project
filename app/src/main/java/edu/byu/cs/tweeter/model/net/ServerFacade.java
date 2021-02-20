@@ -339,6 +339,10 @@ public class ServerFacade {
         return new FollowResponse(true, request.isFollowRequest());
     }
 
+    public FollowResponse setUnfollow(FollowRequest request) {
+        return new FollowResponse(true, request.isFollowRequest());
+    }
+
     public PostStatusResponse sendStatus(PostStatusRequest postStatusRequest) {
         return new PostStatusResponse(true);
     }

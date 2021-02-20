@@ -1,5 +1,9 @@
 package edu.byu.cs.tweeter.model.service;
 
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
+
 import java.io.IOException;
 
 import edu.byu.cs.tweeter.model.domain.User;
@@ -22,6 +26,7 @@ public class FollowingService extends ServiceBase {
      * @param request contains the data required to fulfill the request.
      * @return the followees.
      */
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public FollowingResponse getFollowees(FollowingRequest request) throws IOException {
         FollowingResponse response = getServerFacade().getFollowees(request);
 

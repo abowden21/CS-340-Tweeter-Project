@@ -10,9 +10,8 @@ public class FollowStatusResponse extends Response {
 
     }
 
-    public FollowStatusResponse(boolean isFollowingUser, boolean success, String message) {
+    public FollowStatusResponse(boolean success, String message) {
         super(success, message);
-        this.isFollowingUser = isFollowingUser;
     }
 
     public boolean isFollowingUser() {

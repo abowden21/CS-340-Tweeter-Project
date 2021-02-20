@@ -8,9 +8,8 @@ public class FollowResponse extends Response {
         this.isFollowResponse = isFollowResponse;
     }
 
-    public FollowResponse(boolean success, boolean isFollowResponse, String message) {
+    public FollowResponse(boolean success, String message) {
         super(success, message);
-        this.isFollowResponse = isFollowResponse;
     }
 
     public boolean isFollowResponse() {
