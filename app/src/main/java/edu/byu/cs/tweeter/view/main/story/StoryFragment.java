@@ -1,5 +1,6 @@
 package edu.byu.cs.tweeter.view.main.story;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -17,19 +18,25 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.IOException;
 import java.util.List;
 
 import edu.byu.cs.tweeter.R;
 import edu.byu.cs.tweeter.model.domain.AuthToken;
 import edu.byu.cs.tweeter.model.domain.Status;
 import edu.byu.cs.tweeter.model.domain.User;
+import edu.byu.cs.tweeter.model.service.GetUserService;
 import edu.byu.cs.tweeter.model.service.request.FollowersRequest;
+import edu.byu.cs.tweeter.model.service.request.GetUserRequest;
 import edu.byu.cs.tweeter.model.service.request.StoryRequest;
 import edu.byu.cs.tweeter.model.service.response.FollowersResponse;
+import edu.byu.cs.tweeter.model.service.response.GetUserResponse;
 import edu.byu.cs.tweeter.model.service.response.StoryResponse;
 import edu.byu.cs.tweeter.presenter.StoryPresenter;
 import edu.byu.cs.tweeter.view.asyncTasks.GetFollowersTask;
 import edu.byu.cs.tweeter.view.asyncTasks.GetStoryTask;
+import edu.byu.cs.tweeter.view.asyncTasks.GetUserTask;
+import edu.byu.cs.tweeter.view.main.ProfileActivity;
 import edu.byu.cs.tweeter.view.main.StatusRecyclerViewAdapter;
 import edu.byu.cs.tweeter.view.main.StatusRecyclerViewPaginationScrollListener;
 import edu.byu.cs.tweeter.view.main.UserRecyclerViewAdapter;
@@ -143,7 +150,7 @@ public class StoryFragment extends Fragment implements StoryPresenter.View {
         }
     }
 
-    private class StoryRecyclerViewAdapter extends StatusRecyclerViewAdapter<StoryHolder> implements GetStoryTask.Observer {
+    private class StoryRecyclerViewAdapter extends StatusRecyclerViewAdapter<StoryHolder> implements GetStoryTask.Observer, GetUserTask.Observer {
 
         private Status lastStatus;
 
@@ -162,9 +169,29 @@ public class StoryFragment extends Fragment implements StoryPresenter.View {
             getStoryTask.execute(request);
         }
 
+        @RequiresApi(api = Build.VERSION_CODES.O)
         @Override
         public void mentionedClicked(String alias) {
-            Toast.makeText(getContext(), alias, Toast.LENGTH_LONG).show();
+            GetUserTask getUserTask = new GetUserTask(this);
+            GetUserRequest getUserRequest = new GetUserRequest(alias);
+            getUserTask.execute(getUserRequest);
+        }
+
+        @Override
+        public void userRetrieved(GetUserResponse getUserResponse) {
+            User retrievedUser = getUserResponse.getRetrievedUser();
+            if (retrievedUser != null) {
+                Intent intent = new Intent(getContext(), ProfileActivity.class);
+
+                intent.putExtra(ProfileActivity.LOGGED_IN_USER_KEY, user);
+                intent.putExtra(ProfileActivity.CURRENT_USER_KEY, retrievedUser);
+                intent.putExtra(ProfileActivity.AUTH_TOKEN_KEY, authToken);
+
+                startActivity(intent);
+            }
+            else {
+                Toast.makeText(getContext(), "Non-existing User", Toast.LENGTH_SHORT).show();
+            }
         }
 
         @Override

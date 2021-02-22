@@ -329,10 +329,21 @@ public class ServerFacade {
         return statusIndex;
     }
 
-    public GetUserResponse getUser(GetUserRequest request) {
-        //TODO
+    List<User> getDummyUsers() {
+        return Arrays.asList(user1, user2, user3, user4, user5, user6, user7,
+                user8, user9, user10, user11, user12, user13, user14, user15, user16, user17, user18,
+                user19, user20, user21, user22, user23);
+    }
 
-        return new GetUserResponse();
+    public GetUserResponse getUser(GetUserRequest request) {
+        List<User> allUsers = getDummyUsers();
+
+        for (User user : allUsers) {
+            if (user.getAlias().equals(request.getAlias())) {
+                return new GetUserResponse(user);
+            }
+        }
+        return new GetUserResponse(null);
     }
 
     public FollowResponse setFollow(FollowRequest request) {

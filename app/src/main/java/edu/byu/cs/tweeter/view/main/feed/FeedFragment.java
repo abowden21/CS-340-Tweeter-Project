@@ -1,5 +1,6 @@
 package edu.byu.cs.tweeter.view.main.feed;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -25,9 +26,13 @@ import edu.byu.cs.tweeter.model.domain.Feed;
 import edu.byu.cs.tweeter.model.domain.Status;
 import edu.byu.cs.tweeter.model.domain.User;
 import edu.byu.cs.tweeter.model.service.request.FeedRequest;
+import edu.byu.cs.tweeter.model.service.request.GetUserRequest;
 import edu.byu.cs.tweeter.model.service.response.FeedResponse;
+import edu.byu.cs.tweeter.model.service.response.GetUserResponse;
 import edu.byu.cs.tweeter.presenter.FeedPresenter;
 import edu.byu.cs.tweeter.view.asyncTasks.GetFeedTask;
+import edu.byu.cs.tweeter.view.asyncTasks.GetUserTask;
+import edu.byu.cs.tweeter.view.main.ProfileActivity;
 import edu.byu.cs.tweeter.view.main.StatusRecyclerViewAdapter;
 import edu.byu.cs.tweeter.view.main.StatusRecyclerViewPaginationScrollListener;
 import edu.byu.cs.tweeter.view.util.ImageUtils;
@@ -139,7 +144,7 @@ public class FeedFragment extends Fragment implements FeedPresenter.View {
         }
     }
 
-    private class FeedRecyclerViewAdapter extends StatusRecyclerViewAdapter<FeedHolder> implements GetFeedTask.Observer {
+    private class FeedRecyclerViewAdapter extends StatusRecyclerViewAdapter<FeedHolder> implements GetFeedTask.Observer, GetUserTask.Observer {
 
         private Status lastStatus;
 
@@ -160,7 +165,26 @@ public class FeedFragment extends Fragment implements FeedPresenter.View {
 
         @Override
         public void mentionedClicked(String alias) {
-            Toast.makeText(getContext(), alias, Toast.LENGTH_LONG).show();
+            GetUserTask getUserTask = new GetUserTask(this);
+            GetUserRequest getUserRequest = new GetUserRequest(alias);
+            getUserTask.execute(getUserRequest);
+        }
+
+        @Override
+        public void userRetrieved(GetUserResponse getUserResponse) {
+            User retrievedUser = getUserResponse.getRetrievedUser();
+            if (retrievedUser != null) {
+                Intent intent = new Intent(getContext(), ProfileActivity.class);
+
+                intent.putExtra(ProfileActivity.LOGGED_IN_USER_KEY, user);
+                intent.putExtra(ProfileActivity.CURRENT_USER_KEY, retrievedUser);
+                intent.putExtra(ProfileActivity.AUTH_TOKEN_KEY, authToken);
+
+                startActivity(intent);
+            }
+            else {
+                Toast.makeText(getContext(), "Non-existing User", Toast.LENGTH_SHORT).show();
+            }
         }
 
         @Override

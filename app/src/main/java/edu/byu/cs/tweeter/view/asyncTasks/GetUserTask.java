@@ -1,6 +1,9 @@
 package edu.byu.cs.tweeter.view.asyncTasks;
 
 import android.os.AsyncTask;
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
 
 import java.io.IOException;
 
@@ -30,6 +33,7 @@ public class GetUserTask extends AsyncTask<GetUserRequest, Void, GetUserResponse
         this.observer = observer;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected GetUserResponse doInBackground(GetUserRequest... getUserRequests) {
 
