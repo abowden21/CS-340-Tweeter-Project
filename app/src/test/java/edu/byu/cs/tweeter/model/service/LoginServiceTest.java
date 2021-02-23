@@ -70,7 +70,6 @@ public class LoginServiceTest {
         Mockito.when(serverFacadeMock.logout(logoutRequestValid)).thenReturn(logoutResponseValid);
         Mockito.when(serverFacadeMock.logout(logoutRequestInvalid)).thenReturn(logoutResponseInvalid);
 
-
         // Create a FollowingService instance and wrap it with a spy that will use the mock service
         loginServiceSpy = Mockito.spy(new LoginService());
         Mockito.when(loginServiceSpy.getServerFacade()).thenReturn(serverFacadeMock);

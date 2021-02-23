@@ -14,7 +14,7 @@ public class PostStatusService extends ServiceBase {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public PostStatusResponse sendStatus(PostStatusRequest postStatusRequest) {
-        ServerFacade serverFacade = new ServerFacade();
+        ServerFacade serverFacade = getServerFacade();
         PostStatusResponse postStatusResponse = serverFacade.sendStatus(postStatusRequest);
         return postStatusResponse;
     }
