@@ -1,7 +1,6 @@
 package edu.byu.cs.tweeter.presenter;
 
 import android.os.Build;
-import android.view.View;
 
 import androidx.annotation.RequiresApi;
 
@@ -18,6 +17,8 @@ public class GetFollowCountPresenter {
     public interface View {
         // If needed, specify methods here that will be called on the view in response to model updates
     }
+
+    public interface View { }
 
     public GetFollowCountPresenter(View view) {
         this.view = view;
