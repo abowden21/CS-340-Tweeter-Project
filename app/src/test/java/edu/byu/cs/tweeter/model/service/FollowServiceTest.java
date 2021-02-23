@@ -12,8 +12,10 @@ import edu.byu.cs.tweeter.model.domain.User;
 import edu.byu.cs.tweeter.model.net.ServerFacade;
 import edu.byu.cs.tweeter.model.service.request.FollowRequest;
 import edu.byu.cs.tweeter.model.service.request.FollowStatusRequest;
+import edu.byu.cs.tweeter.model.service.request.UserFollowCountRequest;
 import edu.byu.cs.tweeter.model.service.response.FollowResponse;
 import edu.byu.cs.tweeter.model.service.response.FollowStatusResponse;
+import edu.byu.cs.tweeter.model.service.response.UserFollowCountResponse;
 
 public class FollowServiceTest {
 
@@ -67,11 +69,12 @@ public class FollowServiceTest {
         failureFollowStatusResponse = new FollowStatusResponse(false, "invalid input");
         failureFollowResponse = new FollowResponse(false, "invalid input");
         failureUnfollowResponse = new FollowResponse(false, "invalid input");
+
         Mockito.when(mockServerFacade.getFollowStatus(invalidFollowStatusRequest)).thenReturn(failureFollowStatusResponse);
         Mockito.when(mockServerFacade.setFollow(invalidFollowRequest)).thenReturn(failureFollowResponse);
         Mockito.when(mockServerFacade.setUnfollow(invalidUnfollowRequest)).thenReturn(failureUnfollowResponse);
 
-        // Create a FollowingService instance and wrap it with a spy that will use the mock service
+        // Create a FollowService instance and wrap it with a spy that will use the mock service
         followServiceSpy = Mockito.spy(new FollowService());
         Mockito.when(followServiceSpy.getServerFacade()).thenReturn(mockServerFacade);
     }

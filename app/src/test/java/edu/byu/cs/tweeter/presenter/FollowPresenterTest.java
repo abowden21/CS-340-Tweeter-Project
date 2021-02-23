@@ -12,8 +12,10 @@ import edu.byu.cs.tweeter.model.domain.User;
 import edu.byu.cs.tweeter.model.service.FollowService;
 import edu.byu.cs.tweeter.model.service.request.FollowRequest;
 import edu.byu.cs.tweeter.model.service.request.FollowStatusRequest;
+import edu.byu.cs.tweeter.model.service.request.UserFollowCountRequest;
 import edu.byu.cs.tweeter.model.service.response.FollowResponse;
 import edu.byu.cs.tweeter.model.service.response.FollowStatusResponse;
+import edu.byu.cs.tweeter.model.service.response.UserFollowCountResponse;
 
 public class FollowPresenterTest {
 
@@ -29,6 +31,8 @@ public class FollowPresenterTest {
     private FollowService mockFollowService;
     private FollowPresenter presenter;
 
+    private UserFollowCountRequest validUserFollowCountRequest;
+    private UserFollowCountResponse successUserFollowCountResponse;
 
     /**
      * Create a FollowingService spy that uses a mock ServerFacade to return known responses to
@@ -44,10 +48,13 @@ public class FollowPresenterTest {
         validFollowStatusRequest = new FollowStatusRequest(currentUser.getAlias(), otherUser.getAlias());
         validFollowRequest = new FollowRequest(authToken, true, currentUser.getAlias(), otherUser.getAlias());
         validUnfollowRequest = new FollowRequest(authToken, false, currentUser.getAlias(), otherUser.getAlias());
+        validUserFollowCountRequest = new UserFollowCountRequest("alias");
+
         // Setup a mock ServerFacade that will return known responses
         successFollowStatusResponse = new FollowStatusResponse(true, true);
         successFollowResponse = new FollowResponse(true, true);
         successUnfollowResponse = new FollowResponse(false, true);
+        successUserFollowCountResponse = new UserFollowCountResponse(100, 20);
 
 
 
@@ -56,6 +63,7 @@ public class FollowPresenterTest {
         Mockito.when(mockFollowService.getFollowStatus(validFollowStatusRequest)).thenReturn(successFollowStatusResponse);
         Mockito.when(mockFollowService.setFollow(validFollowRequest)).thenReturn(successFollowResponse);
         Mockito.when(mockFollowService.setFollow(validUnfollowRequest)).thenReturn(successUnfollowResponse);
+        Mockito.when(mockFollowService.getUserFollowCount(validUserFollowCountRequest)).thenReturn(successUserFollowCountResponse);
 
 
         // Wrap a FollowingPresenter in a spy that will use the mock service.

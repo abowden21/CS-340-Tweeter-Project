@@ -31,7 +31,7 @@ public class FollowService extends ServiceBase {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public UserFollowCountResponse getUserFollowCount(UserFollowCountRequest request) {
+    public UserFollowCountResponse getUserFollowCount(UserFollowCountRequest request) throws IOException {
         return getServerFacade().getUserFollowCount(request);
     }
 }

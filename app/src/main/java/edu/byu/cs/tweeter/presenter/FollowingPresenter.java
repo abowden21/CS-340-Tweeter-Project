@@ -1,5 +1,9 @@
 package edu.byu.cs.tweeter.presenter;
 
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
+
 import java.io.IOException;
 
 import edu.byu.cs.tweeter.model.service.FollowingService;
@@ -38,6 +42,7 @@ public class FollowingPresenter {
      * @return the followees.
      */
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public FollowingResponse getFollowing(FollowingRequest request) throws IOException {
         FollowingService followingService = getFollowingService();
         return followingService.getFollowees(request);
