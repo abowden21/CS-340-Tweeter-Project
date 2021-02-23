@@ -1,4 +1,4 @@
-package edu.byu.cs.tweeter.view.main.following;
+package edu.byu.cs.tweeter.view.following;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -25,9 +25,9 @@ import edu.byu.cs.tweeter.model.service.request.FollowingRequest;
 import edu.byu.cs.tweeter.model.service.response.FollowingResponse;
 import edu.byu.cs.tweeter.presenter.FollowingPresenter;
 import edu.byu.cs.tweeter.view.asyncTasks.GetFollowingTask;
-import edu.byu.cs.tweeter.view.main.recycler.FollowRecyclerViewPaginationScrollListener;
-import edu.byu.cs.tweeter.view.main.profile.ProfileActivity;
-import edu.byu.cs.tweeter.view.main.recycler.UserRecyclerViewAdapter;
+import edu.byu.cs.tweeter.view.recycler.FollowRecyclerViewPaginationScrollListener;
+import edu.byu.cs.tweeter.view.profile.ProfileActivity;
+import edu.byu.cs.tweeter.view.recycler.UserRecyclerViewAdapter;
 import edu.byu.cs.tweeter.view.util.ImageUtils;
 
 /**
@@ -74,7 +74,6 @@ public class FollowingFragment extends Fragment implements FollowingPresenter.Vi
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_following, container, false);
 
-        //noinspection ConstantConditions
         loggedInUser = (User) getArguments().getSerializable(USER_KEY);
         authToken = (AuthToken) getArguments().getSerializable(AUTH_TOKEN_KEY);
 

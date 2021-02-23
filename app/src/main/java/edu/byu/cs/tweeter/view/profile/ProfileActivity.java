@@ -1,4 +1,4 @@
-package edu.byu.cs.tweeter.view.main.profile;
+package edu.byu.cs.tweeter.view.profile;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -28,7 +28,6 @@ import edu.byu.cs.tweeter.presenter.GetFollowCountPresenter;
 import edu.byu.cs.tweeter.view.asyncTasks.FollowStatusTask;
 import edu.byu.cs.tweeter.view.asyncTasks.FollowTask;
 import edu.byu.cs.tweeter.view.asyncTasks.GetUserFollowCountTask;
-import edu.byu.cs.tweeter.view.main.profile.ProfilePagerAdapter;
 import edu.byu.cs.tweeter.view.util.ImageUtils;
 
 public class ProfileActivity  extends AppCompatActivity implements FollowTask.Observer, FollowStatusTask.Observer, GetUserFollowCountTask.Observer {

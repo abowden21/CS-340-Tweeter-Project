@@ -1,4 +1,4 @@
-package edu.byu.cs.tweeter.view.main.main;
+package edu.byu.cs.tweeter.view.main;
 
 import android.os.Bundle;
 
@@ -93,9 +93,9 @@ public class MainActivity extends AppCompatActivity implements LoginPresenter.Vi
         postStatusButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Create PostFragment if it hasn't been created
+                // Create PostFragment every time to ensure a fresh text box
+                // There are other ways to do this, but it's very simple this way.
                 postFragment = PostStatusFragment.newInstance(MainActivity.this, user, authToken, postPresenter);
-
                 showPostFragment();
             }
         });

@@ -1,4 +1,4 @@
-package edu.byu.cs.tweeter.view;
+package edu.byu.cs.tweeter.view.login;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -28,7 +28,7 @@ import edu.byu.cs.tweeter.presenter.LoginPresenter;
 import edu.byu.cs.tweeter.util.ByteArrayUtils;
 import edu.byu.cs.tweeter.view.asyncTasks.LoginTask;
 import edu.byu.cs.tweeter.view.asyncTasks.RegisterTask;
-import edu.byu.cs.tweeter.view.main.main.MainActivity;
+import edu.byu.cs.tweeter.view.main.MainActivity;
 
 /**
  * Contains the minimum UI required to allow the user to login with a hard-coded user. Most or all
@@ -133,6 +133,7 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.V
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && null != data) {
+            // Handle image selection.
             this.imageUri = data.getData();
             updateButtonsEnabledStatus();
         }

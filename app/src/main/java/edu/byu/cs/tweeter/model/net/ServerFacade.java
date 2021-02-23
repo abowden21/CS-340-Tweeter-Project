@@ -44,7 +44,7 @@ import edu.byu.cs.tweeter.model.service.response.StoryResponse;
  */
 @RequiresApi(api = Build.VERSION_CODES.O)
 public class ServerFacade {
-    // This is the hard coded followee data returned by the 'getFollowees()' method
+
     private static final String MALE_IMAGE_URL = "https://faculty.cs.byu.edu/~jwilkerson/cs340/tweeter/images/donald_duck.png";
     private static final String FEMALE_IMAGE_URL = "https://faculty.cs.byu.edu/~jwilkerson/cs340/tweeter/images/daisy_duck.png";
 

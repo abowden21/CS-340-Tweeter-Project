@@ -1,4 +1,4 @@
-package edu.byu.cs.tweeter.view.main.feed;
+package edu.byu.cs.tweeter.view.story;
 
 import android.content.Intent;
 import android.os.Build;
@@ -24,24 +24,24 @@ import edu.byu.cs.tweeter.R;
 import edu.byu.cs.tweeter.model.domain.AuthToken;
 import edu.byu.cs.tweeter.model.domain.Status;
 import edu.byu.cs.tweeter.model.domain.User;
-import edu.byu.cs.tweeter.model.service.request.FeedRequest;
 import edu.byu.cs.tweeter.model.service.request.GetUserRequest;
-import edu.byu.cs.tweeter.model.service.response.FeedResponse;
+import edu.byu.cs.tweeter.model.service.request.StoryRequest;
 import edu.byu.cs.tweeter.model.service.response.GetUserResponse;
-import edu.byu.cs.tweeter.presenter.FeedPresenter;
-import edu.byu.cs.tweeter.view.asyncTasks.GetFeedTask;
+import edu.byu.cs.tweeter.model.service.response.StoryResponse;
+import edu.byu.cs.tweeter.presenter.StoryPresenter;
+import edu.byu.cs.tweeter.view.asyncTasks.GetStoryTask;
 import edu.byu.cs.tweeter.view.asyncTasks.GetUserTask;
-import edu.byu.cs.tweeter.view.main.profile.ProfileActivity;
-import edu.byu.cs.tweeter.view.main.recycler.StatusRecyclerViewAdapter;
-import edu.byu.cs.tweeter.view.main.recycler.StatusRecyclerViewPaginationScrollListener;
+import edu.byu.cs.tweeter.view.profile.ProfileActivity;
+import edu.byu.cs.tweeter.view.recycler.StatusRecyclerViewAdapter;
+import edu.byu.cs.tweeter.view.recycler.StatusRecyclerViewPaginationScrollListener;
 import edu.byu.cs.tweeter.view.util.ImageUtils;
 
 /**
- * The fragment that displays on the 'Feed' tab.
+ * The fragment that displays on the 'Story' tab.
  */
-public class FeedFragment extends Fragment implements FeedPresenter.View {
+public class StoryFragment extends Fragment implements StoryPresenter.View {
 
-    private static final String LOG_TAG = "FeedFragment";
+    private static final String LOG_TAG = "StoriesFragment";
     private static final String USER_KEY = "UserKey";
     private static final String AUTH_TOKEN_KEY = "AuthTokenKey";
 
@@ -52,9 +52,9 @@ public class FeedFragment extends Fragment implements FeedPresenter.View {
 
     private User user;
     private AuthToken authToken;
-    private FeedPresenter presenter;
+    private StoryPresenter presenter;
 
-    private FeedRecyclerViewAdapter feedRecyclerViewAdapter;
+    private StoryRecyclerViewAdapter storyRecyclerViewAdapter;
 
     /**
      * Creates an instance of the fragment and places the user and auth token in an arguments
@@ -64,8 +64,8 @@ public class FeedFragment extends Fragment implements FeedPresenter.View {
      * @param authToken the auth token for this user's session.
      * @return the fragment.
      */
-    public static FeedFragment newInstance(User user, AuthToken authToken) {
-        FeedFragment fragment = new FeedFragment();
+    public static StoryFragment newInstance(User user, AuthToken authToken) {
+        StoryFragment fragment = new StoryFragment();
 
         Bundle args = new Bundle(2);
         args.putSerializable(USER_KEY, user);
@@ -79,28 +79,27 @@ public class FeedFragment extends Fragment implements FeedPresenter.View {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_feed, container, false);
+        View view = inflater.inflate(R.layout.fragment_story, container, false);
 
-        //noinspection ConstantConditions
         user = (User) getArguments().getSerializable(USER_KEY);
         authToken = (AuthToken) getArguments().getSerializable(AUTH_TOKEN_KEY);
 
-        presenter = new FeedPresenter(this);
+        presenter = new StoryPresenter(this);
 
-        RecyclerView feedRecyclerView = view.findViewById(R.id.feedRecyclerView);
+        RecyclerView storyRecyclerView = view.findViewById(R.id.storyRecyclerView);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this.getContext());
-        feedRecyclerView.setLayoutManager(layoutManager);
+        storyRecyclerView.setLayoutManager(layoutManager);
 
-        feedRecyclerViewAdapter = new FeedRecyclerViewAdapter();
-        feedRecyclerView.setAdapter(feedRecyclerViewAdapter);
+        storyRecyclerViewAdapter = new StoryRecyclerViewAdapter();
+        storyRecyclerView.setAdapter(storyRecyclerViewAdapter);
 
-        feedRecyclerView.addOnScrollListener(new StatusRecyclerViewPaginationScrollListener(layoutManager, feedRecyclerViewAdapter));
+        storyRecyclerView.addOnScrollListener(new StatusRecyclerViewPaginationScrollListener(layoutManager, storyRecyclerViewAdapter));
 
         return view;
     }
 
-    private class FeedHolder extends RecyclerView.ViewHolder {
+    private class StoryHolder extends RecyclerView.ViewHolder {
 
         private final ImageView userImage;
         private final TextView userAlias;
@@ -109,7 +108,7 @@ public class FeedFragment extends Fragment implements FeedPresenter.View {
         private final TextView timestamp;
         private User currentUser;
 
-        FeedHolder(@NonNull View itemView, int viewType) {
+        StoryHolder(@NonNull View itemView, int viewType) {
             super(itemView);
 
             if(viewType == ITEM_VIEW) {
@@ -142,19 +141,18 @@ public class FeedFragment extends Fragment implements FeedPresenter.View {
             userImage.setImageDrawable(ImageUtils.drawableFromByteArray(status.getUser().getImageBytes()));
             userAlias.setText(status.getUser().getAlias());
             userName.setText(status.getUser().getName());
-            statusBody.setText(feedRecyclerViewAdapter.makeSpannableString(status));
-            //statusBody.setText(status.getMessage());
+            statusBody.setText(storyRecyclerViewAdapter.makeSpannableString(status));
             timestamp.setText(status.getTimeStamp().toString());
             currentUser = status.getUser();
         }
     }
 
-    private class FeedRecyclerViewAdapter extends StatusRecyclerViewAdapter<FeedHolder> implements GetFeedTask.Observer, GetUserTask.Observer {
+    private class StoryRecyclerViewAdapter extends StatusRecyclerViewAdapter<StoryHolder> implements GetStoryTask.Observer, GetUserTask.Observer {
 
         private Status lastStatus;
 
         @RequiresApi(api = Build.VERSION_CODES.O)
-        FeedRecyclerViewAdapter() {
+        StoryRecyclerViewAdapter() {
             super(LOADING_DATA_VIEW, ITEM_VIEW);
         }
 
@@ -163,11 +161,12 @@ public class FeedFragment extends Fragment implements FeedPresenter.View {
         protected void loadMoreItems() {
             super.loadMoreItems();
 
-            GetFeedTask getFeedTask = new GetFeedTask(presenter, this);
-            FeedRequest request = new FeedRequest(authToken, PAGE_SIZE, (lastStatus == null ? null : lastStatus.getTimeStamp()));
-            getFeedTask.execute(request);
+            GetStoryTask getStoryTask = new GetStoryTask(presenter, this);
+            StoryRequest request = new StoryRequest(user.getAlias(), PAGE_SIZE, (lastStatus == null ? null : lastStatus.getTimeStamp()));
+            getStoryTask.execute(request);
         }
 
+        @RequiresApi(api = Build.VERSION_CODES.O)
         @Override
         public void mentionedClicked(String alias) {
             GetUserTask getUserTask = new GetUserTask(this);
@@ -200,28 +199,28 @@ public class FeedFragment extends Fragment implements FeedPresenter.View {
         }
 
         @Override
-        public void feedRetrieved(FeedResponse feedResponse) {
-            List<Status> statuses = feedResponse.getStatuses();
+        public void storyRetrieved(StoryResponse storyResponse) {
+            List<Status> statuses = storyResponse.getStatuses();
 
             lastStatus = (statuses.size() > 0) ? statuses.get(statuses.size() -1) : null;
-            hasMorePages = feedResponse.getHasMorePages();
+            hasMorePages = storyResponse.getHasMorePages();
 
             isLoading = false;
             removeLoadingFooter();
-            feedRecyclerViewAdapter.addItems(statuses);
+            storyRecyclerViewAdapter.addItems(statuses);
         }
 
         @Override
-        public void onBindViewHolder(@NonNull RecyclerView.ViewHolder feedHolder, int position) {
+        public void onBindViewHolder(@NonNull RecyclerView.ViewHolder storyHolder, int position) {
             if(!isLoading) {
-                ((FeedFragment.FeedHolder)feedHolder).bindUser(statuses.get(position));
+                ((StoryFragment.StoryHolder)storyHolder).bindUser(statuses.get(position));
             }
         }
 
         @NonNull
         @Override
-        public FeedFragment.FeedHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            LayoutInflater layoutInflater = LayoutInflater.from(FeedFragment.this.getContext());
+        public StoryFragment.StoryHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            LayoutInflater layoutInflater = LayoutInflater.from(StoryFragment.this.getContext());
             View view;
 
             if(viewType == LOADING_DATA_VIEW) {
@@ -231,7 +230,9 @@ public class FeedFragment extends Fragment implements FeedPresenter.View {
                 view = layoutInflater.inflate(R.layout.status_row, parent, false);
             }
 
-            return new FeedFragment.FeedHolder(view, viewType);
+            return new StoryFragment.StoryHolder(view, viewType);
         }
     }
+
+
 }

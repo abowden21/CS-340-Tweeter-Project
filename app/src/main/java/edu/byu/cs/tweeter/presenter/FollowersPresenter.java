@@ -11,10 +11,6 @@ import edu.byu.cs.tweeter.model.service.request.FollowersRequest;
 import edu.byu.cs.tweeter.model.service.request.FollowingRequest;
 import edu.byu.cs.tweeter.model.service.response.FollowersResponse;
 
-//import edu.byu.cs.tweeter.model.service.FollowingService;
-//import edu.byu.cs.tweeter.model.service.request.FollowingRequest;
-//import edu.byu.cs.tweeter.model.service.response.FollowingResponse;
-
 /**
  * The presenter for the "following" functionality of the application.
  */
@@ -25,9 +21,7 @@ public class FollowersPresenter {
     /**
      * The interface by which this presenter communicates with it's view.
      */
-    public interface View {
-        // If needed, specify methods here that will be called on the view in response to model updates
-    }
+    public interface View { }
 
     /**
      * Creates an instance.

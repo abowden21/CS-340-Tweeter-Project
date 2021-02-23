@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".view.main.main.PostStatusFragment"
+    tools:context=".view.main.PostStatusFragment"
     android:background="#999999">
 
     <EditText

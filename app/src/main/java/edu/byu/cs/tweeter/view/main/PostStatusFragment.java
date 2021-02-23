@@ -1,4 +1,4 @@
-package edu.byu.cs.tweeter.view.main.main;
+package edu.byu.cs.tweeter.view.main;
 
 import android.os.Build;
 import android.os.Bundle;

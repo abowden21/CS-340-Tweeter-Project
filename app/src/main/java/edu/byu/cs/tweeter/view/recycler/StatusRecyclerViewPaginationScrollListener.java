@@ -1,4 +1,4 @@
-package edu.byu.cs.tweeter.view.main.recycler;
+package edu.byu.cs.tweeter.view.recycler;
 
 import android.os.Build;
 

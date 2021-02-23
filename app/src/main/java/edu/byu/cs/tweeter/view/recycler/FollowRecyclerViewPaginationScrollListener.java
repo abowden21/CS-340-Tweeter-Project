@@ -1,4 +1,4 @@
-package edu.byu.cs.tweeter.view.main.recycler;
+package edu.byu.cs.tweeter.view.recycler;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import org.jetbrains.annotations.NotNull;

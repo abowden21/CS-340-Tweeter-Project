@@ -1,4 +1,4 @@
-package edu.byu.cs.tweeter.view.main.followers;
+package edu.byu.cs.tweeter.view.followers;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -24,14 +24,11 @@ import edu.byu.cs.tweeter.model.service.request.FollowersRequest;
 import edu.byu.cs.tweeter.model.service.response.FollowersResponse;
 import edu.byu.cs.tweeter.presenter.FollowersPresenter;
 import edu.byu.cs.tweeter.view.asyncTasks.GetFollowersTask;
-import edu.byu.cs.tweeter.view.main.recycler.FollowRecyclerViewPaginationScrollListener;
-import edu.byu.cs.tweeter.view.main.profile.ProfileActivity;
-import edu.byu.cs.tweeter.view.main.recycler.UserRecyclerViewAdapter;
+import edu.byu.cs.tweeter.view.recycler.FollowRecyclerViewPaginationScrollListener;
+import edu.byu.cs.tweeter.view.profile.ProfileActivity;
+import edu.byu.cs.tweeter.view.recycler.UserRecyclerViewAdapter;
 import edu.byu.cs.tweeter.view.util.ImageUtils;
 
-/**
- * The fragment that displays on the 'Followers' tab.
- */
 public class FollowersFragment extends Fragment implements FollowersPresenter.View {
 
     private static final String LOG_TAG = "FollowersFragment";
@@ -49,14 +46,6 @@ public class FollowersFragment extends Fragment implements FollowersPresenter.Vi
 
     private FollowersRecyclerViewAdapter followersRecyclerViewAdapter;
 
-    /**
-     * Creates an instance of the fragment and places the user and auth token in an arguments
-     * bundle assigned to the fragment.
-     *
-     * @param user      the logged in user.
-     * @param authToken the auth token for this user's session.
-     * @return the fragment.
-     */
     public static FollowersFragment newInstance(User user, AuthToken authToken) {
         FollowersFragment fragment = new FollowersFragment();
 
@@ -73,7 +62,6 @@ public class FollowersFragment extends Fragment implements FollowersPresenter.Vi
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_followers, container, false);
 
-        //noinspection ConstantConditions
         loggedInUser = (User) getArguments().getSerializable(USER_KEY);
         authToken = (AuthToken) getArguments().getSerializable(AUTH_TOKEN_KEY);
 
@@ -98,11 +86,6 @@ public class FollowersFragment extends Fragment implements FollowersPresenter.Vi
         private final TextView userName;
         private User currentUser;
 
-        /**
-         * Creates an instance and sets an OnClickListener for the user's row.
-         *
-         * @param itemView the view on which the user will be displayed.
-         */
         FollowerHolder(@NonNull View itemView, int viewType) {
             super(itemView);
 
@@ -129,11 +112,6 @@ public class FollowersFragment extends Fragment implements FollowersPresenter.Vi
             }
         }
 
-        /**
-         * Binds the user's data to the view.
-         *
-         * @param user the user.
-         */
         void bindUser(User user) {
             userImage.setImageDrawable(ImageUtils.drawableFromByteArray(user.getImageBytes()));
             userAlias.setText(user.getAlias());

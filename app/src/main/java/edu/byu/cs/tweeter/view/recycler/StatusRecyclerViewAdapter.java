@@ -1,13 +1,11 @@
-package edu.byu.cs.tweeter.view.main.recycler;
+package edu.byu.cs.tweeter.view.recycler;
 
-import android.content.Intent;
 import android.os.Build;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.ClickableSpan;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
