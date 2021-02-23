@@ -21,10 +21,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".view.main.MainActivity"
+            android:name=".view.main.main.MainActivity"
             android:label="@string/title_activity_main">
         </activity>
-        <activity android:name=".view.main.ProfileActivity"/>
+        <activity android:name=".view.main.profile.ProfileActivity"/>
     </application>
 
 </manifest>

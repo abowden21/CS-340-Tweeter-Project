@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".view.main.PostStatusFragment"
+    tools:context=".view.main.main.PostStatusFragment"
     android:background="#999999">
 
     <EditText
@@ -15,7 +15,17 @@
         android:gravity="top"
         android:padding="5dp"
         android:layout_margin="2dp"
-        android:hint="Type your post here." />
+        android:hint="Type your post here. (140 characters max)" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/cancelStatusButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|start"
+        android:layout_margin="@dimen/fab_margin"
+        android:scaleType="center"
+        app:backgroundTint="@color/white"
+        app:srcCompat="@drawable/trash" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/button_sendStatus"

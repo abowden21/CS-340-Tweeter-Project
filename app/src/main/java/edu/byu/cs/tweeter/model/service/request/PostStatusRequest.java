@@ -1,12 +1,16 @@
 package edu.byu.cs.tweeter.model.service.request;
 
+import edu.byu.cs.tweeter.model.domain.AuthToken;
+
 public class PostStatusRequest {
 
     private String message;
-    // TODO THINK ABOUT WHAT ELSE NEEDS TO BE IN A POSTREQUETS
+    private AuthToken authToken;
 
-    public PostStatusRequest() {}
-    public PostStatusRequest(String message) {
+//    public PostStatusRequest() {}
+    public PostStatusRequest(AuthToken authToken, String message) {
+
+        this.authToken = authToken;
         this.message = message;
     }
 }

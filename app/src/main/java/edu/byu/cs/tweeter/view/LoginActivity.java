@@ -14,7 +14,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -29,7 +28,7 @@ import edu.byu.cs.tweeter.presenter.LoginPresenter;
 import edu.byu.cs.tweeter.util.ByteArrayUtils;
 import edu.byu.cs.tweeter.view.asyncTasks.LoginTask;
 import edu.byu.cs.tweeter.view.asyncTasks.RegisterTask;
-import edu.byu.cs.tweeter.view.main.MainActivity;
+import edu.byu.cs.tweeter.view.main.main.MainActivity;
 
 /**
  * Contains the minimum UI required to allow the user to login with a hard-coded user. Most or all

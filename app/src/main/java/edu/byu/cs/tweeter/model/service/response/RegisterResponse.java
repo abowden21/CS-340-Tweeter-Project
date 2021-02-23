@@ -8,4 +8,7 @@ public class RegisterResponse extends LoginResponse {
     public RegisterResponse(User user, AuthToken authToken) {
         super(user, authToken);
     }
+    public RegisterResponse(String message) {
+        super( message);
+    }
 }

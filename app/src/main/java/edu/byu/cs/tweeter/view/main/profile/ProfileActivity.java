@@ -1,4 +1,4 @@
-package edu.byu.cs.tweeter.view.main;
+package edu.byu.cs.tweeter.view.main.profile;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -12,8 +12,6 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 
 import edu.byu.cs.tweeter.R;
@@ -21,15 +19,12 @@ import edu.byu.cs.tweeter.model.domain.AuthToken;
 import edu.byu.cs.tweeter.model.domain.User;
 import edu.byu.cs.tweeter.model.service.request.FollowRequest;
 import edu.byu.cs.tweeter.model.service.request.FollowStatusRequest;
-import edu.byu.cs.tweeter.model.service.request.LoginRequest;
 import edu.byu.cs.tweeter.model.service.response.FollowResponse;
 import edu.byu.cs.tweeter.model.service.response.FollowStatusResponse;
 import edu.byu.cs.tweeter.presenter.FollowPresenter;
-import edu.byu.cs.tweeter.presenter.StoryPresenter;
-import edu.byu.cs.tweeter.view.LoginActivity;
 import edu.byu.cs.tweeter.view.asyncTasks.FollowStatusTask;
 import edu.byu.cs.tweeter.view.asyncTasks.FollowTask;
-import edu.byu.cs.tweeter.view.asyncTasks.LoginTask;
+import edu.byu.cs.tweeter.view.main.profile.ProfilePagerAdapter;
 import edu.byu.cs.tweeter.view.util.ImageUtils;
 
 public class ProfileActivity  extends AppCompatActivity implements FollowTask.Observer, FollowStatusTask.Observer {
