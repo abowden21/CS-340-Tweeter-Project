@@ -1,7 +1,6 @@
 package edu.byu.cs.tweeter.presenter;
 
 import android.os.Build;
-import android.view.View;
 
 import androidx.annotation.RequiresApi;
 
@@ -13,6 +12,8 @@ public class GetFollowCountPresenter {
 
     private final View view;
     FollowService followService;
+
+    public interface View { }
 
     public GetFollowCountPresenter(View view) {
         this.view = view;

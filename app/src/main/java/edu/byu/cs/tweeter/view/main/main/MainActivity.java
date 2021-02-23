@@ -24,10 +24,14 @@ import edu.byu.cs.tweeter.model.domain.AuthToken;
 import edu.byu.cs.tweeter.model.domain.User;
 import edu.byu.cs.tweeter.model.service.request.LogoutRequest;
 import edu.byu.cs.tweeter.model.service.request.PostStatusRequest;
+import edu.byu.cs.tweeter.model.service.request.UserFollowCountRequest;
 import edu.byu.cs.tweeter.model.service.response.LogoutResponse;
 import edu.byu.cs.tweeter.model.service.response.PostStatusResponse;
+import edu.byu.cs.tweeter.model.service.response.UserFollowCountResponse;
+import edu.byu.cs.tweeter.presenter.GetFollowCountPresenter;
 import edu.byu.cs.tweeter.presenter.LoginPresenter;
 import edu.byu.cs.tweeter.presenter.PostStatusPresenter;
+import edu.byu.cs.tweeter.view.asyncTasks.GetUserFollowCountTask;
 import edu.byu.cs.tweeter.view.asyncTasks.LogoutTask;
 import edu.byu.cs.tweeter.view.asyncTasks.PostStatusTask;
 import edu.byu.cs.tweeter.view.util.ImageUtils;
@@ -35,7 +39,8 @@ import edu.byu.cs.tweeter.view.util.ImageUtils;
 /**
  * The main activity for the application. Contains tabs for feed, story, following, and followers.
  */
-public class MainActivity extends AppCompatActivity implements LoginPresenter.View, LogoutTask.Observer, PostStatusPresenter.Fragment, PostStatusTask.Observer {
+public class MainActivity extends AppCompatActivity implements LoginPresenter.View, LogoutTask.Observer,
+        PostStatusPresenter.Fragment, PostStatusTask.Observer, GetFollowCountPresenter.View, GetUserFollowCountTask.Observer {
     private static final String LOG_TAG = "MainActivity";
     public static final String CURRENT_USER_KEY = "CurrentUser";
     public static final String AUTH_TOKEN_KEY = "AuthTokenKey";
@@ -43,7 +48,8 @@ public class MainActivity extends AppCompatActivity implements LoginPresenter.Vi
     private AuthToken authToken;
     private User user;
 
-    private LoginPresenter presenter;
+    private LoginPresenter loginPresenter;
+    private GetFollowCountPresenter fcPresenter;
     private Toast currentToast;
 
     FragmentManager fragmentManager;
@@ -51,6 +57,8 @@ public class MainActivity extends AppCompatActivity implements LoginPresenter.Vi
     FloatingActionButton postStatusButton;
     PostStatusFragment postFragment;
     PostStatusPresenter postPresenter;
+    TextView followeeCount;
+    TextView followerCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +66,8 @@ public class MainActivity extends AppCompatActivity implements LoginPresenter.Vi
         setContentView(R.layout.activity_main);
 
         // Same presenter as LoginActivity.
-        presenter = new LoginPresenter(this);
+        loginPresenter = new LoginPresenter(this);
+        fcPresenter = new GetFollowCountPresenter(this);
 
         user = (User) getIntent().getSerializableExtra(CURRENT_USER_KEY);
         if(user == null) {
@@ -88,8 +97,6 @@ public class MainActivity extends AppCompatActivity implements LoginPresenter.Vi
                 postFragment = PostStatusFragment.newInstance(MainActivity.this, user, authToken, postPresenter);
 
                 showPostFragment();
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
             }
         });
 
@@ -102,11 +109,11 @@ public class MainActivity extends AppCompatActivity implements LoginPresenter.Vi
         ImageView userImageView = findViewById(R.id.userImage);
         userImageView.setImageDrawable(ImageUtils.drawableFromByteArray(user.getImageBytes()));
 
-        TextView followeeCount = findViewById(R.id.followeeCount);
-//        followeeCount.setText(getString(R.string.followeeCount, 42));
-
-        TextView followerCount = findViewById(R.id.followerCount);
-//        followerCount.setText(getString(R.string.followerCount, 27));
+        followeeCount = findViewById(R.id.followeeCount);
+        followerCount = findViewById(R.id.followerCount);
+        GetUserFollowCountTask userFollowCountTask = new GetUserFollowCountTask(fcPresenter, this);
+        UserFollowCountRequest userFollowCountRequest = new UserFollowCountRequest(user.getAlias());
+        userFollowCountTask.execute(userFollowCountRequest);
     }
 
     private void showPostFragment() {
@@ -173,7 +180,7 @@ public class MainActivity extends AppCompatActivity implements LoginPresenter.Vi
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.logoutMenu) {
             LogoutRequest logoutRequest = new LogoutRequest(this.authToken);
-            LogoutTask logoutTask = new LogoutTask(presenter, this);
+            LogoutTask logoutTask = new LogoutTask(loginPresenter, this);
             logoutTask.execute(logoutRequest);
         }
         return true;
@@ -188,6 +195,18 @@ public class MainActivity extends AppCompatActivity implements LoginPresenter.Vi
     @Override
     public void logoutUnsuccessful(LogoutResponse logoutResponse) {
         this.sendToast("Could not log out.");
+    }
+
+    @Override
+    public void userFollowCountRetrieved(UserFollowCountResponse followCountResponse) {
+        followerCount.setText(getString(R.string.followeeCount, followCountResponse.getFollowers()));
+        followeeCount.setText(getString(R.string.followeeCount, followCountResponse.getFollowees()));
+    }
+
+    @Override
+    public void userFollowCountUnsuccessful(UserFollowCountResponse followCountResponse) {
+        followerCount.setText("");
+        followeeCount.setText("");
     }
 
     @Override

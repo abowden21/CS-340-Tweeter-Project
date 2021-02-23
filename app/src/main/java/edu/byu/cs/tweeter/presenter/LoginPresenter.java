@@ -22,9 +22,7 @@ public class LoginPresenter {
     private final View view;
     LoginService loginService;
 
-    public interface View {
-        // If needed, specify methods here that will be called on the view in response to model updates
-    }
+    public interface View { }
 
     public LoginPresenter(View view) {
         this.loginService = new LoginService();
