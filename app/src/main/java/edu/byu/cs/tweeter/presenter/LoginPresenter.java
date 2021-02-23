@@ -36,6 +36,7 @@ public class LoginPresenter {
      *
      * @param loginRequest the request.
      */
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public LoginResponse login(LoginRequest loginRequest) throws IOException {
         return loginService.login(loginRequest);
     }
@@ -45,6 +46,7 @@ public class LoginPresenter {
         return loginService.register(registerRequest);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public LogoutResponse logout(LogoutRequest logoutRequest) throws IOException {
         return loginService.logout(logoutRequest);
     }

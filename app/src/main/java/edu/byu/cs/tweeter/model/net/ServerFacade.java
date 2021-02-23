@@ -12,28 +12,25 @@ import java.util.List;
 import edu.byu.cs.tweeter.BuildConfig;
 import edu.byu.cs.tweeter.model.domain.AuthToken;
 import edu.byu.cs.tweeter.model.domain.Status;
-import edu.byu.cs.tweeter.model.domain.Story;
 import edu.byu.cs.tweeter.model.domain.User;
 import edu.byu.cs.tweeter.model.service.request.FeedRequest;
 import edu.byu.cs.tweeter.model.service.request.FollowRequest;
 import edu.byu.cs.tweeter.model.service.request.FollowStatusRequest;
 import edu.byu.cs.tweeter.model.service.request.FollowersRequest;
 import edu.byu.cs.tweeter.model.service.request.FollowingRequest;
-import edu.byu.cs.tweeter.model.service.request.GetFolloweeCountRequest;
-import edu.byu.cs.tweeter.model.service.request.GetFollowerCountRequest;
 import edu.byu.cs.tweeter.model.service.request.GetUserRequest;
 import edu.byu.cs.tweeter.model.service.request.LoginRequest;
 import edu.byu.cs.tweeter.model.service.request.LogoutRequest;
 import edu.byu.cs.tweeter.model.service.request.PostStatusRequest;
 import edu.byu.cs.tweeter.model.service.request.RegisterRequest;
 import edu.byu.cs.tweeter.model.service.request.StoryRequest;
+import edu.byu.cs.tweeter.model.service.request.UserFollowCountRequest;
 import edu.byu.cs.tweeter.model.service.response.FeedResponse;
 import edu.byu.cs.tweeter.model.service.response.FollowResponse;
 import edu.byu.cs.tweeter.model.service.response.FollowStatusResponse;
 import edu.byu.cs.tweeter.model.service.response.FollowersResponse;
 import edu.byu.cs.tweeter.model.service.response.FollowingResponse;
-import edu.byu.cs.tweeter.model.service.response.GetFolloweeCountResponse;
-import edu.byu.cs.tweeter.model.service.response.GetFollowerCountResponse;
+import edu.byu.cs.tweeter.model.service.response.UserFollowCountResponse;
 import edu.byu.cs.tweeter.model.service.response.GetUserResponse;
 import edu.byu.cs.tweeter.model.service.response.LoginResponse;
 import edu.byu.cs.tweeter.model.service.response.LogoutResponse;
@@ -358,12 +355,8 @@ public class ServerFacade {
         return new FollowResponse(true, request.isFollowRequest());
     }
 
-    public GetFollowerCountResponse getFollowerCount(GetFollowerCountRequest request) {
-        return new GetFollowerCountResponse(100);
-    }
-
-    public GetFolloweeCountResponse getFolloweeCount(GetFolloweeCountRequest request) {
-        return new GetFolloweeCountResponse(19);
+    public UserFollowCountResponse getUserFollowCount(UserFollowCountRequest request) {
+        return new UserFollowCountResponse(100, 99);
     }
 
     public PostStatusResponse sendStatus(PostStatusRequest postStatusRequest) {
