@@ -18,29 +18,22 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.IOException;
 import java.util.List;
 
 import edu.byu.cs.tweeter.R;
 import edu.byu.cs.tweeter.model.domain.AuthToken;
 import edu.byu.cs.tweeter.model.domain.Status;
 import edu.byu.cs.tweeter.model.domain.User;
-import edu.byu.cs.tweeter.model.service.GetUserService;
-import edu.byu.cs.tweeter.model.service.request.FollowersRequest;
 import edu.byu.cs.tweeter.model.service.request.GetUserRequest;
 import edu.byu.cs.tweeter.model.service.request.StoryRequest;
-import edu.byu.cs.tweeter.model.service.response.FollowersResponse;
 import edu.byu.cs.tweeter.model.service.response.GetUserResponse;
 import edu.byu.cs.tweeter.model.service.response.StoryResponse;
 import edu.byu.cs.tweeter.presenter.StoryPresenter;
-import edu.byu.cs.tweeter.view.asyncTasks.GetFollowersTask;
 import edu.byu.cs.tweeter.view.asyncTasks.GetStoryTask;
 import edu.byu.cs.tweeter.view.asyncTasks.GetUserTask;
-import edu.byu.cs.tweeter.view.main.ProfileActivity;
-import edu.byu.cs.tweeter.view.main.StatusRecyclerViewAdapter;
-import edu.byu.cs.tweeter.view.main.StatusRecyclerViewPaginationScrollListener;
-import edu.byu.cs.tweeter.view.main.UserRecyclerViewAdapter;
-import edu.byu.cs.tweeter.view.main.followers.FollowersFragment;
+import edu.byu.cs.tweeter.view.main.profile.ProfileActivity;
+import edu.byu.cs.tweeter.view.main.recycler.StatusRecyclerViewAdapter;
+import edu.byu.cs.tweeter.view.main.recycler.StatusRecyclerViewPaginationScrollListener;
 import edu.byu.cs.tweeter.view.util.ImageUtils;
 
 /**

@@ -5,11 +5,12 @@ import edu.byu.cs.tweeter.model.domain.Status;
 public class PostStatusResponse extends Response {
     private Status status;
 
-    public PostStatusResponse(boolean success) {
-        super(success);
+    public PostStatusResponse(Status status) {
+        super(true);
+        this.status = status;
     }
 
-    public PostStatusResponse(boolean success, String message) {
-        super(success, message);
+    public PostStatusResponse(String message) {
+        super(false, message);
     }
 }

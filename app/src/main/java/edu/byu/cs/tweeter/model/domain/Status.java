@@ -1,6 +1,7 @@
 package edu.byu.cs.tweeter.model.domain;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Status {
@@ -9,6 +10,14 @@ public class Status {
     private final List<String> urls;
     private final List<String> mentions;
     private final User associatedUser;
+
+    public Status(LocalDateTime timeStamp, String message, User associatedUser) {
+        this.timeStamp = timeStamp;
+        this.message = message;
+        this.associatedUser = associatedUser;
+        this.urls = new ArrayList<String>();
+        this.mentions = new ArrayList<String>();
+    }
 
     public Status(LocalDateTime timeStamp, String message, List<String> urls, List<String> mentions, User associatedUser) {
         this.timeStamp = timeStamp;

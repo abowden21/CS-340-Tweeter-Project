@@ -1,4 +1,4 @@
-package edu.byu.cs.tweeter.view.main;
+package edu.byu.cs.tweeter.view.main.recycler;
 
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;

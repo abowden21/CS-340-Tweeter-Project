@@ -1,4 +1,4 @@
-package edu.byu.cs.tweeter.view.main;
+package edu.byu.cs.tweeter.view.main.main;
 
 import android.os.Build;
 import android.os.Bundle;
@@ -18,16 +18,14 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import edu.byu.cs.tweeter.R;
 import edu.byu.cs.tweeter.model.domain.AuthToken;
 import edu.byu.cs.tweeter.model.domain.User;
-import edu.byu.cs.tweeter.model.service.response.PostStatusResponse;
 import edu.byu.cs.tweeter.presenter.PostStatusPresenter;
-import edu.byu.cs.tweeter.view.asyncTasks.PostStatusTask;
-
 
 public class PostStatusFragment extends Fragment {
 
     PostStatusPresenter.Fragment parentFragment;
     PostStatusPresenter presenter;
     FloatingActionButton sendStatusButton;
+    FloatingActionButton cancelStatusButton;
     EditText statusText;
 
     public PostStatusFragment() {
@@ -67,12 +65,23 @@ public class PostStatusFragment extends Fragment {
         });
 
         sendStatusButton = view.findViewById(R.id.button_sendStatus);
+        sendStatusButton.setEnabled(false);
+        // Disable by default; wait until text is entered and validation process is complete
+        // before enabling it again.
         sendStatusButton.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View v) {
                 String messageBody = statusText.getText().toString();
                 parentFragment.requestSendTweet(messageBody);
+            }
+        });
+
+        cancelStatusButton = view.findViewById(R.id.cancelStatusButton);
+        cancelStatusButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                parentFragment.requestClose();
             }
         });
 

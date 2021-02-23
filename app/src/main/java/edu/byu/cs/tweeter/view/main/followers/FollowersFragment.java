@@ -24,9 +24,9 @@ import edu.byu.cs.tweeter.model.service.request.FollowersRequest;
 import edu.byu.cs.tweeter.model.service.response.FollowersResponse;
 import edu.byu.cs.tweeter.presenter.FollowersPresenter;
 import edu.byu.cs.tweeter.view.asyncTasks.GetFollowersTask;
-import edu.byu.cs.tweeter.view.main.FollowRecyclerViewPaginationScrollListener;
-import edu.byu.cs.tweeter.view.main.ProfileActivity;
-import edu.byu.cs.tweeter.view.main.UserRecyclerViewAdapter;
+import edu.byu.cs.tweeter.view.main.recycler.FollowRecyclerViewPaginationScrollListener;
+import edu.byu.cs.tweeter.view.main.profile.ProfileActivity;
+import edu.byu.cs.tweeter.view.main.recycler.UserRecyclerViewAdapter;
 import edu.byu.cs.tweeter.view.util.ImageUtils;
 
 /**

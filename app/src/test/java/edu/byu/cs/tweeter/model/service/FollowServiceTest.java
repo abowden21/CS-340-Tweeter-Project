@@ -42,7 +42,7 @@ public class FollowServiceTest {
     public void setup() {
      User currentUser = new User("FirstName", "LastName", null);
      User otherUser =  new User("FirstName2", "LastName2", null);
-     AuthToken authToken = new AuthToken();
+     AuthToken authToken = new AuthToken("<mockToken>");
 
         // Setup request objects to use in the tests
         validFollowStatusRequest = new FollowStatusRequest(currentUser.getAlias(), otherUser.getAlias());

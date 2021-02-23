@@ -19,6 +19,8 @@ import edu.byu.cs.tweeter.model.service.request.FollowRequest;
 import edu.byu.cs.tweeter.model.service.request.FollowStatusRequest;
 import edu.byu.cs.tweeter.model.service.request.FollowersRequest;
 import edu.byu.cs.tweeter.model.service.request.FollowingRequest;
+import edu.byu.cs.tweeter.model.service.request.GetFolloweeCountRequest;
+import edu.byu.cs.tweeter.model.service.request.GetFollowerCountRequest;
 import edu.byu.cs.tweeter.model.service.request.GetUserRequest;
 import edu.byu.cs.tweeter.model.service.request.LoginRequest;
 import edu.byu.cs.tweeter.model.service.request.LogoutRequest;
@@ -30,6 +32,8 @@ import edu.byu.cs.tweeter.model.service.response.FollowResponse;
 import edu.byu.cs.tweeter.model.service.response.FollowStatusResponse;
 import edu.byu.cs.tweeter.model.service.response.FollowersResponse;
 import edu.byu.cs.tweeter.model.service.response.FollowingResponse;
+import edu.byu.cs.tweeter.model.service.response.GetFolloweeCountResponse;
+import edu.byu.cs.tweeter.model.service.response.GetFollowerCountResponse;
 import edu.byu.cs.tweeter.model.service.response.GetUserResponse;
 import edu.byu.cs.tweeter.model.service.response.LoginResponse;
 import edu.byu.cs.tweeter.model.service.response.LogoutResponse;
@@ -73,7 +77,7 @@ public class ServerFacade {
 
 
     private final Status status1 = new Status(LocalDateTime.parse("2021-02-13T01:01:01"), "message1", null ,null, user22);
-    private final Status status2 = new Status(LocalDateTime.parse("2021-02-14T01:01:02"), "@Yourmom , Check out this cool website I found: www.google.com   How's it going @RyanBryson", null, null, user23);
+    private final Status status2 = new Status(LocalDateTime.parse("2021-02-14T01:01:02"), "@TacoBell , Check out this cool website I found: www.google.com   How's it going @RyanBryson", null, null, user23);
     private final Status status3 = new Status(LocalDateTime.parse("2021-02-15T01:01:03"), "My daughter just learned she is accepted to BYU!\n" +
             "\n" +
             "That's 3 children from my house. \n" +
@@ -101,13 +105,13 @@ public class ServerFacade {
     public LoginResponse login(LoginRequest request) {
         User user = new User("Test", "User",
                 "https://faculty.cs.byu.edu/~jwilkerson/cs340/tweeter/images/donald_duck.png");
-        return new LoginResponse(user, new AuthToken());
+        return new LoginResponse(user, new AuthToken("<dummy token>"));
     }
 
     public RegisterResponse register(RegisterRequest request) {
         User user = new User("Registered", "User",
                 "https://faculty.cs.byu.edu/~jwilkerson/cs340/tweeter/images/donald_duck.png");
-        return new RegisterResponse(user, new AuthToken());
+        return new RegisterResponse(user, new AuthToken("<dummy token>"));
     }
 
     public LogoutResponse logout(LogoutRequest request) {
@@ -354,8 +358,16 @@ public class ServerFacade {
         return new FollowResponse(true, request.isFollowRequest());
     }
 
+    public GetFollowerCountResponse getFollowerCount(GetFollowerCountRequest request) {
+        return new GetFollowerCountResponse(100);
+    }
+
+    public GetFolloweeCountResponse getFolloweeCount(GetFolloweeCountRequest request) {
+        return new GetFolloweeCountResponse(19);
+    }
+
     public PostStatusResponse sendStatus(PostStatusRequest postStatusRequest) {
-        return new PostStatusResponse(true);
+        return new PostStatusResponse(status1);
     }
 
 
@@ -364,16 +376,13 @@ public class ServerFacade {
     }
 
     public FeedResponse getFeed(FeedRequest request) {
-
-        // MAJOR TODO: Implement pagination.
-
         // Used in place of assert statements because Android does not support them
         if(BuildConfig.DEBUG) {
             if(request.getLimit() < 0) {
                 throw new AssertionError();
             }
 
-            if(request.getUserAlias() == null) {
+            if(request.getAuthToken() == null) {
                 throw new AssertionError();
             }
         }

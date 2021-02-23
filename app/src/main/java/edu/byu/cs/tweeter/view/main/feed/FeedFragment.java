@@ -22,7 +22,6 @@ import java.util.List;
 
 import edu.byu.cs.tweeter.R;
 import edu.byu.cs.tweeter.model.domain.AuthToken;
-import edu.byu.cs.tweeter.model.domain.Feed;
 import edu.byu.cs.tweeter.model.domain.Status;
 import edu.byu.cs.tweeter.model.domain.User;
 import edu.byu.cs.tweeter.model.service.request.FeedRequest;
@@ -32,9 +31,9 @@ import edu.byu.cs.tweeter.model.service.response.GetUserResponse;
 import edu.byu.cs.tweeter.presenter.FeedPresenter;
 import edu.byu.cs.tweeter.view.asyncTasks.GetFeedTask;
 import edu.byu.cs.tweeter.view.asyncTasks.GetUserTask;
-import edu.byu.cs.tweeter.view.main.ProfileActivity;
-import edu.byu.cs.tweeter.view.main.StatusRecyclerViewAdapter;
-import edu.byu.cs.tweeter.view.main.StatusRecyclerViewPaginationScrollListener;
+import edu.byu.cs.tweeter.view.main.profile.ProfileActivity;
+import edu.byu.cs.tweeter.view.main.recycler.StatusRecyclerViewAdapter;
+import edu.byu.cs.tweeter.view.main.recycler.StatusRecyclerViewPaginationScrollListener;
 import edu.byu.cs.tweeter.view.util.ImageUtils;
 
 /**
@@ -159,7 +158,7 @@ public class FeedFragment extends Fragment implements FeedPresenter.View {
             super.loadMoreItems();
 
             GetFeedTask getFeedTask = new GetFeedTask(presenter, this);
-            FeedRequest request = new FeedRequest(user.getAlias(), PAGE_SIZE, (lastStatus == null ? null : lastStatus.getTimeStamp()));
+            FeedRequest request = new FeedRequest(authToken, PAGE_SIZE, (lastStatus == null ? null : lastStatus.getTimeStamp()));
             getFeedTask.execute(request);
         }
 

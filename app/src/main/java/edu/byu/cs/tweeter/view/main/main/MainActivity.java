@@ -1,4 +1,4 @@
-package edu.byu.cs.tweeter.view.main;
+package edu.byu.cs.tweeter.view.main.main;
 
 import android.os.Bundle;
 
@@ -40,6 +40,9 @@ public class MainActivity extends AppCompatActivity implements LoginPresenter.Vi
     public static final String CURRENT_USER_KEY = "CurrentUser";
     public static final String AUTH_TOKEN_KEY = "AuthTokenKey";
 
+    private AuthToken authToken;
+    private User user;
+
     private LoginPresenter presenter;
     private Toast currentToast;
 
@@ -57,12 +60,12 @@ public class MainActivity extends AppCompatActivity implements LoginPresenter.Vi
         // Same presenter as LoginActivity.
         presenter = new LoginPresenter(this);
 
-        User user = (User) getIntent().getSerializableExtra(CURRENT_USER_KEY);
+        user = (User) getIntent().getSerializableExtra(CURRENT_USER_KEY);
         if(user == null) {
             throw new RuntimeException("User not passed to activity");
         }
 
-        AuthToken authToken = (AuthToken) getIntent().getSerializableExtra(AUTH_TOKEN_KEY);
+        authToken = (AuthToken) getIntent().getSerializableExtra(AUTH_TOKEN_KEY);
 
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager(), user, authToken);
         ViewPager viewPager = findViewById(R.id.view_pager);
@@ -100,10 +103,10 @@ public class MainActivity extends AppCompatActivity implements LoginPresenter.Vi
         userImageView.setImageDrawable(ImageUtils.drawableFromByteArray(user.getImageBytes()));
 
         TextView followeeCount = findViewById(R.id.followeeCount);
-        followeeCount.setText(getString(R.string.followeeCount, 42));
+//        followeeCount.setText(getString(R.string.followeeCount, 42));
 
         TextView followerCount = findViewById(R.id.followerCount);
-        followerCount.setText(getString(R.string.followerCount, 27));
+//        followerCount.setText(getString(R.string.followerCount, 27));
     }
 
     private void showPostFragment() {
@@ -125,7 +128,7 @@ public class MainActivity extends AppCompatActivity implements LoginPresenter.Vi
     @Override
     public void requestSendTweet(String message) {
         PostStatusTask postStatusTask = new PostStatusTask(this.postPresenter, this);
-        PostStatusRequest postStatusRequest = new PostStatusRequest(message);
+        PostStatusRequest postStatusRequest = new PostStatusRequest(this.authToken, message);
         postStatusTask.execute(postStatusRequest);
         sendToast("Sending post...");
     }
@@ -169,7 +172,7 @@ public class MainActivity extends AppCompatActivity implements LoginPresenter.Vi
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.logoutMenu) {
-            LogoutRequest logoutRequest = new LogoutRequest();
+            LogoutRequest logoutRequest = new LogoutRequest(this.authToken);
             LogoutTask logoutTask = new LogoutTask(presenter, this);
             logoutTask.execute(logoutRequest);
         }
