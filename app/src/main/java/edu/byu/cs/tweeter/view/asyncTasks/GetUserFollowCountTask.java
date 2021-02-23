@@ -5,7 +5,10 @@ import android.os.Build;
 
 import androidx.annotation.RequiresApi;
 
+import java.io.IOException;
+
 import edu.byu.cs.tweeter.model.service.request.UserFollowCountRequest;
+import edu.byu.cs.tweeter.model.service.response.StoryResponse;
 import edu.byu.cs.tweeter.model.service.response.UserFollowCountResponse;
 import edu.byu.cs.tweeter.presenter.GetFollowCountPresenter;
 
@@ -32,8 +35,15 @@ public class GetUserFollowCountTask extends AsyncTask<UserFollowCountRequest, Vo
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     protected UserFollowCountResponse doInBackground(UserFollowCountRequest... followCountRequests) {
+        UserFollowCountResponse response = null;
 
-        return presenter.getUserFollowCount(followCountRequests[0]);
+        try {
+            response = presenter.getUserFollowCount(followCountRequests[0]);
+
+        } catch (IOException ex) {
+            exception = ex;
+        }
+        return response;
     }
 
     @Override

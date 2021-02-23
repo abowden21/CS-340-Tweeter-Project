@@ -19,23 +19,28 @@ import edu.byu.cs.tweeter.model.domain.AuthToken;
 import edu.byu.cs.tweeter.model.domain.User;
 import edu.byu.cs.tweeter.model.service.request.FollowRequest;
 import edu.byu.cs.tweeter.model.service.request.FollowStatusRequest;
+import edu.byu.cs.tweeter.model.service.request.UserFollowCountRequest;
 import edu.byu.cs.tweeter.model.service.response.FollowResponse;
 import edu.byu.cs.tweeter.model.service.response.FollowStatusResponse;
+import edu.byu.cs.tweeter.model.service.response.UserFollowCountResponse;
 import edu.byu.cs.tweeter.presenter.FollowPresenter;
+import edu.byu.cs.tweeter.presenter.GetFollowCountPresenter;
 import edu.byu.cs.tweeter.view.asyncTasks.FollowStatusTask;
 import edu.byu.cs.tweeter.view.asyncTasks.FollowTask;
+import edu.byu.cs.tweeter.view.asyncTasks.GetUserFollowCountTask;
 import edu.byu.cs.tweeter.view.main.profile.ProfilePagerAdapter;
 import edu.byu.cs.tweeter.view.util.ImageUtils;
 
-public class ProfileActivity  extends AppCompatActivity implements FollowTask.Observer, FollowStatusTask.Observer {
+public class ProfileActivity  extends AppCompatActivity implements FollowTask.Observer, FollowStatusTask.Observer, GetUserFollowCountTask.Observer {
     private static final String LOG_TAG = "LoginActivity";
     public static final String LOGGED_IN_USER_KEY = "LoggedInUser";
     public static final String CURRENT_USER_KEY = "CurrentUser";
     public static final String AUTH_TOKEN_KEY = "AuthTokenKey";
     Button followButton;
     private FollowPresenter presenter;
-
-    //TODO: back end needs to check status
+    private GetFollowCountPresenter fcPresenter;
+    TextView followeeCount;
+    TextView followerCount;
     private boolean isFollowingUser;
 
     @Override
@@ -50,6 +55,7 @@ public class ProfileActivity  extends AppCompatActivity implements FollowTask.Ob
 
         AuthToken authToken = (AuthToken) getIntent().getSerializableExtra(AUTH_TOKEN_KEY);
         presenter = new FollowPresenter();
+        fcPresenter = new GetFollowCountPresenter();
 
         FollowStatusTask followStatusTask = new FollowStatusTask(presenter, ProfileActivity.this);
         FollowStatusRequest followStatusRequest = new FollowStatusRequest(loggedInUser.getAlias(), currentUser.getAlias());
@@ -70,11 +76,11 @@ public class ProfileActivity  extends AppCompatActivity implements FollowTask.Ob
         ImageView userImageView = findViewById(R.id.userImage);
         userImageView.setImageDrawable(ImageUtils.drawableFromByteArray(currentUser.getImageBytes()));
 
-        TextView followeeCount = findViewById(R.id.followeeCount);
-        followeeCount.setText(getString(R.string.followeeCount, 42));
-
-        TextView followerCount = findViewById(R.id.followerCount);
-        followerCount.setText(getString(R.string.followerCount, 27));
+        followeeCount = findViewById(R.id.followeeCount);
+        followerCount = findViewById(R.id.followerCount);
+        GetUserFollowCountTask userFollowCountTask = new GetUserFollowCountTask(fcPresenter, this);
+        UserFollowCountRequest userFollowCountRequest = new UserFollowCountRequest(currentUser.getAlias());
+        userFollowCountTask.execute(userFollowCountRequest);
 
         followButton = findViewById(R.id.followButton);
 
@@ -129,5 +135,17 @@ public class ProfileActivity  extends AppCompatActivity implements FollowTask.Ob
     public void handleException(Exception ex) {
         Log.e(LOG_TAG, ex.getMessage(), ex);
         Toast.makeText(this, "Failed to follow/unfollow because of exception: " + ex.getMessage(), Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void userFollowCountRetrieved(UserFollowCountResponse followCountResponse) {
+        followerCount.setText(getString(R.string.followeeCount, followCountResponse.getFollowers()));
+        followeeCount.setText(getString(R.string.followeeCount, followCountResponse.getFollowees()));
+    }
+
+    @Override
+    public void userFollowCountUnsuccessful(UserFollowCountResponse followCountResponse) {
+        followerCount.setText("");
+        followeeCount.setText("");
     }
 }

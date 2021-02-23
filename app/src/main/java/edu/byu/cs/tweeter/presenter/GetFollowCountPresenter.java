@@ -12,13 +12,11 @@ import edu.byu.cs.tweeter.model.service.response.UserFollowCountResponse;
 
 public class GetFollowCountPresenter {
 
-    private final View view;
-
-    public interface View {
-        // If needed, specify methods here that will be called on the view in response to model updates
-    }
+    private View view ;
 
     public interface View { }
+
+    public GetFollowCountPresenter(){}
 
     public GetFollowCountPresenter(View view) {
         this.view = view;
