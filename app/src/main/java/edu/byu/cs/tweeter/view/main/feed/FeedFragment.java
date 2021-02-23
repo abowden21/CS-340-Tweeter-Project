@@ -107,6 +107,7 @@ public class FeedFragment extends Fragment implements FeedPresenter.View {
         private final TextView userName;
         private final TextView statusBody;
         private final TextView timestamp;
+        private User currentUser;
 
         FeedHolder(@NonNull View itemView, int viewType) {
             super(itemView);
@@ -121,8 +122,12 @@ public class FeedFragment extends Fragment implements FeedPresenter.View {
                 itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Toast.makeText(getContext(), "[Follower] You selected '" + userName.getText() + "'.", Toast.LENGTH_SHORT).show();
-                    }
+                        Intent intent = new Intent(getContext(), ProfileActivity.class);
+                        intent.putExtra(ProfileActivity.LOGGED_IN_USER_KEY, user);
+                        intent.putExtra(ProfileActivity.CURRENT_USER_KEY, currentUser);
+                        intent.putExtra(ProfileActivity.AUTH_TOKEN_KEY, authToken);
+
+                        startActivity(intent);                    }
                 });
             } else {
                 userImage = null;
@@ -140,6 +145,7 @@ public class FeedFragment extends Fragment implements FeedPresenter.View {
             statusBody.setText(feedRecyclerViewAdapter.makeSpannableString(status));
             //statusBody.setText(status.getMessage());
             timestamp.setText(status.getTimeStamp().toString());
+            currentUser = status.getUser();
         }
     }
 
