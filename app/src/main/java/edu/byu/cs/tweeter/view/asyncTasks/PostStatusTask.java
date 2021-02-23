@@ -5,6 +5,8 @@ import android.os.Build;
 
 import androidx.annotation.RequiresApi;
 
+import java.io.IOException;
+
 import edu.byu.cs.tweeter.model.service.request.PostStatusRequest;
 import edu.byu.cs.tweeter.model.service.response.PostStatusResponse;
 import edu.byu.cs.tweeter.presenter.PostStatusPresenter;
@@ -35,7 +37,11 @@ public class PostStatusTask extends AsyncTask<PostStatusRequest, Void, PostStatu
     protected PostStatusResponse doInBackground(PostStatusRequest... postStatusRequests) {
         PostStatusResponse postStatusResponse = null;
 
-        postStatusResponse = presenter.sendStatus(postStatusRequests[0]);
+        try {
+            postStatusResponse = presenter.sendStatus(postStatusRequests[0]);
+        } catch (IOException e) {
+            observer.handleException(e);
+        }
 
         return postStatusResponse;
     }

@@ -7,6 +7,7 @@ import androidx.annotation.RequiresApi;
 import java.io.IOException;
 
 import edu.byu.cs.tweeter.model.service.LoginService;
+import edu.byu.cs.tweeter.model.service.PostStatusService;
 import edu.byu.cs.tweeter.model.service.request.LoginRequest;
 import edu.byu.cs.tweeter.model.service.request.LogoutRequest;
 import edu.byu.cs.tweeter.model.service.request.RegisterRequest;
@@ -20,33 +21,33 @@ import edu.byu.cs.tweeter.model.service.response.RegisterResponse;
 public class LoginPresenter {
 
     private final View view;
-    LoginService loginService;
+    LoginService service;
 
     public interface View { }
 
     public LoginPresenter(View view) {
-        this.loginService = new LoginService();
+        this.service = new LoginService();
         this.view = view;
     }
 
-    /**
-     * Makes a login request.
-     *
-     * @param loginRequest the request.
-     */
+
+    public LoginService getLoginService() {
+        return this.service;
+    }
+
     @RequiresApi(api = Build.VERSION_CODES.O)
     public LoginResponse login(LoginRequest loginRequest) throws IOException {
-        return loginService.login(loginRequest);
+        return getLoginService().login(loginRequest);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public RegisterResponse register(RegisterRequest registerRequest) throws IOException {
-        return loginService.register(registerRequest);
+        return getLoginService().register(registerRequest);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public LogoutResponse logout(LogoutRequest logoutRequest) throws IOException {
-        return loginService.logout(logoutRequest);
+        return getLoginService().logout(logoutRequest);
     }
 
     public boolean validateFields(String username, String password, String firstName, String lastName) {

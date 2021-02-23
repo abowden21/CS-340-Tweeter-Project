@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 
 import edu.byu.cs.tweeter.model.domain.AuthToken;
@@ -54,19 +55,19 @@ public class PostStatusServiceTest {
     }
 
     @Test
-    public void testPostStatus_validResponse() {
+    public void testPostStatus_validResponse() throws IOException {
         PostStatusResponse response = postStatusServiceSpy.sendStatus(postStatusRequestValid);
         assertEquals(postStatusResponseValid, response);
     }
 
     @Test
-    public void testPostStatus_invalidResponse_badAuthToken() {
+    public void testPostStatus_invalidResponse_badAuthToken() throws IOException {
         PostStatusResponse response = postStatusServiceSpy.sendStatus(postStatusRequestInvalid_authToken);
         assertEquals(postStatusResponseInvalid_authToken, response);
     }
 
     @Test
-    public void testPostStatus_invalidResponse_badContentLength() {
+    public void testPostStatus_invalidResponse_badContentLength() throws IOException {
         PostStatusResponse response = postStatusServiceSpy.sendStatus(postStatusRequestInvalid_contentLength);
         assertEquals(postStatusResponseInvalid_contentLength, response);
     }
