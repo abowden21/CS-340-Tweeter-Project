@@ -5,6 +5,9 @@ package edu.byu.cs.tweeter.shared.model.request;
  */
 public class LoginRequest extends BaseUserRequest {
 
+    public LoginRequest() {
+    }
+
     public LoginRequest(String username, String password) {
         super(username, password);
     }

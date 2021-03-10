@@ -23,7 +23,7 @@ import edu.byu.cs.tweeter.shared.model.service.LoginServiceInterface;
  */
 public class LoginServiceProxy extends ServiceBase implements LoginServiceInterface {
 
-    private static final String URL_PATH = "/login";
+    private static final String URL_PATH = "/auth/login";
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public LoginResponse login(LoginRequest request) throws IOException, TweeterRemoteException {

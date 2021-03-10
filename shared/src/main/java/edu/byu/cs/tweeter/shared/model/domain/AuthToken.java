@@ -6,7 +6,9 @@ import java.io.Serializable;
  * Represents an auth token in the system.
  */
 public class AuthToken implements Serializable {
-    private final String token;
+    private String token;
+
+    public AuthToken() {}
 
     public AuthToken(String token) {
         this.token = token;
