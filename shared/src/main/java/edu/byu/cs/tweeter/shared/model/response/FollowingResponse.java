@@ -13,6 +13,10 @@ public class FollowingResponse extends PagedResponse {
 
     private List<User> followees;
 
+    public FollowingResponse() {
+        super();
+    }
+
     /**
      * Creates a response indicating that the corresponding request was unsuccessful. Sets the
      * success and more pages indicators to false.

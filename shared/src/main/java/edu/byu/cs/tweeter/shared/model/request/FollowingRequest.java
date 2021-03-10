@@ -6,9 +6,11 @@ package edu.byu.cs.tweeter.shared.model.request;
  */
 public class FollowingRequest {
 
-    private final String followerAlias;
-    private final int limit;
-    private final String lastFolloweeAlias;
+    private String followerAlias;
+    private int limit;
+    private String lastFolloweeAlias;
+
+    public FollowingRequest() {}
 
     /**
      * Creates an instance.

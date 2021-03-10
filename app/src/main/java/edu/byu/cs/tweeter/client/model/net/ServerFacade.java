@@ -89,7 +89,6 @@ public class ServerFacade {
         }
     }
 
-
     // OLD DEPRECATED CODE. TODO DELETE
 
     private static final String MALE_IMAGE_URL = "https://faculty.cs.byu.edu/~jwilkerson/cs340/tweeter/images/donald_duck.png";
@@ -138,19 +137,6 @@ public class ServerFacade {
     private final Status status11 = new Status(LocalDateTime.parse("2021-02-15T01:01:11"), "message11", null ,null, user9);
     private final Status status12 = new Status(LocalDateTime.parse("2021-02-15T01:01:12"), "message12", null, null, user10);
 
-    /**
-     * Performs a login and if successful, returns the logged in user and an auth token. The current
-     * implementation is hard-coded to return a dummy user and doesn't actually make a network
-     * request.
-     *
-     * @param request contains all information needed to perform a login.
-     * @return the login response.
-     */
-//    public LoginResponse login(LoginRequest request) {
-//        User user = new User("Test", "User",
-//                "https://faculty.cs.byu.edu/~jwilkerson/cs340/tweeter/images/donald_duck.png");
-//        return new LoginResponse(user, new AuthToken("<dummy token>"));
-//    }
 
     public RegisterResponse register(RegisterRequest request) {
         User user = new User("Registered", "User",

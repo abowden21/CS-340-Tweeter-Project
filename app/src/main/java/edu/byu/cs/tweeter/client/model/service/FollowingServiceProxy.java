@@ -17,10 +17,9 @@ import edu.byu.cs.tweeter.shared.model.service.FollowingServiceInterface;
 /**
  * Contains the business logic for getting the users a user is following.
  */
-public class FollowingService extends ServiceBase implements FollowingServiceInterface {
+public class FollowingServiceProxy extends ServiceBase implements FollowingServiceInterface {
 
-
-    private static final String URL_PATH = "/getfollowing";
+    private static final String URL_PATH = "/follow/getfollowing";
 
     /**
      * Returns the users that the user specified in the request is following. Uses information in
