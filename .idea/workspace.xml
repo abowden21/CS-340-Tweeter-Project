@@ -1,0 +1,428 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AndroidLayouts">
+    <shared>
+      <config>
+        <device id="pixel_3a" />
+        <device id="automotive_1024p_landscape" />
+        <device id="wear_square" />
+        <device id="tv_1080p" />
+      </config>
+    </shared>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="50ba1d61-397e-4bb1-ae15-a30e1235f2ad" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[]" />
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="$PROJECT_DIR$">
+          <activation />
+        </task>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="Tweeter" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="Tweeter" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="Tweeter" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="shadow" type="c8890929:TasksNode$1" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="layoutResourceFile" />
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1o7gsfwetZ5NwllPwiHr0uFVq4U" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DeviceAndSnapshotComboBoxAction.selectedDevice" value="Pixel_3_API_29" />
+    <property name="DeviceAndSnapshotComboBoxAction.selectionTime" value="2021-02-22T18:23:17.235Z" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="TERMINAL_CUSTOM_COMMANDS_GOT_IT" value="true" />
+    <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
+    <property name="last_directory_selection" value="$PROJECT_DIR$/shared/src/main/java/edu/byu/cs/tweeter/shared/model" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Downloads/tweeter-samples-server-sample-1" />
+    <property name="project.structure.last.edited" value="Dependencies" />
+    <property name="project.structure.proportion" value="0.17" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="gradle.compiler" />
+  </component>
+  <component name="PsdUISettings">
+    <option name="MODULE_TAB" value="Default Config" />
+    <option name="LAST_EDITED_BUILD_TYPE" value="release" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="edu.byu.cs.tweeter.client" />
+      <recent name="edu.byu.cs.tweeter.client.shared" />
+      <recent name="edu.byu.cs.tweeter.shared.model.domain" />
+      <recent name="edu.byu.cs.tweeter.shared.model" />
+      <recent name="edu.byu.cs.tweeter.presenter" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\johnn\Desktop\CS340\CS-340-Tweeter-Project\app\src\main\res\layout" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\johnn\Desktop\CS340\CS-340-Tweeter-Project\app\src\main\java\edu\byu\cs\tweeter\client\model\net" />
+      <recent name="C:\Users\johnn\Desktop\CS340\CS-340-Tweeter-Project\server\src\main\java\edu\byu\cs\tweeter\server\service" />
+      <recent name="C:\Users\johnn\Desktop\CS340\CS-340-Tweeter-Project\server\src\main\java\edu\byu\cs\tweeter\server\lambda" />
+      <recent name="C:\Users\johnn\Desktop\CS340\CS-340-Tweeter-Project\server\src\test\java\edu\byu\cs\tweeter\server\dao" />
+      <recent name="C:\Users\johnn\Desktop\CS340\CS-340-Tweeter-Project\server\src\main\java\edu\byu\cs\tweeter\server\dao" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Android App.app">
+    <configuration name="LoginPresenterTest" type="AndroidJUnit" factoryName="Android JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Tweeter.app" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="edu.byu.cs.tweeter.client.presenter.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="edu.byu.cs.tweeter.client.presenter" />
+      <option name="MAIN_CLASS_NAME" value="edu.byu.cs.tweeter.client.presenter.LoginPresenterTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <method v="2">
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="LoginPresenterTest.testLogin_returnsServiceResult" type="AndroidJUnit" factoryName="Android JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Tweeter.app" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="edu.byu.cs.tweeter.client.presenter.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="edu.byu.cs.tweeter.client.presenter" />
+      <option name="MAIN_CLASS_NAME" value="edu.byu.cs.tweeter.client.presenter.LoginPresenterTest" />
+      <option name="METHOD_NAME" value="testLogin_returnsServiceResult" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <method v="2">
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="LoginPresenterTest.testLogin_throwsException" type="AndroidJUnit" factoryName="Android JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Tweeter.app" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="edu.byu.cs.tweeter.client.presenter.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="edu.byu.cs.tweeter.client.presenter" />
+      <option name="MAIN_CLASS_NAME" value="edu.byu.cs.tweeter.client.presenter.LoginPresenterTest" />
+      <option name="METHOD_NAME" value="testLogin_throwsException" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <method v="2">
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="AndroidJUnit" factoryName="Android JUnit">
+      <option name="TEST_OBJECT" value="class" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <method v="2">
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="tweeter in Tweeter.app" type="AndroidJUnit" factoryName="Android JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Tweeter.app" />
+      <option name="TEST_OBJECT" value="directory" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <dir value="$PROJECT_DIR$/app/src/test/java/edu/byu/cs/tweeter" />
+      <method v="2">
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="app" type="AndroidRunConfigurationType" factoryName="Android App" activateToolWindowBeforeRun="false">
+      <module name="Tweeter.app" />
+      <option name="DEPLOY" value="true" />
+      <option name="DEPLOY_APK_FROM_BUNDLE" value="false" />
+      <option name="DEPLOY_AS_INSTANT" value="false" />
+      <option name="ARTIFACT_NAME" value="" />
+      <option name="PM_INSTALL_OPTIONS" value="" />
+      <option name="ALL_USERS" value="false" />
+      <option name="DYNAMIC_FEATURES_DISABLED_LIST" value="" />
+      <option name="ACTIVITY_EXTRA_FLAGS" value="" />
+      <option name="MODE" value="default_activity" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="false" />
+      <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
+      <option name="FORCE_STOP_RUNNING_APP" value="true" />
+      <option name="TARGET_SELECTION_MODE" value="DEVICE_AND_SNAPSHOT_COMBO_BOX" />
+      <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="-1" />
+      <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="" />
+      <option name="DEBUGGER_TYPE" value="Auto" />
+      <Auto>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Auto>
+      <Hybrid>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Hybrid>
+      <Java />
+      <Native>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Native>
+      <Profilers>
+        <option name="ADVANCED_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_CONFIGURATION_NAME" value="Sample Java Methods" />
+        <option name="STARTUP_NATIVE_MEMORY_PROFILING_ENABLED" value="false" />
+        <option name="NATIVE_MEMORY_SAMPLE_RATE_BYTES" value="2048" />
+      </Profilers>
+      <option name="DEEP_LINK" value="" />
+      <option name="ACTIVITY_CLASS" value="" />
+      <option name="SEARCH_ACTIVITY_IN_GLOBAL_SCOPE" value="false" />
+      <option name="SKIP_ACTIVITY_VALIDATION" value="false" />
+      <method v="2">
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CS-340-Tweeter-Project [shadowJar]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="shadowJar" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <GradleScriptDebugEnabled>true</GradleScriptDebugEnabled>
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Android JUnit.tweeter in Tweeter.app" />
+        <item itemvalue="Gradle.CS-340-Tweeter-Project [shadowJar]" />
+        <item itemvalue="Android JUnit.LoginPresenterTest" />
+        <item itemvalue="Android JUnit.LoginPresenterTest.testLogin_throwsException" />
+        <item itemvalue="Android JUnit.LoginPresenterTest.testLogin_returnsServiceResult" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="50ba1d61-397e-4bb1-ae15-a30e1235f2ad" name="Default Changelist" comment="" />
+      <created>1612643250418</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1612643250418</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="268" y="207" width="966" height="715" key="#PSD" timestamp="1615244621883">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="268" y="207" width="966" height="715" key="#PSD/0.0.2560.1400/2560.0.2560.1400@0.0.2560.1400" timestamp="1615244621883" />
+    <state x="760" y="274" key="#Project_Structure" timestamp="1615241568936">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="760" y="274" key="#Project_Structure/0.0.2560.1400/2560.0.2560.1400@0.0.2560.1400" timestamp="1615241568936" />
+    <state x="989" y="286" key="#app" timestamp="1613174434923">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="989" y="286" key="#app/0.0.2560.1400/2560.0.2560.1400@0.0.2560.1400" timestamp="1613174434923" />
+    <state x="820" y="294" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1613177738116">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="820" y="294" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.2560.1400/2560.0.2560.1400@0.0.2560.1400" timestamp="1613177738116" />
+    <state x="92" y="92" width="2376" height="1216" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog" timestamp="1614036222843">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="92" y="92" width="2376" height="1216" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog/0.0.2560.1400/2560.0.2560.1400@0.0.2560.1400" timestamp="1614036222843" />
+    <state x="1034" y="569" key="#com.intellij.ide.actions.ChooseComponentsToExportDialog" timestamp="1614105608910">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="1034" y="569" key="#com.intellij.ide.actions.ChooseComponentsToExportDialog/0.0.2560.1400/2560.0.2560.1400@0.0.2560.1400" timestamp="1614105608910" />
+    <state x="1085" y="406" key="#com.intellij.ide.util.MemberChooser" timestamp="1615244974397">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="1085" y="406" key="#com.intellij.ide.util.MemberChooser/0.0.2560.1400/2560.0.2560.1400@0.0.2560.1400" timestamp="1615244974397" />
+    <state x="300" y="291" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog" timestamp="1615243487563">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="300" y="291" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog/0.0.2560.1400/2560.0.2560.1400@0.0.2560.1400" timestamp="1615243487563" />
+    <state x="1063" y="568" width="434" height="269" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1615246079857">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="1063" y="568" width="434" height="269" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.2560.1400/2560.0.2560.1400@0.0.2560.1400" timestamp="1615246079857" />
+    <state x="436" y="584" width="571" height="238" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.packages" timestamp="1615243492227">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="436" y="584" width="571" height="238" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.packages/0.0.2560.1400/2560.0.2560.1400@0.0.2560.1400" timestamp="1615243492227" />
+    <state x="443" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1615245347839">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="443" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.2560.1400/2560.0.2560.1400@0.0.2560.1400" timestamp="1615245347839" />
+    <state x="1010" y="446" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1614040687246">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="1010" y="446" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.2560.1400/2560.0.2560.1400@0.0.2560.1400" timestamp="1614040687246" />
+    <state x="92" y="92" width="2376" height="1216" key="AVDManager" timestamp="1614018264303">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="92" y="92" width="2376" height="1216" key="AVDManager/0.0.2560.1400/2560.0.2560.1400@0.0.2560.1400" timestamp="1614018264303" />
+    <state width="495" height="466" key="DebuggerActiveHint" timestamp="1615246410865">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state width="495" height="466" key="DebuggerActiveHint/0.0.2560.1400/2560.0.2560.1400@0.0.2560.1400" timestamp="1615246410865" />
+    <state x="1060" y="440" key="FileChooserDialogImpl" timestamp="1615241604297">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="1060" y="440" key="FileChooserDialogImpl/0.0.2560.1400/2560.0.2560.1400@0.0.2560.1400" timestamp="1615241604297" />
+    <state width="2517" height="426" key="GridCell.Tab.0.bottom" timestamp="1615327116472">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state width="2517" height="426" key="GridCell.Tab.0.bottom/0.0.2560.1400/2560.0.2560.1400@0.0.2560.1400" timestamp="1615327116472" />
+    <state width="2517" height="426" key="GridCell.Tab.0.center" timestamp="1615327116472">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state width="2517" height="426" key="GridCell.Tab.0.center/0.0.2560.1400/2560.0.2560.1400@0.0.2560.1400" timestamp="1615327116472" />
+    <state width="2517" height="426" key="GridCell.Tab.0.left" timestamp="1615327116471">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state width="2517" height="426" key="GridCell.Tab.0.left/0.0.2560.1400/2560.0.2560.1400@0.0.2560.1400" timestamp="1615327116471" />
+    <state width="2517" height="426" key="GridCell.Tab.0.right" timestamp="1615327116472">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state width="2517" height="426" key="GridCell.Tab.0.right/0.0.2560.1400/2560.0.2560.1400@0.0.2560.1400" timestamp="1615327116472" />
+    <state width="2517" height="426" key="GridCell.Tab.1.bottom" timestamp="1615327116472">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state width="2517" height="426" key="GridCell.Tab.1.bottom/0.0.2560.1400/2560.0.2560.1400@0.0.2560.1400" timestamp="1615327116472" />
+    <state width="2517" height="426" key="GridCell.Tab.1.center" timestamp="1615327116472">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state width="2517" height="426" key="GridCell.Tab.1.center/0.0.2560.1400/2560.0.2560.1400@0.0.2560.1400" timestamp="1615327116472" />
+    <state width="2517" height="426" key="GridCell.Tab.1.left" timestamp="1615327116472">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state width="2517" height="426" key="GridCell.Tab.1.left/0.0.2560.1400/2560.0.2560.1400@0.0.2560.1400" timestamp="1615327116472" />
+    <state width="2517" height="426" key="GridCell.Tab.1.right" timestamp="1615327116472">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state width="2517" height="426" key="GridCell.Tab.1.right/0.0.2560.1400/2560.0.2560.1400@0.0.2560.1400" timestamp="1615327116472" />
+    <state x="1194" y="246" key="SettingsEditor" timestamp="1615244608193">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="1194" y="246" key="SettingsEditor/0.0.2560.1400/2560.0.2560.1400@0.0.2560.1400" timestamp="1615244608193" />
+    <state width="1010" height="703" key="XDebugger.FullValuePopup" timestamp="1615246410858">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state width="1010" height="703" key="XDebugger.FullValuePopup/0.0.2560.1400/2560.0.2560.1400@0.0.2560.1400" timestamp="1615246410858" />
+    <state x="819" y="481" key="chooseDestDirectoryDialog" timestamp="1615243734204">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="819" y="481" key="chooseDestDirectoryDialog/0.0.2560.1400/2560.0.2560.1400@0.0.2560.1400" timestamp="1615243734204" />
+    <state x="987" y="299" width="585" height="801" key="find.popup" timestamp="1615246272259">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="987" y="299" width="585" height="801" key="find.popup/0.0.2560.1400/2560.0.2560.1400@0.0.2560.1400" timestamp="1615246272259" />
+    <state x="486" y="417" key="psd.add.jar.dependency.panel.dimension" timestamp="1615242119859">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="486" y="417" key="psd.add.jar.dependency.panel.dimension/0.0.2560.1400/2560.0.2560.1400@0.0.2560.1400" timestamp="1615242119859" />
+    <state x="372" y="307" key="psd.add.library.dependency.panel.dimension" timestamp="1615244246132">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="372" y="307" key="psd.add.library.dependency.panel.dimension/0.0.2560.1400/2560.0.2560.1400@0.0.2560.1400" timestamp="1615244246132" />
+    <state x="486" y="209" key="psd.add.module.dependency.panel.dimension" timestamp="1615242130208">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="486" y="209" key="psd.add.module.dependency.panel.dimension/0.0.2560.1400/2560.0.2560.1400@0.0.2560.1400" timestamp="1615242130208" />
+    <state x="711" y="460" key="refactoring.ChangeSignatureDialog" timestamp="1613608954095">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="711" y="460" key="refactoring.ChangeSignatureDialog/0.0.2560.1400/2560.0.2560.1400@0.0.2560.1400" timestamp="1613608954095" />
+    <state x="936" y="330" key="run.anything.popup" timestamp="1614022722899">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="936" y="330" key="run.anything.popup/0.0.2560.1400/2560.0.2560.1400@0.0.2560.1400" timestamp="1614022722899" />
+    <state x="667" y="320" width="672" height="678" key="search.everywhere.popup" timestamp="1615245393590">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="667" y="320" width="672" height="678" key="search.everywhere.popup/0.0.2560.1400/2560.0.2560.1400@0.0.2560.1400" timestamp="1615245393590" />
+  </component>
+</project>
