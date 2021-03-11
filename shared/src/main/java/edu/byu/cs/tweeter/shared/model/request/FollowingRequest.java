@@ -54,4 +54,16 @@ public class FollowingRequest {
     public String getLastFolloweeAlias() {
         return lastFolloweeAlias;
     }
+
+    public void setFollowerAlias(String followerAlias) {
+        this.followerAlias = followerAlias;
+    }
+
+    public void setLimit(int limit) {
+        this.limit = limit;
+    }
+
+    public void setLastFolloweeAlias(String lastFolloweeAlias) {
+        this.lastFolloweeAlias = lastFolloweeAlias;
+    }
 }

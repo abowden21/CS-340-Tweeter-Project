@@ -17,4 +17,8 @@ public class AuthToken implements Serializable {
     private String getToken() {
         return this.token;
     }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
 }
