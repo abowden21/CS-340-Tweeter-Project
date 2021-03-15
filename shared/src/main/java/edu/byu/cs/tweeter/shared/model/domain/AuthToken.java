@@ -7,18 +7,27 @@ import java.io.Serializable;
  */
 public class AuthToken implements Serializable {
     private String token;
+    private String userAlias;
+    // TODO: Timestamp expires
 
     public AuthToken() {}
 
-    public AuthToken(String token) {
+    public AuthToken(String token, String userAlias) {
         this.token = token;
+        this.userAlias = userAlias;
     }
 
-    private String getToken() {
+    public String getToken() {
         return this.token;
+    }
+    public String getUserAlias() {
+        return this.userAlias;
     }
 
     public void setToken(String token) {
         this.token = token;
+    }
+    public void setUserAlias(String userAlias) {
+        this.userAlias = userAlias;
     }
 }

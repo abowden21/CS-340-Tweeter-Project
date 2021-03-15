@@ -1,6 +1,12 @@
 package edu.byu.cs.tweeter.client.view.asyncTasks;
 import android.os.AsyncTask;
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
+
 import java.io.IOException;
+
+import edu.byu.cs.tweeter.shared.model.net.TweeterRemoteException;
 import edu.byu.cs.tweeter.shared.model.request.LogoutRequest;
 import edu.byu.cs.tweeter.shared.model.response.LogoutResponse;
 import edu.byu.cs.tweeter.client.presenter.LoginPresenter;
@@ -26,13 +32,14 @@ public class LogoutTask extends AsyncTask<LogoutRequest, Void, LogoutResponse> {
         this.observer = observer;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected LogoutResponse doInBackground(LogoutRequest... logoutRequests) {
         LogoutResponse logoutResponse = null;
 
         try {
             logoutResponse = presenter.logout(logoutRequests[0]);
-        } catch (IOException ex) {
+        } catch (IOException | TweeterRemoteException ex) {
             exception = ex;
         }
 

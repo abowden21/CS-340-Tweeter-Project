@@ -41,12 +41,12 @@ public class LoginPresenter {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public RegisterResponse register(RegisterRequest registerRequest) throws IOException {
+    public RegisterResponse register(RegisterRequest registerRequest) throws IOException, TweeterRemoteException {
         return getLoginService().register(registerRequest);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public LogoutResponse logout(LogoutRequest logoutRequest) throws IOException {
+    public LogoutResponse logout(LogoutRequest logoutRequest) throws IOException, TweeterRemoteException {
         return getLoginService().logout(logoutRequest);
     }
 
