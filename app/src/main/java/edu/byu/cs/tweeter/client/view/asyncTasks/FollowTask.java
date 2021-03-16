@@ -8,6 +8,7 @@ import androidx.annotation.RequiresApi;
 import java.io.IOException;
 
 import edu.byu.cs.tweeter.client.presenter.FollowPresenter;
+import edu.byu.cs.tweeter.shared.model.net.TweeterRemoteException;
 import edu.byu.cs.tweeter.shared.model.request.FollowRequest;
 import edu.byu.cs.tweeter.shared.model.response.FollowResponse;
 
@@ -45,7 +46,7 @@ public class FollowTask extends AsyncTask<FollowRequest, Void, FollowResponse> {
         try {
             followResponse = presenter.setFollow(followRequests[0]);
 
-        } catch (IOException ex) {
+        } catch (IOException | TweeterRemoteException ex) {
             exception = ex;
         }
 

@@ -9,7 +9,7 @@ import java.io.IOException;
 
 import edu.byu.cs.tweeter.shared.model.domain.AuthToken;
 import edu.byu.cs.tweeter.shared.model.domain.User;
-import edu.byu.cs.tweeter.client.model.service.FollowService;
+import edu.byu.cs.tweeter.client.model.service.FollowServiceProxy;
 import edu.byu.cs.tweeter.shared.model.request.FollowRequest;
 import edu.byu.cs.tweeter.shared.model.request.FollowStatusRequest;
 import edu.byu.cs.tweeter.shared.model.request.UserFollowCountRequest;
@@ -28,7 +28,7 @@ public class FollowPresenterTest {
     private FollowStatusRequest validFollowStatusRequest;
     private FollowStatusResponse successFollowStatusResponse;
 
-    private FollowService mockFollowService;
+    private FollowServiceProxy mMockFollowServiceProxy;
     private FollowPresenter presenter;
 
     private UserFollowCountRequest validUserFollowCountRequest;
@@ -59,16 +59,16 @@ public class FollowPresenterTest {
 
 
         // Create a FollowingService instance and wrap it with a spy that will use the mock service
-        mockFollowService = Mockito.mock(FollowService.class);
-        Mockito.when(mockFollowService.getFollowStatus(validFollowStatusRequest)).thenReturn(successFollowStatusResponse);
-        Mockito.when(mockFollowService.setFollow(validFollowRequest)).thenReturn(successFollowResponse);
-        Mockito.when(mockFollowService.setFollow(validUnfollowRequest)).thenReturn(successUnfollowResponse);
-        Mockito.when(mockFollowService.getUserFollowCount(validUserFollowCountRequest)).thenReturn(successUserFollowCountResponse);
+        mMockFollowServiceProxy = Mockito.mock(FollowServiceProxy.class);
+        Mockito.when(mMockFollowServiceProxy.getFollowStatus(validFollowStatusRequest)).thenReturn(successFollowStatusResponse);
+        Mockito.when(mMockFollowServiceProxy.setFollow(validFollowRequest)).thenReturn(successFollowResponse);
+        Mockito.when(mMockFollowServiceProxy.setFollow(validUnfollowRequest)).thenReturn(successUnfollowResponse);
+        Mockito.when(mMockFollowServiceProxy.getUserFollowCount(validUserFollowCountRequest)).thenReturn(successUserFollowCountResponse);
 
 
         // Wrap a FollowingPresenter in a spy that will use the mock service.
         presenter = Mockito.spy(new FollowPresenter());
-        Mockito.when(presenter.getFollowService()).thenReturn(mockFollowService);
+        Mockito.when(presenter.getFollowService()).thenReturn(mMockFollowServiceProxy);
     }
 
     @Test
@@ -81,7 +81,7 @@ public class FollowPresenterTest {
 
     @Test
     public void testGetFollowStatus_serviceThrowsIOException_presenterThrowsIOException() throws IOException {
-        Mockito.when(mockFollowService.getFollowStatus(validFollowStatusRequest)).thenThrow(new IOException());
+        Mockito.when(mMockFollowServiceProxy.getFollowStatus(validFollowStatusRequest)).thenThrow(new IOException());
 
         Assertions.assertThrows(IOException.class, () -> {
             presenter.getFollowStatus(validFollowStatusRequest);
@@ -98,7 +98,7 @@ public class FollowPresenterTest {
 
     @Test
     public void testSetFollow_serviceThrowsIOException_presenterThrowsIOException() throws IOException {
-        Mockito.when(mockFollowService.setFollow(validFollowRequest)).thenThrow(new IOException());
+        Mockito.when(mMockFollowServiceProxy.setFollow(validFollowRequest)).thenThrow(new IOException());
 
         Assertions.assertThrows(IOException.class, () -> {
             presenter.setFollow(validFollowRequest);
@@ -115,7 +115,7 @@ public class FollowPresenterTest {
 
     @Test
     public void testSetUnfollow_serviceThrowsIOException_presenterThrowsIOException() throws IOException {
-        Mockito.when(mockFollowService.setFollow(validUnfollowRequest)).thenThrow(new IOException());
+        Mockito.when(mMockFollowServiceProxy.setFollow(validUnfollowRequest)).thenThrow(new IOException());
 
         Assertions.assertThrows(IOException.class, () -> {
             presenter.setFollow(validUnfollowRequest);

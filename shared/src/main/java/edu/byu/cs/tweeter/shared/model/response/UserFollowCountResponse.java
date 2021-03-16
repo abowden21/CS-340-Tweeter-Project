@@ -5,6 +5,8 @@ public class UserFollowCountResponse extends Response {
     private int followers;
     private int followees;
 
+    public UserFollowCountResponse() {}
+
     public UserFollowCountResponse(String message) {
         super(false, message);
     }
@@ -19,4 +21,12 @@ public class UserFollowCountResponse extends Response {
         return this.followers;
     }
     public int getFollowees() { return this.followees; }
+
+    public void setFollowers(int followers) {
+        this.followers = followers;
+    }
+
+    public void setFollowees(int followees) {
+        this.followees = followees;
+    }
 }

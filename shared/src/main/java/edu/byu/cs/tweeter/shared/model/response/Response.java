@@ -47,4 +47,12 @@ class Response {
     public String getMessage() {
         return message;
     }
+
+    public void setSuccess(boolean success) {
+        this.success = success;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
 }

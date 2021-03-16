@@ -56,6 +56,7 @@ public class ProfileActivity  extends AppCompatActivity implements FollowTask.Ob
         presenter = new FollowPresenter();
         fcPresenter = new GetFollowCountPresenter();
 
+        //TODO
         FollowStatusTask followStatusTask = new FollowStatusTask(presenter, ProfileActivity.this);
         FollowStatusRequest followStatusRequest = new FollowStatusRequest(loggedInUser.getAlias(), currentUser.getAlias());
         followStatusTask.execute(followStatusRequest);
@@ -77,6 +78,7 @@ public class ProfileActivity  extends AppCompatActivity implements FollowTask.Ob
 
         followeeCount = findViewById(R.id.followeeCount);
         followerCount = findViewById(R.id.followerCount);
+
         GetUserFollowCountTask userFollowCountTask = new GetUserFollowCountTask(fcPresenter, this);
         UserFollowCountRequest userFollowCountRequest = new UserFollowCountRequest(currentUser.getAlias());
         userFollowCountTask.execute(userFollowCountRequest);

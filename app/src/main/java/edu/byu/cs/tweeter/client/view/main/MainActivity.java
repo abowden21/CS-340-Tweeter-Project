@@ -111,6 +111,7 @@ public class MainActivity extends AppCompatActivity implements LoginPresenter.Vi
 
         followeeCount = findViewById(R.id.followeeCount);
         followerCount = findViewById(R.id.followerCount);
+        //TODO
         GetUserFollowCountTask userFollowCountTask = new GetUserFollowCountTask(fcPresenter, this);
         UserFollowCountRequest userFollowCountRequest = new UserFollowCountRequest(user.getAlias());
         userFollowCountTask.execute(userFollowCountRequest);

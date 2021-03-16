@@ -10,6 +10,9 @@
       </config>
     </shared>
   </component>
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="BranchesTreeState">
     <expand>
       <path>
@@ -30,11 +33,33 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="50ba1d61-397e-4bb1-ae15-a30e1235f2ad" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/edu/byu/cs/tweeter/server/dao/FollowDAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/edu/byu/cs/tweeter/server/lambda/GetFollowStatusHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/edu/byu/cs/tweeter/server/lambda/GetUserFollowCountHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/edu/byu/cs/tweeter/server/lambda/SetFollowHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/edu/byu/cs/tweeter/server/lambda/SetUnfollowHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/edu/byu/cs/tweeter/server/service/FollowServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/shared/src/main/java/edu/byu/cs/tweeter/shared/model/service/FollowServiceInterface.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shared/src/main/java/edu/byu/cs/tweeter/shared/model/domain/AuthToken.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/main/java/edu/byu/cs/tweeter/shared/model/domain/AuthToken.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shared/src/main/java/edu/byu/cs/tweeter/shared/model/domain/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/main/java/edu/byu/cs/tweeter/shared/model/domain/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shared/src/main/java/edu/byu/cs/tweeter/shared/model/request/FollowingRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/main/java/edu/byu/cs/tweeter/shared/model/request/FollowingRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shared/src/main/java/edu/byu/cs/tweeter/shared/model/response/FollowingResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/main/java/edu/byu/cs/tweeter/shared/model/response/FollowingResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/edu/byu/cs/tweeter/client/model/net/ServerFacade.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/edu/byu/cs/tweeter/client/model/net/ServerFacade.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/edu/byu/cs/tweeter/client/model/service/FollowService.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/edu/byu/cs/tweeter/client/model/service/FollowServiceProxy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/edu/byu/cs/tweeter/client/presenter/FollowPresenter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/edu/byu/cs/tweeter/client/presenter/FollowPresenter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/edu/byu/cs/tweeter/client/presenter/GetFollowCountPresenter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/edu/byu/cs/tweeter/client/presenter/GetFollowCountPresenter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/edu/byu/cs/tweeter/client/view/asyncTasks/FollowStatusTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/edu/byu/cs/tweeter/client/view/asyncTasks/FollowStatusTask.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/edu/byu/cs/tweeter/client/view/asyncTasks/FollowTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/edu/byu/cs/tweeter/client/view/asyncTasks/FollowTask.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/edu/byu/cs/tweeter/client/view/asyncTasks/GetUserFollowCountTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/edu/byu/cs/tweeter/client/view/asyncTasks/GetUserFollowCountTask.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/edu/byu/cs/tweeter/client/view/main/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/edu/byu/cs/tweeter/client/view/main/MainActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/edu/byu/cs/tweeter/client/view/profile/ProfileActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/edu/byu/cs/tweeter/client/view/profile/ProfileActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/test/java/edu/byu/cs/tweeter/client/model/service/FollowServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/test/java/edu/byu/cs/tweeter/client/model/service/FollowServiceProxyTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/test/java/edu/byu/cs/tweeter/client/presenter/FollowPresenterTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/test/java/edu/byu/cs/tweeter/client/presenter/FollowPresenterTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/test/java/edu/byu/cs/tweeter/client/presenter/GetUserFollowCountPresenterTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/test/java/edu/byu/cs/tweeter/client/presenter/GetUserFollowCountPresenterTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shared/src/main/java/edu/byu/cs/tweeter/shared/model/request/FollowRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/main/java/edu/byu/cs/tweeter/shared/model/request/FollowRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shared/src/main/java/edu/byu/cs/tweeter/shared/model/request/FollowStatusRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/main/java/edu/byu/cs/tweeter/shared/model/request/FollowStatusRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shared/src/main/java/edu/byu/cs/tweeter/shared/model/request/UserFollowCountRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/main/java/edu/byu/cs/tweeter/shared/model/request/UserFollowCountRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shared/src/main/java/edu/byu/cs/tweeter/shared/model/response/FollowResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/main/java/edu/byu/cs/tweeter/shared/model/response/FollowResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shared/src/main/java/edu/byu/cs/tweeter/shared/model/response/FollowStatusResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/main/java/edu/byu/cs/tweeter/shared/model/response/FollowStatusResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shared/src/main/java/edu/byu/cs/tweeter/shared/model/response/Response.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/main/java/edu/byu/cs/tweeter/shared/model/response/Response.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shared/src/main/java/edu/byu/cs/tweeter/shared/model/response/UserFollowCountResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/main/java/edu/byu/cs/tweeter/shared/model/response/UserFollowCountResponse.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -108,9 +133,12 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="TERMINAL_CUSTOM_COMMANDS_GOT_IT" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
+    <property name="aspect.path.notification.shown" value="true" />
     <property name="last_directory_selection" value="$PROJECT_DIR$/shared/src/main/java/edu/byu/cs/tweeter/shared/model" />
     <property name="last_opened_file_path" value="$USER_HOME$/Downloads/tweeter-samples-server-sample-1" />
+    <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Dependencies" />
     <property name="project.structure.proportion" value="0.17" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -207,7 +235,7 @@
       <option name="TARGET_SELECTION_MODE" value="DEVICE_AND_SNAPSHOT_COMBO_BOX" />
       <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="-1" />
       <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="" />
-      <option name="DEBUGGER_TYPE" value="Auto" />
+      <option name="DEBUGGER_TYPE" value="Java" />
       <Auto>
         <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
         <option name="SHOW_STATIC_VARS" value="true" />
@@ -333,8 +361,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.CS-340-Tweeter-Project [shadowJar]" />
         <item itemvalue="Gradle.CS-340-Tweeter-Project:server [shadowJar]" />
+        <item itemvalue="Gradle.CS-340-Tweeter-Project [shadowJar]" />
         <item itemvalue="Android JUnit.tweeter in Tweeter.app" />
         <item itemvalue="Android JUnit.LoginPresenterTest" />
         <item itemvalue="Android JUnit.LoginPresenterTest.testLogin_throwsException" />
@@ -351,6 +379,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1612643250418</updated>
+      <workItem from="1615842331647" duration="32000" />
     </task>
     <servers />
   </component>
@@ -391,10 +420,10 @@
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="1034" y="569" key="#com.intellij.ide.actions.ChooseComponentsToExportDialog/0.0.2560.1400/2560.0.2560.1400@0.0.2560.1400" timestamp="1614105608910" />
-    <state x="814" y="313" key="#com.intellij.ide.util.MemberChooser" timestamp="1615422246503">
+    <state x="814" y="313" key="#com.intellij.ide.util.MemberChooser" timestamp="1615867419465">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="814" y="313" key="#com.intellij.ide.util.MemberChooser/-1440.540.1440.900/0.0.1920.1080@0.0.1920.1080" timestamp="1615422246503" />
+    <state x="814" y="313" key="#com.intellij.ide.util.MemberChooser/-1440.540.1440.900/0.0.1920.1080@0.0.1920.1080" timestamp="1615867419465" />
     <state x="1085" y="406" key="#com.intellij.ide.util.MemberChooser/0.0.2560.1400/2560.0.2560.1400@0.0.2560.1400" timestamp="1615244974397" />
     <state x="300" y="291" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog" timestamp="1615243487563">
       <screen x="0" y="0" width="2560" height="1400" />
@@ -408,9 +437,10 @@
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="436" y="584" width="571" height="238" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.packages/0.0.2560.1400/2560.0.2560.1400@0.0.2560.1400" timestamp="1615243492227" />
-    <state x="354" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1615418463666">
-      <screen x="0" y="0" width="2048" height="1112" />
+    <state x="332" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1615842597368">
+      <screen x="0" y="0" width="1920" height="1080" />
     </state>
+    <state x="332" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/-1440.540.1440.900/0.0.1920.1080@0.0.1920.1080" timestamp="1615842597368" />
     <state x="354" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/-1920.649.1536.824/0.0.2048.1112@0.0.2048.1112" timestamp="1615418463666" />
     <state x="443" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.2560.1400/2560.0.2560.1400@0.0.2560.1400" timestamp="1615245347839" />
     <state x="1010" y="446" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1614040687246">
@@ -429,45 +459,57 @@
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="1060" y="440" key="FileChooserDialogImpl/0.0.2560.1400/2560.0.2560.1400@0.0.2560.1400" timestamp="1615241604297" />
-    <state width="1876" height="304" key="GridCell.Tab.0.bottom" timestamp="1615422457341">
+    <state width="1878" height="305" key="GridCell.Tab.0.bottom" timestamp="1615867500672">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1876" height="304" key="GridCell.Tab.0.bottom/-1440.540.1440.900/0.0.1920.1080@0.0.1920.1080" timestamp="1615422457341" />
+    <state width="1878" height="305" key="GridCell.Tab.0.bottom/-1440.540.1440.900/0.0.1920.1080@0.0.1920.1080" timestamp="1615867500672" />
+    <state width="1878" height="305" key="GridCell.Tab.0.bottom/-1440.565.1440.804/0.25.1920.1055@0.25.1920.1055" timestamp="1615867276356" />
+    <state width="1878" height="305" key="GridCell.Tab.0.bottom/-1440.565.1440.875/0.0.1920.1080@0.0.1920.1080" timestamp="1615863387528" />
     <state width="2003" height="305" key="GridCell.Tab.0.bottom/-1920.649.1536.824/0.0.2048.1112@0.0.2048.1112" timestamp="1615420004537" />
     <state width="2517" height="426" key="GridCell.Tab.0.bottom/0.0.2560.1400/2560.0.2560.1400@0.0.2560.1400" timestamp="1615327116472" />
-    <state width="1876" height="304" key="GridCell.Tab.0.center" timestamp="1615422457336">
+    <state width="1878" height="305" key="GridCell.Tab.0.center" timestamp="1615867500670">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1876" height="304" key="GridCell.Tab.0.center/-1440.540.1440.900/0.0.1920.1080@0.0.1920.1080" timestamp="1615422457336" />
+    <state width="1878" height="305" key="GridCell.Tab.0.center/-1440.540.1440.900/0.0.1920.1080@0.0.1920.1080" timestamp="1615867500670" />
+    <state width="1878" height="305" key="GridCell.Tab.0.center/-1440.565.1440.804/0.25.1920.1055@0.25.1920.1055" timestamp="1615867276354" />
+    <state width="1878" height="305" key="GridCell.Tab.0.center/-1440.565.1440.875/0.0.1920.1080@0.0.1920.1080" timestamp="1615863387526" />
     <state width="2003" height="305" key="GridCell.Tab.0.center/-1920.649.1536.824/0.0.2048.1112@0.0.2048.1112" timestamp="1615420004537" />
     <state width="2517" height="426" key="GridCell.Tab.0.center/0.0.2560.1400/2560.0.2560.1400@0.0.2560.1400" timestamp="1615327116472" />
-    <state width="1876" height="304" key="GridCell.Tab.0.left" timestamp="1615422457335">
+    <state width="1878" height="305" key="GridCell.Tab.0.left" timestamp="1615867500670">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1876" height="304" key="GridCell.Tab.0.left/-1440.540.1440.900/0.0.1920.1080@0.0.1920.1080" timestamp="1615422457335" />
+    <state width="1878" height="305" key="GridCell.Tab.0.left/-1440.540.1440.900/0.0.1920.1080@0.0.1920.1080" timestamp="1615867500670" />
+    <state width="1878" height="305" key="GridCell.Tab.0.left/-1440.565.1440.804/0.25.1920.1055@0.25.1920.1055" timestamp="1615867276353" />
+    <state width="1878" height="305" key="GridCell.Tab.0.left/-1440.565.1440.875/0.0.1920.1080@0.0.1920.1080" timestamp="1615863387525" />
     <state width="2003" height="305" key="GridCell.Tab.0.left/-1920.649.1536.824/0.0.2048.1112@0.0.2048.1112" timestamp="1615420004537" />
     <state width="2517" height="426" key="GridCell.Tab.0.left/0.0.2560.1400/2560.0.2560.1400@0.0.2560.1400" timestamp="1615327116471" />
-    <state width="1876" height="304" key="GridCell.Tab.0.right" timestamp="1615422457340">
+    <state width="1878" height="305" key="GridCell.Tab.0.right" timestamp="1615867500671">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1876" height="304" key="GridCell.Tab.0.right/-1440.540.1440.900/0.0.1920.1080@0.0.1920.1080" timestamp="1615422457340" />
+    <state width="1878" height="305" key="GridCell.Tab.0.right/-1440.540.1440.900/0.0.1920.1080@0.0.1920.1080" timestamp="1615867500671" />
+    <state width="1878" height="305" key="GridCell.Tab.0.right/-1440.565.1440.804/0.25.1920.1055@0.25.1920.1055" timestamp="1615867276355" />
+    <state width="1878" height="305" key="GridCell.Tab.0.right/-1440.565.1440.875/0.0.1920.1080@0.0.1920.1080" timestamp="1615863387527" />
     <state width="2003" height="305" key="GridCell.Tab.0.right/-1920.649.1536.824/0.0.2048.1112@0.0.2048.1112" timestamp="1615420004537" />
     <state width="2517" height="426" key="GridCell.Tab.0.right/0.0.2560.1400/2560.0.2560.1400@0.0.2560.1400" timestamp="1615327116472" />
-    <state width="2517" height="426" key="GridCell.Tab.1.bottom" timestamp="1615327116472">
-      <screen x="0" y="0" width="2560" height="1400" />
+    <state width="1878" height="305" key="GridCell.Tab.1.bottom" timestamp="1615867500675">
+      <screen x="0" y="0" width="1920" height="1080" />
     </state>
+    <state width="1878" height="305" key="GridCell.Tab.1.bottom/-1440.540.1440.900/0.0.1920.1080@0.0.1920.1080" timestamp="1615867500675" />
     <state width="2517" height="426" key="GridCell.Tab.1.bottom/0.0.2560.1400/2560.0.2560.1400@0.0.2560.1400" timestamp="1615327116472" />
-    <state width="2517" height="426" key="GridCell.Tab.1.center" timestamp="1615327116472">
-      <screen x="0" y="0" width="2560" height="1400" />
+    <state width="1878" height="305" key="GridCell.Tab.1.center" timestamp="1615867500674">
+      <screen x="0" y="0" width="1920" height="1080" />
     </state>
+    <state width="1878" height="305" key="GridCell.Tab.1.center/-1440.540.1440.900/0.0.1920.1080@0.0.1920.1080" timestamp="1615867500674" />
     <state width="2517" height="426" key="GridCell.Tab.1.center/0.0.2560.1400/2560.0.2560.1400@0.0.2560.1400" timestamp="1615327116472" />
-    <state width="2517" height="426" key="GridCell.Tab.1.left" timestamp="1615327116472">
-      <screen x="0" y="0" width="2560" height="1400" />
+    <state width="1878" height="305" key="GridCell.Tab.1.left" timestamp="1615867500673">
+      <screen x="0" y="0" width="1920" height="1080" />
     </state>
+    <state width="1878" height="305" key="GridCell.Tab.1.left/-1440.540.1440.900/0.0.1920.1080@0.0.1920.1080" timestamp="1615867500673" />
     <state width="2517" height="426" key="GridCell.Tab.1.left/0.0.2560.1400/2560.0.2560.1400@0.0.2560.1400" timestamp="1615327116472" />
-    <state width="2517" height="426" key="GridCell.Tab.1.right" timestamp="1615327116472">
-      <screen x="0" y="0" width="2560" height="1400" />
+    <state width="1878" height="305" key="GridCell.Tab.1.right" timestamp="1615867500675">
+      <screen x="0" y="0" width="1920" height="1080" />
     </state>
+    <state width="1878" height="305" key="GridCell.Tab.1.right/-1440.540.1440.900/0.0.1920.1080@0.0.1920.1080" timestamp="1615867500675" />
     <state width="2517" height="426" key="GridCell.Tab.1.right/0.0.2560.1400/2560.0.2560.1400@0.0.2560.1400" timestamp="1615327116472" />
     <state x="1194" y="246" key="SettingsEditor" timestamp="1615244608193">
       <screen x="0" y="0" width="2560" height="1400" />
@@ -505,29 +547,44 @@
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="936" y="330" key="run.anything.popup/0.0.2560.1400/2560.0.2560.1400@0.0.2560.1400" timestamp="1614022722899" />
-    <state x="500" y="247" width="504" height="524" key="search.everywhere.popup" timestamp="1615422193417">
+    <state x="500" y="247" width="504" height="524" key="search.everywhere.popup" timestamp="1615865426285">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="500" y="247" width="504" height="524" key="search.everywhere.popup/-1440.540.1440.900/0.0.1920.1080@0.0.1920.1080" timestamp="1615422193417" />
+    <state x="500" y="247" width="504" height="524" key="search.everywhere.popup/-1440.540.1440.900/0.0.1920.1080@0.0.1920.1080" timestamp="1615865426285" />
     <state x="667" y="320" width="672" height="678" key="search.everywhere.popup/0.0.2560.1400/2560.0.2560.1400@0.0.2560.1400" timestamp="1615245393590" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
-          <url>file://$PROJECT_DIR$/server/src/main/java/edu/byu/cs/tweeter/server/dao/FollowingDAO.java</url>
-          <line>64</line>
-          <option name="timeStamp" value="2" />
+          <url>file://$PROJECT_DIR$/app/src/main/java/edu/byu/cs/tweeter/client/view/profile/ProfileActivity.java</url>
+          <line>100</line>
+          <option name="timeStamp" value="5" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/edu/byu/cs/tweeter/client/view/asyncTasks/GetFollowingTask.java</url>
-          <line>61</line>
-          <option name="timeStamp" value="3" />
+          <url>file://$PROJECT_DIR$/app/src/main/java/edu/byu/cs/tweeter/client/view/profile/ProfileActivity.java</url>
+          <line>108</line>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/edu/byu/cs/tweeter/client/view/profile/ProfileActivity.java</url>
+          <line>119</line>
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/edu/byu/cs/tweeter/client/view/profile/ProfileActivity.java</url>
+          <line>91</line>
+          <option name="timeStamp" value="9" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/edu/byu/cs/tweeter/client/view/asyncTasks/FollowTask.java</url>
+          <line>43</line>
+          <option name="timeStamp" value="10" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/edu/byu/cs/tweeter/client/model/net/ServerFacade.java</url>
-          <line>82</line>
-          <option name="timeStamp" value="4" />
+          <line>92</line>
+          <option name="timeStamp" value="11" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

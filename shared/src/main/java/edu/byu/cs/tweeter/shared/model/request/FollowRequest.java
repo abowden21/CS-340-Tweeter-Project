@@ -8,6 +8,9 @@ public class FollowRequest {
     private String userAlias;
     private String followerAlias;
 
+    public FollowRequest() {
+    }
+
     public FollowRequest(AuthToken authToken, boolean isFollowRequest, String userAlias, String followerAlias) {
         this.authToken = authToken;
         this.isFollowRequest = isFollowRequest;
@@ -29,5 +32,21 @@ public class FollowRequest {
 
     public String getFollowerAlias() {
         return followerAlias;
+    }
+
+    public void setAuthToken(AuthToken authToken) {
+        this.authToken = authToken;
+    }
+
+    public void setFollowRequest(boolean followRequest) {
+        isFollowRequest = followRequest;
+    }
+
+    public void setUserAlias(String userAlias) {
+        this.userAlias = userAlias;
+    }
+
+    public void setFollowerAlias(String followerAlias) {
+        this.followerAlias = followerAlias;
     }
 }

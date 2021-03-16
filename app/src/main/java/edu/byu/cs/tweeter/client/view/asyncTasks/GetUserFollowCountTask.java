@@ -7,6 +7,7 @@ import androidx.annotation.RequiresApi;
 
 import java.io.IOException;
 
+import edu.byu.cs.tweeter.shared.model.net.TweeterRemoteException;
 import edu.byu.cs.tweeter.shared.model.request.UserFollowCountRequest;
 import edu.byu.cs.tweeter.shared.model.response.UserFollowCountResponse;
 import edu.byu.cs.tweeter.client.presenter.GetFollowCountPresenter;
@@ -39,7 +40,7 @@ public class GetUserFollowCountTask extends AsyncTask<UserFollowCountRequest, Vo
         try {
             response = presenter.getUserFollowCount(followCountRequests[0]);
 
-        } catch (IOException ex) {
+        } catch (IOException | TweeterRemoteException ex) {
             exception = ex;
         }
         return response;

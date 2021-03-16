@@ -15,7 +15,7 @@ import edu.byu.cs.tweeter.shared.model.request.FollowStatusRequest;
 import edu.byu.cs.tweeter.shared.model.response.FollowResponse;
 import edu.byu.cs.tweeter.shared.model.response.FollowStatusResponse;
 
-public class FollowServiceTest {
+public class FollowServiceProxyTest {
 
     private FollowRequest validFollowRequest;
     private FollowRequest invalidFollowRequest;
@@ -32,7 +32,7 @@ public class FollowServiceTest {
     private FollowStatusResponse successFollowStatusResponse;
     private FollowStatusResponse failureFollowStatusResponse;
 
-    private FollowService followServiceSpy;
+    private FollowServiceProxy mFollowServiceProxySpy;
 
     /**
      * Create a FollowingService spy that uses a mock ServerFacade to return known responses to
@@ -73,43 +73,43 @@ public class FollowServiceTest {
         Mockito.when(mockServerFacade.setUnfollow(invalidUnfollowRequest)).thenReturn(failureUnfollowResponse);
 
         // Create a FollowService instance and wrap it with a spy that will use the mock service
-        followServiceSpy = Mockito.spy(new FollowService());
-        Mockito.when(followServiceSpy.getServerFacade()).thenReturn(mockServerFacade);
+        mFollowServiceProxySpy = Mockito.spy(new FollowServiceProxy());
+        Mockito.when(mFollowServiceProxySpy.getServerFacade()).thenReturn(mockServerFacade);
     }
 
     @Test
     public void testGetFollowStatus_validRequest_correctResponse() throws IOException {
-        FollowStatusResponse response = followServiceSpy.getFollowStatus(validFollowStatusRequest);
+        FollowStatusResponse response = mFollowServiceProxySpy.getFollowStatus(validFollowStatusRequest);
         Assertions.assertEquals(successFollowStatusResponse, response);
     }
 
     @Test
     public void testGetFollowStatus_invalidRequest_invalidResponse() throws IOException {
-        FollowStatusResponse response = followServiceSpy.getFollowStatus(invalidFollowStatusRequest);
+        FollowStatusResponse response = mFollowServiceProxySpy.getFollowStatus(invalidFollowStatusRequest);
         Assertions.assertEquals(failureFollowStatusResponse, response);
     }
 
     @Test
     public void testSetFollow_validFollowRequest_correctResponse() throws IOException {
-        FollowResponse response = followServiceSpy.setFollow(validFollowRequest);
+        FollowResponse response = mFollowServiceProxySpy.setFollow(validFollowRequest);
         Assertions.assertEquals(successFollowResponse, response);
     }
 
     @Test
     public void testSetFollow_invalidFollowRequest_invalidResponse() throws IOException {
-        FollowResponse response = followServiceSpy.setFollow(invalidFollowRequest);
+        FollowResponse response = mFollowServiceProxySpy.setFollow(invalidFollowRequest);
         Assertions.assertEquals(failureFollowResponse, response);
     }
 
     @Test
     public void testSetFollow_validUnfollowRequest_correctResponse() throws IOException {
-        FollowResponse response = followServiceSpy.setFollow(validUnfollowRequest);
+        FollowResponse response = mFollowServiceProxySpy.setFollow(validUnfollowRequest);
         Assertions.assertEquals(successUnfollowResponse, response);
     }
 
     @Test
     public void testSetFollow_invalidUnfollowRequest_invalidResponse() throws IOException {
-        FollowResponse response = followServiceSpy.setFollow(invalidUnfollowRequest);
+        FollowResponse response = mFollowServiceProxySpy.setFollow(invalidUnfollowRequest);
         Assertions.assertEquals(failureUnfollowResponse, response);
     }
 }

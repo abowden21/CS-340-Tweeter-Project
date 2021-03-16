@@ -89,6 +89,36 @@ public class ServerFacade {
         }
     }
 
+    public FollowResponse setFollow(FollowRequest request, String urlPath) throws IOException, TweeterRemoteException {
+        FollowResponse response = clientCommunicator.doPost(urlPath, request, null, FollowResponse.class);
+
+        if(response.isSuccess()) {
+            return response;
+        } else {
+            throw new RuntimeException(response.getMessage());
+        }
+    }
+
+    public UserFollowCountResponse getUserFollowCount(UserFollowCountRequest request, String urlPath) throws IOException, TweeterRemoteException {
+        UserFollowCountResponse response = clientCommunicator.doPost(urlPath, request, null, UserFollowCountResponse.class);
+
+        if(response.isSuccess()) {
+            return response;
+        } else {
+            throw new RuntimeException(response.getMessage());
+        }
+    }
+
+    public FollowStatusResponse getFollowStatus(FollowStatusRequest request, String urlPath) throws IOException, TweeterRemoteException {
+        FollowStatusResponse response = clientCommunicator.doPost(urlPath, request, null, FollowStatusResponse.class);
+
+        if(response.isSuccess()) {
+            return response;
+        } else {
+            throw new RuntimeException(response.getMessage());
+        }
+    }
+
     // OLD DEPRECATED CODE. TODO DELETE
 
     private static final String MALE_IMAGE_URL = "https://faculty.cs.byu.edu/~jwilkerson/cs340/tweeter/images/donald_duck.png";
@@ -380,26 +410,26 @@ public class ServerFacade {
         return new GetUserResponse(null);
     }
 
-    public FollowResponse setFollow(FollowRequest request) {
-        return new FollowResponse(true, request.isFollowRequest());
-    }
+//    public FollowResponse setFollow(FollowRequest request) {
+//        return new FollowResponse(true, request.isFollowRequest());
+//    }
+//
+//    public FollowResponse setUnfollow(FollowRequest request) {
+//        return new FollowResponse(true, request.isFollowRequest());
+//    }
 
-    public FollowResponse setUnfollow(FollowRequest request) {
-        return new FollowResponse(true, request.isFollowRequest());
-    }
-
-    public UserFollowCountResponse getUserFollowCount(UserFollowCountRequest request) {
-        return new UserFollowCountResponse(100, 99);
-    }
-
+//    public UserFollowCountResponse getUserFollowCount(UserFollowCountRequest request) {
+//        return new UserFollowCountResponse(100, 99);
+//    }
+//
     public PostStatusResponse sendStatus(PostStatusRequest postStatusRequest) {
         return new PostStatusResponse(status1);
     }
 
 
-    public FollowStatusResponse getFollowStatus(FollowStatusRequest request) {
-        return new FollowStatusResponse(true, true);
-    }
+//    public FollowStatusResponse getFollowStatus(FollowStatusRequest request) {
+//        return new FollowStatusResponse(true, true);
+//    }
 
     public FeedResponse getFeed(FeedRequest request) {
         // Used in place of assert statements because Android does not support them

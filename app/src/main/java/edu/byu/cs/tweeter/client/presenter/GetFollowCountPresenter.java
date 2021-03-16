@@ -6,7 +6,8 @@ import androidx.annotation.RequiresApi;
 
 import java.io.IOException;
 
-import edu.byu.cs.tweeter.client.model.service.FollowService;
+import edu.byu.cs.tweeter.client.model.service.FollowServiceProxy;
+import edu.byu.cs.tweeter.shared.model.net.TweeterRemoteException;
 import edu.byu.cs.tweeter.shared.model.request.UserFollowCountRequest;
 import edu.byu.cs.tweeter.shared.model.response.UserFollowCountResponse;
 
@@ -23,12 +24,12 @@ public class GetFollowCountPresenter {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public UserFollowCountResponse getUserFollowCount(UserFollowCountRequest request) throws IOException {
+    public UserFollowCountResponse getUserFollowCount(UserFollowCountRequest request) throws IOException, TweeterRemoteException {
         return getFollowService().getUserFollowCount(request);
     }
 
-    FollowService getFollowService() {
-        return new FollowService();
+    FollowServiceProxy getFollowService() {
+        return new FollowServiceProxy();
     }
 
 }

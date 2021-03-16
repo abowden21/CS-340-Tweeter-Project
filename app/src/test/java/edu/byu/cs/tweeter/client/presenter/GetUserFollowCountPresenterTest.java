@@ -7,13 +7,13 @@ import org.mockito.Mockito;
 
 import java.io.IOException;
 
-import edu.byu.cs.tweeter.client.model.service.FollowService;
+import edu.byu.cs.tweeter.client.model.service.FollowServiceProxy;
 import edu.byu.cs.tweeter.shared.model.request.UserFollowCountRequest;
 import edu.byu.cs.tweeter.shared.model.response.UserFollowCountResponse;
 
 public class GetUserFollowCountPresenterTest {
 
-    private FollowService mockFollowService;
+    private FollowServiceProxy mMockFollowServiceProxy;
     private GetFollowCountPresenter presenter;
 
     private UserFollowCountRequest validUserFollowCountRequest;
@@ -35,13 +35,13 @@ public class GetUserFollowCountPresenterTest {
 
 
         // Create a FollowingService instance and wrap it with a spy that will use the mock service
-        mockFollowService = Mockito.mock(FollowService.class);
-        Mockito.when(mockFollowService.getUserFollowCount(validUserFollowCountRequest)).thenReturn(successUserFollowCountResponse);
+        mMockFollowServiceProxy = Mockito.mock(FollowServiceProxy.class);
+        Mockito.when(mMockFollowServiceProxy.getUserFollowCount(validUserFollowCountRequest)).thenReturn(successUserFollowCountResponse);
 
 
         // Wrap a FollowingPresenter in a spy that will use the mock service.
         presenter = Mockito.spy(new GetFollowCountPresenter(new GetFollowCountPresenter.View() {}));
-        Mockito.when(presenter.getFollowService()).thenReturn(mockFollowService);
+        Mockito.when(presenter.getFollowService()).thenReturn(mMockFollowServiceProxy);
     }
 
     @Test
@@ -54,7 +54,7 @@ public class GetUserFollowCountPresenterTest {
 
     @Test
     public void testGetUserFollowCount_serviceThrowsIOException_presenterThrowsIOException() throws IOException {
-        Mockito.when(mockFollowService.getUserFollowCount(validUserFollowCountRequest)).thenThrow(new IOException());
+        Mockito.when(mMockFollowServiceProxy.getUserFollowCount(validUserFollowCountRequest)).thenThrow(new IOException());
 
         Assertions.assertThrows(IOException.class, () -> {
             presenter.getUserFollowCount(validUserFollowCountRequest);

@@ -3,6 +3,9 @@ package edu.byu.cs.tweeter.shared.model.response;
 public class FollowStatusResponse extends Response {
     private boolean isFollowingUser;
 
+    public FollowStatusResponse() {
+
+    }
 
     public FollowStatusResponse(boolean isFollowingUser, boolean success) {
         super(success);
@@ -16,5 +19,9 @@ public class FollowStatusResponse extends Response {
 
     public boolean isFollowingUser() {
         return isFollowingUser;
+    }
+
+    public void setFollowingUser(boolean followingUser) {
+        isFollowingUser = followingUser;
     }
 }
