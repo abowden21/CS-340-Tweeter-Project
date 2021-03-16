@@ -10,6 +10,7 @@ import java.io.IOException;
 
 import edu.byu.cs.tweeter.client.util.ByteArrayUtils;
 import edu.byu.cs.tweeter.shared.model.domain.User;
+import edu.byu.cs.tweeter.shared.model.net.TweeterRemoteException;
 import edu.byu.cs.tweeter.shared.model.request.RegisterRequest;
 import edu.byu.cs.tweeter.shared.model.response.RegisterResponse;
 import edu.byu.cs.tweeter.client.presenter.LoginPresenter;
@@ -46,7 +47,7 @@ public class RegisterTask extends AsyncTask<RegisterRequest, Void, RegisterRespo
             if(registerResponse.isSuccess()) {
                 loadImage(registerResponse.getUser());
             }
-        } catch (IOException ex) {
+        } catch (IOException | TweeterRemoteException ex) {
             exception = ex;
         }
 

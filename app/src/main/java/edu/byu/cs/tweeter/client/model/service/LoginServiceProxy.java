@@ -23,12 +23,14 @@ import edu.byu.cs.tweeter.shared.model.service.LoginServiceInterface;
  */
 public class LoginServiceProxy extends ServiceBase implements LoginServiceInterface {
 
-    private static final String URL_PATH = "/auth/login";
+    private static final String LOGIN_URL_PATH = "/auth/login";
+    private static final String REGISTER_URL_PATH = "/auth/register";
+    private static final String LOGOUT_URL_PATH = "/auth/logout";
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public LoginResponse login(LoginRequest request) throws IOException, TweeterRemoteException {
         ServerFacade serverFacade = getServerFacade();
-        LoginResponse loginResponse = serverFacade.login(request, URL_PATH);
+        LoginResponse loginResponse = serverFacade.login(request, LOGIN_URL_PATH);
 
         if(loginResponse.isSuccess()) {
             loadImage(loginResponse.getUser());
@@ -38,9 +40,9 @@ public class LoginServiceProxy extends ServiceBase implements LoginServiceInterf
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public RegisterResponse register(RegisterRequest request) throws IOException {
+    public RegisterResponse register(RegisterRequest request) throws IOException, TweeterRemoteException {
         ServerFacade serverFacade = getServerFacade();
-        RegisterResponse registerResponse = serverFacade.register(request);
+        RegisterResponse registerResponse = serverFacade.register(request, REGISTER_URL_PATH);
 
         if(registerResponse.isSuccess()) {
             loadImage(registerResponse.getUser());
@@ -50,9 +52,9 @@ public class LoginServiceProxy extends ServiceBase implements LoginServiceInterf
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public LogoutResponse logout(LogoutRequest request) throws IOException {
+    public LogoutResponse logout(LogoutRequest request) throws IOException, TweeterRemoteException {
         ServerFacade serverFacade = getServerFacade();
-        return serverFacade.logout(request);
+        return serverFacade.logout(request, LOGOUT_URL_PATH);
     }
 
     /**

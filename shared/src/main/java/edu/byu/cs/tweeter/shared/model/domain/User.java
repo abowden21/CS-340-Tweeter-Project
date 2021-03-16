@@ -23,6 +23,10 @@ public class User implements Comparable<User>, Serializable {
         this(firstName, lastName, String.format("@%s%s", firstName, lastName), imageURL, null, null);
     }
 
+    public User(String firstName, String lastName, String alias, String imageURL) {
+        this(firstName, lastName, alias, imageURL, null, null);
+    }
+
     public User(String firstName, String lastName, String alias, String imageURL, Story story, Feed feed) {
         this.firstName = firstName;
         this.lastName = lastName;

@@ -69,6 +69,26 @@ public class ServerFacade {
         }
     }
 
+    public RegisterResponse register(RegisterRequest request, String urlPath) throws IOException, TweeterRemoteException {
+        RegisterResponse response = clientCommunicator.doPost(urlPath, request, null, RegisterResponse.class);
+
+        if(response.isSuccess()) {
+            return response;
+        } else {
+            throw new RuntimeException(response.getMessage());
+        }
+    }
+
+    public LogoutResponse logout(LogoutRequest request, String urlPath) throws IOException, TweeterRemoteException {
+        LogoutResponse response = clientCommunicator.doPost(urlPath, request, null, LogoutResponse.class);
+
+        if(response.isSuccess()) {
+            return response;
+        } else {
+            throw new RuntimeException(response.getMessage());
+        }
+    }
+
     /**
      * Returns the users that the user specified in the request is following. Uses information in
      * the request object to limit the number of followees returned and to return the next set of
@@ -112,6 +132,15 @@ public class ServerFacade {
     public FollowStatusResponse getFollowStatus(FollowStatusRequest request, String urlPath) throws IOException, TweeterRemoteException {
         FollowStatusResponse response = clientCommunicator.doPost(urlPath, request, null, FollowStatusResponse.class);
 
+        if(response.isSuccess()) {
+            return response;
+        } else {
+            throw new RuntimeException(response.getMessage());
+        }
+    }
+
+    public PostStatusResponse sendStatus(PostStatusRequest postStatusRequest, String urlPath) throws IOException, TweeterRemoteException {
+        PostStatusResponse response = clientCommunicator.doPost(urlPath, postStatusRequest, null, PostStatusResponse.class);
         if(response.isSuccess()) {
             return response;
         } else {
@@ -168,15 +197,6 @@ public class ServerFacade {
     private final Status status12 = new Status(LocalDateTime.parse("2021-02-15T01:01:12"), "message12", null, null, user10);
 
 
-    public RegisterResponse register(RegisterRequest request) {
-        User user = new User("Registered", "User",
-                "https://faculty.cs.byu.edu/~jwilkerson/cs340/tweeter/images/donald_duck.png");
-        return new RegisterResponse(user, new AuthToken("<dummy token>"));
-    }
-
-    public LogoutResponse logout(LogoutRequest request) {
-        return new LogoutResponse(true);
-    }
 
     /**
      * Returns the users that the user specified in the request is following. Uses information in
@@ -381,7 +401,7 @@ public class ServerFacade {
             // This is a paged request for something after the first page. Find the first item
             // we should return
             for (int i = 0; i < allStatuses.size(); i++) {
-                if(lastTimeStamp.equals(allStatuses.get(i).getTimeStamp())) {
+                if(lastTimeStamp.equals(allStatuses.get(i).getTimestamp())) {
                     // We found the index of the last item returned last time. Increment to get
                     // to the first one we should return
                     statusIndex = i + 1;
@@ -422,10 +442,9 @@ public class ServerFacade {
 //        return new UserFollowCountResponse(100, 99);
 //    }
 //
-    public PostStatusResponse sendStatus(PostStatusRequest postStatusRequest) {
-        return new PostStatusResponse(status1);
-    }
-
+//    public PostStatusResponse sendStatus(PostStatusRequest postStatusRequest) {
+//        return new PostStatusResponse(status1);
+//    }
 
 //    public FollowStatusResponse getFollowStatus(FollowStatusRequest request) {
 //        return new FollowStatusResponse(true, true);

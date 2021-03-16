@@ -7,6 +7,7 @@ import androidx.annotation.RequiresApi;
 
 import java.io.IOException;
 
+import edu.byu.cs.tweeter.shared.model.net.TweeterRemoteException;
 import edu.byu.cs.tweeter.shared.model.request.PostStatusRequest;
 import edu.byu.cs.tweeter.shared.model.response.PostStatusResponse;
 import edu.byu.cs.tweeter.client.presenter.PostStatusPresenter;
@@ -39,7 +40,7 @@ public class PostStatusTask extends AsyncTask<PostStatusRequest, Void, PostStatu
 
         try {
             postStatusResponse = presenter.sendStatus(postStatusRequests[0]);
-        } catch (IOException e) {
+        } catch (IOException | TweeterRemoteException e) {
             observer.handleException(e);
         }
 
