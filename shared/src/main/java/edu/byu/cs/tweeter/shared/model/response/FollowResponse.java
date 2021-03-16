@@ -1,13 +1,13 @@
 package edu.byu.cs.tweeter.shared.model.response;
 
 public class FollowResponse extends Response {
-    boolean isFollowResponse;
+    private boolean followResponse;
 
     public FollowResponse() {}
 
-    public FollowResponse(boolean success, boolean isFollowResponse) {
+    public FollowResponse(boolean success, boolean followResponse) {
         super(success);
-        this.isFollowResponse = isFollowResponse;
+        this.followResponse = followResponse;
     }
 
     public FollowResponse(boolean success, String message) {
@@ -15,10 +15,10 @@ public class FollowResponse extends Response {
     }
 
     public boolean isFollowResponse() {
-        return isFollowResponse;
+        return followResponse;
     }
 
     public void setFollowResponse(boolean followResponse) {
-        this.isFollowResponse = followResponse;
+        this.followResponse = followResponse;
     }
 }

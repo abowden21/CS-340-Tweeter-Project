@@ -4,16 +4,16 @@ import edu.byu.cs.tweeter.shared.model.domain.AuthToken;
 
 public class FollowRequest {
     private AuthToken authToken;
-    private boolean isFollowRequest;
+    private boolean followRequest;
     private String userAlias;
     private String followerAlias;
 
     public FollowRequest() {
     }
 
-    public FollowRequest(AuthToken authToken, boolean isFollowRequest, String userAlias, String followerAlias) {
+    public FollowRequest(AuthToken authToken, boolean followRequest, String userAlias, String followerAlias) {
         this.authToken = authToken;
-        this.isFollowRequest = isFollowRequest;
+        this.followRequest = followRequest;
         this.userAlias = userAlias;
         this.followerAlias = followerAlias;
     }
@@ -23,7 +23,11 @@ public class FollowRequest {
     }
 
     public boolean isFollowRequest() {
-        return isFollowRequest;
+        return followRequest;
+    }
+
+    public boolean getFollowRequest() {
+        return followRequest;
     }
 
     public String getUserAlias() {
@@ -39,7 +43,7 @@ public class FollowRequest {
     }
 
     public void setFollowRequest(boolean followRequest) {
-        isFollowRequest = followRequest;
+        this.followRequest = followRequest;
     }
 
     public void setUserAlias(String userAlias) {
