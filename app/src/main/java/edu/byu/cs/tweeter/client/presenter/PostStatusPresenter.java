@@ -6,14 +6,14 @@ import androidx.annotation.RequiresApi;
 
 import java.io.IOException;
 
-import edu.byu.cs.tweeter.client.model.service.PostStatusService;
+import edu.byu.cs.tweeter.client.model.service.PostStatusServiceProxy;
 import edu.byu.cs.tweeter.shared.model.request.PostStatusRequest;
 import edu.byu.cs.tweeter.shared.model.response.PostStatusResponse;
 
 public class PostStatusPresenter {
 
         private final Fragment view;
-        private final PostStatusService service;
+        private final PostStatusServiceProxy service;
 
         public interface Fragment {
                 public void requestClose();
@@ -22,10 +22,10 @@ public class PostStatusPresenter {
 
         public PostStatusPresenter(Fragment view) {
                 this.view = view;
-                this.service = new PostStatusService();
+                this.service = new PostStatusServiceProxy();
         }
 
-        public PostStatusService getPostStatusService() {
+        public PostStatusServiceProxy getPostStatusService() {
                 return this.service;
         }
 

@@ -5,11 +5,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Status {
-    private final LocalDateTime timeStamp;
-    private final String message;
-    private final List<String> urls;
-    private final List<String> mentions;
-    private final User associatedUser;
+    private LocalDateTime timeStamp;
+    private String message;
+    private List<String> urls;
+    private List<String> mentions;
+    private User associatedUser;
+
+    public Status(){}
 
     public Status(LocalDateTime timeStamp, String message, User associatedUser) {
         this.timeStamp = timeStamp;
@@ -29,22 +31,36 @@ public class Status {
     public LocalDateTime getTimeStamp() {
         return timeStamp;
     }
+    public void setTimestamp(LocalDateTime ts) {
+        this.timeStamp = ts;
+    }
 
     public String getMessage() {
         return message;
+    }
+    public void setMessage(String message) {
+        this.message = message;
     }
 
     public List<String> getUrls() {
         return urls;
     }
+    public void setUrls(List<String> urls) {
+        this.urls = urls;
+    }
 
     public List<String> getMentions() {
         return mentions;
+    }
+    public void setMentions(List<String> mentions) {
+        this.mentions = mentions;
     }
 
     public User getUser() {
         return associatedUser;
     }
-
+    public void setUser(User user) {
+        this.associatedUser = user;
+    }
 
 }
