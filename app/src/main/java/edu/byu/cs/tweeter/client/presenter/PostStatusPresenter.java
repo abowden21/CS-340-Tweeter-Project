@@ -7,6 +7,7 @@ import androidx.annotation.RequiresApi;
 import java.io.IOException;
 
 import edu.byu.cs.tweeter.client.model.service.PostStatusServiceProxy;
+import edu.byu.cs.tweeter.shared.model.net.TweeterRemoteException;
 import edu.byu.cs.tweeter.shared.model.request.PostStatusRequest;
 import edu.byu.cs.tweeter.shared.model.response.PostStatusResponse;
 
@@ -34,7 +35,7 @@ public class PostStatusPresenter {
         }
 
         @RequiresApi(api = Build.VERSION_CODES.O)
-        public PostStatusResponse sendStatus(PostStatusRequest postStatusRequest) throws IOException {
+        public PostStatusResponse sendStatus(PostStatusRequest postStatusRequest) throws IOException, TweeterRemoteException {
                 return getPostStatusService().sendStatus(postStatusRequest);
         }
 }

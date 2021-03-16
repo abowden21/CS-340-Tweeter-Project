@@ -142,7 +142,7 @@ public class FeedFragment extends Fragment implements FeedPresenter.View {
             userAlias.setText(status.getUser().getAlias());
             userName.setText(status.getUser().getName());
             statusBody.setText(feedRecyclerViewAdapter.makeSpannableString(status));
-            timestamp.setText(status.getTimeStamp().toString());
+            timestamp.setText(status.getTimestamp().toString());
             currentUser = status.getUser();
         }
     }
@@ -162,7 +162,7 @@ public class FeedFragment extends Fragment implements FeedPresenter.View {
             super.loadMoreItems();
 
             GetFeedTask getFeedTask = new GetFeedTask(presenter, this);
-            FeedRequest request = new FeedRequest(authToken, PAGE_SIZE, (lastStatus == null ? null : lastStatus.getTimeStamp()));
+            FeedRequest request = new FeedRequest(authToken, PAGE_SIZE, (lastStatus == null ? null : lastStatus.getTimestamp()));
             getFeedTask.execute(request);
         }
 

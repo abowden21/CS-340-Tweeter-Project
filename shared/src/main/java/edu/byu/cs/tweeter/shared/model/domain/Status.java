@@ -5,7 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Status {
-    private LocalDateTime timeStamp;
+//    private LocalDateTime timestamp;
+    private String timestampString;
     private String message;
     private List<String> urls;
     private List<String> mentions;
@@ -13,26 +14,42 @@ public class Status {
 
     public Status(){}
 
-    public Status(LocalDateTime timeStamp, String message, User associatedUser) {
-        this.timeStamp = timeStamp;
-        this.message = message;
-        this.associatedUser = associatedUser;
-        this.urls = new ArrayList<String>();
-        this.mentions = new ArrayList<String>();
+    public Status(LocalDateTime timestamp, String message, User associatedUser) {
+        this(timestamp, message, new ArrayList<String>(), new ArrayList<String>(), associatedUser);
     }
 
-    public Status(LocalDateTime timeStamp, String message, List<String> urls, List<String> mentions, User associatedUser) {
-        this.timeStamp = timeStamp;
+    public Status(String timestamp, String message, User associatedUser) {
+        this(timestamp, message, new ArrayList<String>(), new ArrayList<String>(), associatedUser);
+    }
+
+    public Status(LocalDateTime timestamp, String message, List<String> urls, List<String> mentions, User associatedUser) {
+        setTimestamp(timestamp);
         this.message = message;
         this.urls = urls;
         this.mentions = mentions;
         this.associatedUser = associatedUser;
     }
-    public LocalDateTime getTimeStamp() {
-        return timeStamp;
+
+    public Status(String timestamp, String message, List<String> urls, List<String> mentions, User associatedUser) {
+        this.timestampString = timestamp;
+        this.message = message;
+        this.urls = urls;
+        this.mentions = mentions;
+        this.associatedUser = associatedUser;
     }
-    public void setTimestamp(LocalDateTime ts) {
-        this.timeStamp = ts;
+
+    public String getTimestampString() {
+        return timestampString;
+    }
+    public void setTimestampString(String ts) {
+        this.timestampString = ts;
+    }
+
+    public LocalDateTime getTimestamp() {
+        return LocalDateTime.parse(this.timestampString);
+    }
+    public void setTimestamp(LocalDateTime dateTime) {
+        this.timestampString = dateTime.toString();
     }
 
     public String getMessage() {

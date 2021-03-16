@@ -109,6 +109,15 @@ public class ServerFacade {
         }
     }
 
+    public PostStatusResponse sendStatus(PostStatusRequest postStatusRequest, String urlPath) throws IOException, TweeterRemoteException {
+        PostStatusResponse response = clientCommunicator.doPost(urlPath, postStatusRequest, null, PostStatusResponse.class);
+        if(response.isSuccess()) {
+            return response;
+        } else {
+            throw new RuntimeException(response.getMessage());
+        }
+    }
+
     // OLD DEPRECATED CODE. TODO DELETE
 
     private static final String MALE_IMAGE_URL = "https://faculty.cs.byu.edu/~jwilkerson/cs340/tweeter/images/donald_duck.png";
@@ -158,15 +167,6 @@ public class ServerFacade {
     private final Status status12 = new Status(LocalDateTime.parse("2021-02-15T01:01:12"), "message12", null, null, user10);
 
 
-//    public RegisterResponse register(RegisterRequest request) {
-//        User user = new User("Registered", "User",
-//                "https://faculty.cs.byu.edu/~jwilkerson/cs340/tweeter/images/donald_duck.png");
-//        return new RegisterResponse(user, new AuthToken("<dummy token>"));
-//    }
-//
-//    public LogoutResponse logout(LogoutRequest request) {
-//        return new LogoutResponse(true);
-//    }
 
     /**
      * Returns the users that the user specified in the request is following. Uses information in
@@ -371,7 +371,7 @@ public class ServerFacade {
             // This is a paged request for something after the first page. Find the first item
             // we should return
             for (int i = 0; i < allStatuses.size(); i++) {
-                if(lastTimeStamp.equals(allStatuses.get(i).getTimeStamp())) {
+                if(lastTimeStamp.equals(allStatuses.get(i).getTimestamp())) {
                     // We found the index of the last item returned last time. Increment to get
                     // to the first one we should return
                     statusIndex = i + 1;
@@ -410,10 +410,6 @@ public class ServerFacade {
 
     public UserFollowCountResponse getUserFollowCount(UserFollowCountRequest request) {
         return new UserFollowCountResponse(100, 99);
-    }
-
-    public PostStatusResponse sendStatus(PostStatusRequest postStatusRequest) {
-        return new PostStatusResponse(status1);
     }
 
 
