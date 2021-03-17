@@ -10,6 +10,7 @@ import java.io.IOException;
 import edu.byu.cs.tweeter.shared.model.domain.AuthToken;
 import edu.byu.cs.tweeter.shared.model.domain.User;
 import edu.byu.cs.tweeter.client.model.service.FollowServiceProxy;
+import edu.byu.cs.tweeter.shared.model.net.TweeterRemoteException;
 import edu.byu.cs.tweeter.shared.model.request.FollowRequest;
 import edu.byu.cs.tweeter.shared.model.request.FollowStatusRequest;
 import edu.byu.cs.tweeter.shared.model.request.UserFollowCountRequest;
@@ -39,10 +40,10 @@ public class FollowPresenterTest {
      * requests.
      */
     @BeforeEach
-    public void setup() throws IOException {
+    public void setup() throws IOException, TweeterRemoteException {
         User currentUser = new User("FirstName", "LastName", null);
         User otherUser =  new User("FirstName2", "LastName2", null);
-        AuthToken authToken = new AuthToken("mockToken");
+        AuthToken authToken = new AuthToken("mockToken", "");
 
         // Setup request objects to use in the tests
         validFollowStatusRequest = new FollowStatusRequest(currentUser.getAlias(), otherUser.getAlias());
@@ -72,7 +73,7 @@ public class FollowPresenterTest {
     }
 
     @Test
-    public void testGetFollowStatus_returnsServiceResult() throws IOException {
+    public void testGetFollowStatus_returnsServiceResult() throws IOException, TweeterRemoteException {
 
         // Assert that the presenter returns the same response as the service (it doesn't do
         // anything else, so there's nothing else to test).
@@ -80,7 +81,7 @@ public class FollowPresenterTest {
     }
 
     @Test
-    public void testGetFollowStatus_serviceThrowsIOException_presenterThrowsIOException() throws IOException {
+    public void testGetFollowStatus_serviceThrowsIOException_presenterThrowsIOException() throws IOException, TweeterRemoteException {
         Mockito.when(mMockFollowServiceProxy.getFollowStatus(validFollowStatusRequest)).thenThrow(new IOException());
 
         Assertions.assertThrows(IOException.class, () -> {
@@ -89,7 +90,7 @@ public class FollowPresenterTest {
     }
 
     @Test
-    public void testSetFollow_returnsServiceResult() throws IOException {
+    public void testSetFollow_returnsServiceResult() throws IOException, TweeterRemoteException {
 
         // Assert that the presenter returns the same response as the service (it doesn't do
         // anything else, so there's nothing else to test).
@@ -97,7 +98,7 @@ public class FollowPresenterTest {
     }
 
     @Test
-    public void testSetFollow_serviceThrowsIOException_presenterThrowsIOException() throws IOException {
+    public void testSetFollow_serviceThrowsIOException_presenterThrowsIOException() throws IOException, TweeterRemoteException {
         Mockito.when(mMockFollowServiceProxy.setFollow(validFollowRequest)).thenThrow(new IOException());
 
         Assertions.assertThrows(IOException.class, () -> {
@@ -106,7 +107,7 @@ public class FollowPresenterTest {
     }
 
     @Test
-    public void testSetUnfollow_returnsServiceResult() throws IOException {
+    public void testSetUnfollow_returnsServiceResult() throws IOException, TweeterRemoteException {
 
         // Assert that the presenter returns the same response as the service (it doesn't do
         // anything else, so there's nothing else to test).
@@ -114,7 +115,7 @@ public class FollowPresenterTest {
     }
 
     @Test
-    public void testSetUnfollow_serviceThrowsIOException_presenterThrowsIOException() throws IOException {
+    public void testSetUnfollow_serviceThrowsIOException_presenterThrowsIOException() throws IOException, TweeterRemoteException {
         Mockito.when(mMockFollowServiceProxy.setFollow(validUnfollowRequest)).thenThrow(new IOException());
 
         Assertions.assertThrows(IOException.class, () -> {

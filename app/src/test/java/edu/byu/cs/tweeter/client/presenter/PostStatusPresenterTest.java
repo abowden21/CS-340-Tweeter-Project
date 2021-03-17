@@ -10,7 +10,8 @@ import java.time.LocalDateTime;
 import edu.byu.cs.tweeter.shared.model.domain.AuthToken;
 import edu.byu.cs.tweeter.shared.model.domain.Status;
 import edu.byu.cs.tweeter.shared.model.domain.User;
-import edu.byu.cs.tweeter.client.model.service.PostStatusService;
+import edu.byu.cs.tweeter.client.model.service.PostStatusServiceProxy;
+import edu.byu.cs.tweeter.shared.model.net.TweeterRemoteException;
 import edu.byu.cs.tweeter.shared.model.request.PostStatusRequest;
 import edu.byu.cs.tweeter.shared.model.response.PostStatusResponse;
 
@@ -22,12 +23,12 @@ public class PostStatusPresenterTest {
     PostStatusRequest postStatusRequest;
     PostStatusResponse postStatusResponse;
 
-    PostStatusService postStatusService;
+    PostStatusServiceProxy postStatusService;
     PostStatusPresenter postStatusPresenter;
 
     @BeforeEach
-    public void setup() throws IOException {
-        AuthToken authToken = new AuthToken("<mockToken>");
+    public void setup() throws IOException, TweeterRemoteException {
+        AuthToken authToken = new AuthToken("<mockToken>", "test");
         String message = "mock post .";
         LocalDateTime timeStamp = LocalDateTime.parse("2021-01-01T00:00:00");
         User user = new User("First", "Last", "https://faculty.cs.byu.edu/~jwilkerson/cs340/tweeter/images/donald_duck.png");
@@ -36,7 +37,7 @@ public class PostStatusPresenterTest {
         postStatusRequest = new PostStatusRequest(authToken, message);
         postStatusResponse = new PostStatusResponse(status);
 
-        postStatusService = Mockito.mock(PostStatusService.class);
+        postStatusService = Mockito.mock(PostStatusServiceProxy.class);
         Mockito.when(postStatusService.sendStatus(postStatusRequest)).thenReturn(postStatusResponse);
 
         postStatusPresenter = Mockito.spy(new PostStatusPresenter(new PostStatusPresenter.Fragment() {
@@ -52,13 +53,13 @@ public class PostStatusPresenterTest {
     }
 
     @Test
-    public void testPostStatus_returnsServiceResult() throws IOException {
+    public void testPostStatus_returnsServiceResult() throws IOException, TweeterRemoteException {
         Mockito.when(postStatusService.sendStatus(postStatusRequest)).thenReturn(postStatusResponse);
         assertEquals(postStatusResponse, postStatusPresenter.sendStatus(postStatusRequest));
     }
 
     @Test
-    public void testPostStatus_throwsException() throws IOException {
+    public void testPostStatus_throwsException() throws IOException, TweeterRemoteException {
         Mockito.when(postStatusService.sendStatus(postStatusRequest)).thenThrow(new IOException());
         assertThrows(IOException.class, () -> {
             postStatusPresenter.sendStatus(postStatusRequest);

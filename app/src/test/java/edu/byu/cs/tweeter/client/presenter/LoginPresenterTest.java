@@ -9,6 +9,7 @@ import java.io.IOException;
 import edu.byu.cs.tweeter.shared.model.domain.AuthToken;
 import edu.byu.cs.tweeter.shared.model.domain.User;
 import edu.byu.cs.tweeter.client.model.service.LoginServiceProxy;
+import edu.byu.cs.tweeter.shared.model.net.TweeterRemoteException;
 import edu.byu.cs.tweeter.shared.model.request.LoginRequest;
 import edu.byu.cs.tweeter.shared.model.request.LogoutRequest;
 import edu.byu.cs.tweeter.shared.model.request.RegisterRequest;
@@ -33,10 +34,10 @@ public class LoginPresenterTest {
     LoginPresenter loginPresenter;
 
     @BeforeEach
-    public void setup() throws IOException {
+    public void setup() throws IOException, TweeterRemoteException {
 
         User user = new User("first", "last", "https://faculty.cs.byu.edu/~jwilkerson/cs340/tweeter/images/donald_duck.png");
-        AuthToken authToken = new AuthToken("<mockToken>");
+        AuthToken authToken = new AuthToken("<mockToken>", "test");
 
         loginRequest = new LoginRequest("username", "pw");
         loginResponse = new LoginResponse(user, authToken);
@@ -55,13 +56,13 @@ public class LoginPresenterTest {
     }
 
     @Test
-    public void testLogin_returnsServiceResult() throws IOException {
+    public void testLogin_returnsServiceResult() throws IOException, TweeterRemoteException {
         Mockito.when(loginService.login(loginRequest)).thenReturn(loginResponse);
         assertEquals(loginResponse, loginPresenter.login(loginRequest));
     }
 
     @Test
-    public void testLogin_throwsException() throws IOException {
+    public void testLogin_throwsException() throws IOException, TweeterRemoteException {
         Mockito.when(loginService.login(loginRequest)).thenThrow(new IOException());
         assertThrows(IOException.class, () -> {
             loginPresenter.login(loginRequest);
@@ -69,13 +70,13 @@ public class LoginPresenterTest {
     }
 
     @Test
-    public void testRegister_returnsServiceResult() throws IOException {
+    public void testRegister_returnsServiceResult() throws IOException, TweeterRemoteException {
         Mockito.when(loginService.register(registerRequest)).thenReturn(registerResponse);
         assertEquals(registerResponse, loginPresenter.register(registerRequest));
     }
 
     @Test
-    public void testRegister_throwsException() throws IOException {
+    public void testRegister_throwsException() throws IOException, TweeterRemoteException {
         Mockito.when(loginService.register(registerRequest)).thenThrow(new IOException());
         assertThrows(IOException.class, () -> {
             loginPresenter.register(registerRequest);
@@ -83,13 +84,13 @@ public class LoginPresenterTest {
     }
 
     @Test
-    public void testLogout_returnsServiceResult() throws IOException {
+    public void testLogout_returnsServiceResult() throws IOException, TweeterRemoteException {
         Mockito.when(loginService.logout(logoutRequest)).thenReturn(logoutResponse);
         assertEquals(logoutResponse, loginPresenter.logout(logoutRequest));
     }
 
     @Test
-    public void testLogout_throwsException() throws IOException {
+    public void testLogout_throwsException() throws IOException, TweeterRemoteException {
         Mockito.when(loginService.logout(logoutRequest)).thenThrow(new IOException());
         assertThrows(IOException.class, () -> {
             loginPresenter.logout(logoutRequest);

@@ -8,6 +8,7 @@ import org.mockito.Mockito;
 import java.io.IOException;
 
 import edu.byu.cs.tweeter.client.model.service.FollowServiceProxy;
+import edu.byu.cs.tweeter.shared.model.net.TweeterRemoteException;
 import edu.byu.cs.tweeter.shared.model.request.UserFollowCountRequest;
 import edu.byu.cs.tweeter.shared.model.response.UserFollowCountResponse;
 
@@ -24,7 +25,7 @@ public class GetUserFollowCountPresenterTest {
      * requests.
      */
     @BeforeEach
-    public void setup() throws IOException {
+    public void setup() throws IOException, TweeterRemoteException {
 
         // Setup request objects to use in the tests
         validUserFollowCountRequest = new UserFollowCountRequest("alias");
@@ -45,7 +46,7 @@ public class GetUserFollowCountPresenterTest {
     }
 
     @Test
-    public void testGetUserFollowCount_returnsServiceResult() throws IOException {
+    public void testGetUserFollowCount_returnsServiceResult() throws IOException, TweeterRemoteException {
 
         // Assert that the presenter returns the same response as the service (it doesn't do
         // anything else, so there's nothing else to test).
@@ -53,7 +54,7 @@ public class GetUserFollowCountPresenterTest {
     }
 
     @Test
-    public void testGetUserFollowCount_serviceThrowsIOException_presenterThrowsIOException() throws IOException {
+    public void testGetUserFollowCount_serviceThrowsIOException_presenterThrowsIOException() throws IOException, TweeterRemoteException {
         Mockito.when(mMockFollowServiceProxy.getUserFollowCount(validUserFollowCountRequest)).thenThrow(new IOException());
 
         Assertions.assertThrows(IOException.class, () -> {

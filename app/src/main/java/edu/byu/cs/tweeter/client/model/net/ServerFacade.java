@@ -150,6 +150,10 @@ public class ServerFacade {
 
     // OLD DEPRECATED CODE. TODO DELETE
 
+    public PostStatusResponse sendStatus( PostStatusRequest postStatusRequest) {
+        return new PostStatusResponse();
+    }
+
     private static final String MALE_IMAGE_URL = "https://faculty.cs.byu.edu/~jwilkerson/cs340/tweeter/images/donald_duck.png";
     private static final String FEMALE_IMAGE_URL = "https://faculty.cs.byu.edu/~jwilkerson/cs340/tweeter/images/daisy_duck.png";
 

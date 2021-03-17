@@ -11,6 +11,7 @@ import edu.byu.cs.tweeter.shared.model.domain.AuthToken;
 import edu.byu.cs.tweeter.shared.model.domain.Status;
 import edu.byu.cs.tweeter.shared.model.domain.User;
 import edu.byu.cs.tweeter.client.model.net.ServerFacade;
+import edu.byu.cs.tweeter.shared.model.net.TweeterRemoteException;
 import edu.byu.cs.tweeter.shared.model.request.PostStatusRequest;
 import edu.byu.cs.tweeter.shared.model.response.PostStatusResponse;
 
@@ -26,12 +27,12 @@ public class PostStatusServiceTest {
     PostStatusResponse postStatusResponseInvalid_contentLength;
 
     ServerFacade serverFacadeMock;
-    PostStatusService postStatusServiceSpy;
+    PostStatusServiceProxy postStatusServiceSpy;
 
     @BeforeEach
-    public void setup() {
-        AuthToken validAuthToken = new AuthToken("mockToken");
-        AuthToken invalidAuthToken = new AuthToken("invalidToken!");
+    public void setup() throws IOException, TweeterRemoteException {
+        AuthToken validAuthToken = new AuthToken("mockToken", "");
+        AuthToken invalidAuthToken = new AuthToken("invalidToken!", "");
         String validPost = "Post";
         String invalidPost = new String(new char[141]).replace("\0", "X"); // 141 characters of X - too long.
         User validUser = new User("mockFirst", "mockLast", "https://faculty.cs.byu.edu/~jwilkerson/cs340/tweeter/images/donald_duck.png");
@@ -50,24 +51,24 @@ public class PostStatusServiceTest {
         Mockito.when(serverFacadeMock.sendStatus(postStatusRequestInvalid_authToken)).thenReturn(postStatusResponseInvalid_authToken);
         Mockito.when(serverFacadeMock.sendStatus(postStatusRequestInvalid_contentLength)).thenReturn(postStatusResponseInvalid_contentLength);
 
-        postStatusServiceSpy = Mockito.spy(new PostStatusService());
+        postStatusServiceSpy = Mockito.spy(new PostStatusServiceProxy());
         Mockito.when(postStatusServiceSpy.getServerFacade()).thenReturn(serverFacadeMock);
     }
 
     @Test
-    public void testPostStatus_validResponse() throws IOException {
+    public void testPostStatus_validResponse() throws IOException, TweeterRemoteException {
         PostStatusResponse response = postStatusServiceSpy.sendStatus(postStatusRequestValid);
         assertEquals(postStatusResponseValid, response);
     }
 
     @Test
-    public void testPostStatus_invalidResponse_badAuthToken() throws IOException {
+    public void testPostStatus_invalidResponse_badAuthToken() throws IOException, TweeterRemoteException {
         PostStatusResponse response = postStatusServiceSpy.sendStatus(postStatusRequestInvalid_authToken);
         assertEquals(postStatusResponseInvalid_authToken, response);
     }
 
     @Test
-    public void testPostStatus_invalidResponse_badContentLength() throws IOException {
+    public void testPostStatus_invalidResponse_badContentLength() throws IOException, TweeterRemoteException {
         PostStatusResponse response = postStatusServiceSpy.sendStatus(postStatusRequestInvalid_contentLength);
         assertEquals(postStatusResponseInvalid_contentLength, response);
     }

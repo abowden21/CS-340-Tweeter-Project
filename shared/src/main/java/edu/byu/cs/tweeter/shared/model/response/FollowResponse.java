@@ -1,5 +1,7 @@
 package edu.byu.cs.tweeter.shared.model.response;
 
+import java.util.Objects;
+
 public class FollowResponse extends Response {
     private boolean followResponse;
 
@@ -20,5 +22,14 @@ public class FollowResponse extends Response {
 
     public void setFollowResponse(boolean followResponse) {
         this.followResponse = followResponse;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        FollowResponse that = (FollowResponse) o;
+        return followResponse == that.followResponse && isSuccess() == that.isSuccess()
+                && getMessage() == that.getMessage();
     }
 }

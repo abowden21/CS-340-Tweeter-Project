@@ -35,8 +35,8 @@ public class FeedServiceTest {
         Status resultStatus2 = new Status(LocalDateTime.parse("2021-02-13T01:01:02"), "message2", user1);
         Status resultStatus3 = new Status(LocalDateTime.parse("2021-02-13T01:01:03"), "message3", user2);
         Status resultStatus4 = new Status(LocalDateTime.parse("2021-02-13T01:01:04"), "message4", user2);
-        AuthToken validToken = new AuthToken("validToken");
-        AuthToken invalidToken = new AuthToken("invalidToken");
+        AuthToken validToken = new AuthToken("validToken", "test");
+        AuthToken invalidToken = new AuthToken("invalidToken", "test");
 
         validRequest = new FeedRequest(validToken, 4, null);
         invalidRequest = new FeedRequest(invalidToken, 0, null);
