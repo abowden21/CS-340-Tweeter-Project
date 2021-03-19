@@ -148,6 +148,15 @@ public class ServerFacade {
         }
     }
 
+    public StoryResponse getStory(StoryRequest storyRequest, String urlPath) throws IOException, TweeterRemoteException {
+        StoryResponse response = clientCommunicator.doPost(urlPath, storyRequest, null, StoryResponse.class);
+        if(response.isSuccess()) {
+            return response;
+        } else {
+            throw new RuntimeException(response.getMessage());
+        }
+    }
+
     // OLD DEPRECATED CODE. TODO DELETE
 
     public PostStatusResponse sendStatus( PostStatusRequest postStatusRequest) {
@@ -358,38 +367,38 @@ public class ServerFacade {
                 user19, user20, user21, user22, user23);
     }
 
-    public StoryResponse getStory(StoryRequest request) {
-
-        // MAJOR TODO: Implement pagination.
-
-        // Used in place of assert statements because Android does not support them
-        if(BuildConfig.DEBUG) {
-            if(request.getLimit() < 0) {
-                throw new AssertionError();
-            }
-
-            if(request.getUserAlias() == null) {
-                throw new AssertionError();
-            }
-        }
-
-        List<Status> allStatuses = getDummyStatuses();
-        List<Status> responseStatuses = new ArrayList<>(request.getLimit());
-
-        boolean hasMorePages = false;
-
-        if(request.getLimit() > 0) {
-            int statusIndex = getStatusesStartingIndex(request.getLastTimestamp(), allStatuses);
-
-            for(int limitCounter = 0; statusIndex < allStatuses.size() && limitCounter < request.getLimit(); statusIndex++, limitCounter++) {
-                responseStatuses.add(allStatuses.get(statusIndex));
-            }
-
-            hasMorePages = statusIndex < allStatuses.size();
-        }
-
-        return new StoryResponse(responseStatuses, hasMorePages);
-    }
+//    public StoryResponse getStory(StoryRequest request) {
+//
+//        // MAJOR TODO: Implement pagination.
+//
+//        // Used in place of assert statements because Android does not support them
+//        if(BuildConfig.DEBUG) {
+//            if(request.getLimit() < 0) {
+//                throw new AssertionError();
+//            }
+//
+//            if(request.getUserAlias() == null) {
+//                throw new AssertionError();
+//            }
+//        }
+//
+//        List<Status> allStatuses = getDummyStatuses();
+//        List<Status> responseStatuses = new ArrayList<>(request.getLimit());
+//
+//        boolean hasMorePages = false;
+//
+//        if(request.getLimit() > 0) {
+//            int statusIndex = getStatusesStartingIndex(request.getLastTimestamp(), allStatuses);
+//
+//            for(int limitCounter = 0; statusIndex < allStatuses.size() && limitCounter < request.getLimit(); statusIndex++, limitCounter++) {
+//                responseStatuses.add(allStatuses.get(statusIndex));
+//            }
+//
+//            hasMorePages = statusIndex < allStatuses.size();
+//        }
+//
+//        return new StoryResponse(responseStatuses, hasMorePages);
+//    }
 
     List<Status> getDummyStatuses() {
         return Arrays.asList(status1, status2, status3, status4, status5, status6, status7,

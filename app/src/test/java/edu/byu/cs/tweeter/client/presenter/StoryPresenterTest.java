@@ -11,7 +11,6 @@ import java.util.Arrays;
 
 import edu.byu.cs.tweeter.shared.model.domain.Status;
 import edu.byu.cs.tweeter.shared.model.domain.User;
-import edu.byu.cs.tweeter.client.model.service.StoryService;
 import edu.byu.cs.tweeter.shared.model.request.StoryRequest;
 import edu.byu.cs.tweeter.shared.model.response.StoryResponse;
 

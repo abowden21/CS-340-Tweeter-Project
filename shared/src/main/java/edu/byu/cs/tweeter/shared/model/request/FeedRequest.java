@@ -8,12 +8,25 @@ public class FeedRequest {
 
     private final AuthToken authToken;
     private final int limit;
-    private final LocalDateTime lastTimestamp;
+    //private final LocalDateTime lastTimestamp;
+    private final String timestampString;
+
+    public FeedRequest() {
+        authToken = new AuthToken();
+        limit = 10;
+        timestampString = LocalDateTime.now().toString();
+    }
 
     public FeedRequest(AuthToken authToken, int limit, LocalDateTime lastTimestamp) {
         this.authToken = authToken;
         this.limit = limit;
-        this.lastTimestamp = lastTimestamp;
+        if (lastTimestamp != null) {
+            this.timestampString = lastTimestamp.toString();
+        }
+        else {
+            this.timestampString = LocalDateTime.now().toString();
+        }
+
     }
 
     public AuthToken getAuthToken() {
@@ -21,7 +34,11 @@ public class FeedRequest {
     }
 
     public LocalDateTime getLastTimestamp() {
-        return lastTimestamp;
+        return LocalDateTime.parse(timestampString);
+    }
+
+    public String getIimestampString() {
+        return timestampString;
     }
 
     public int getLimit() {

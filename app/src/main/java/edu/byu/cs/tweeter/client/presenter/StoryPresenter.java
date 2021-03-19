@@ -6,7 +6,8 @@ import androidx.annotation.RequiresApi;
 
 import java.io.IOException;
 
-import edu.byu.cs.tweeter.client.model.service.StoryService;
+import edu.byu.cs.tweeter.client.model.service.StoryServiceProxy;
+import edu.byu.cs.tweeter.shared.model.net.TweeterRemoteException;
 import edu.byu.cs.tweeter.shared.model.request.StoryRequest;
 import edu.byu.cs.tweeter.shared.model.response.StoryResponse;
 
@@ -32,12 +33,12 @@ public class StoryPresenter {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public StoryResponse getStory(StoryRequest request) throws IOException {
-        StoryService storyService = getStoryService();
-        return storyService.getStory(request);
+    public StoryResponse getStory(StoryRequest request) throws IOException, TweeterRemoteException {
+        StoryServiceProxy storyServiceProxy = getStoryServiceProxy();
+        return storyServiceProxy.getStory(request);
     }
 
-    StoryService getStoryService() {
-        return new StoryService();
+    StoryServiceProxy getStoryServiceProxy() {
+        return new StoryServiceProxy();
     }
 }

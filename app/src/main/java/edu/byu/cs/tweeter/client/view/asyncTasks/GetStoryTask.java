@@ -8,6 +8,7 @@ import androidx.annotation.RequiresApi;
 import java.io.IOException;
 
 import edu.byu.cs.tweeter.client.presenter.StoryPresenter;
+import edu.byu.cs.tweeter.shared.model.net.TweeterRemoteException;
 import edu.byu.cs.tweeter.shared.model.request.StoryRequest;
 import edu.byu.cs.tweeter.shared.model.response.StoryResponse;
 
@@ -40,7 +41,7 @@ public class GetStoryTask extends AsyncTask<StoryRequest, Void, StoryResponse> {
 
         try {
             response = presenter.getStory(storyRequests[0]);
-        } catch (IOException ex) {
+        } catch (IOException | TweeterRemoteException ex) {
             exception = ex;
         }
 

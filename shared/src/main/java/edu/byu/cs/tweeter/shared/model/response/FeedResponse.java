@@ -1,5 +1,6 @@
 package edu.byu.cs.tweeter.shared.model.response;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -7,6 +8,10 @@ import edu.byu.cs.tweeter.shared.model.domain.Status;
 
 public class FeedResponse extends PagedResponse {
     private List<Status> statuses;
+
+    public FeedResponse() {
+        statuses = new ArrayList<>();
+    }
 
     /**
      * Creates a response indicating that the corresponding request was unsuccessful. Sets the
