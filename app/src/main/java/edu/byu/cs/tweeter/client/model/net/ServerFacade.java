@@ -157,6 +157,15 @@ public class ServerFacade {
         }
     }
 
+    public FeedResponse getFeed(FeedRequest feedRequest, String urlPath) throws IOException, TweeterRemoteException {
+        FeedResponse response = clientCommunicator.doPost(urlPath, feedRequest, null, FeedResponse.class);
+        if(response.isSuccess()) {
+            return response;
+        } else {
+            throw new RuntimeException(response.getMessage());
+        }
+    }
+
     // OLD DEPRECATED CODE. TODO DELETE
 
     public PostStatusResponse sendStatus( PostStatusRequest postStatusRequest) {
@@ -463,34 +472,34 @@ public class ServerFacade {
 //        return new FollowStatusResponse(true, true);
 //    }
 
-    public FeedResponse getFeed(FeedRequest request) {
-        // Used in place of assert statements because Android does not support them
-        if(BuildConfig.DEBUG) {
-            if(request.getLimit() < 0) {
-                throw new AssertionError();
-            }
-
-            if(request.getAuthToken() == null) {
-                throw new AssertionError();
-            }
-        }
-
-        List<Status> allStatuses = getDummyStatuses();
-        List<Status> responseStatuses = new ArrayList<>(request.getLimit());
-
-        boolean hasMorePages = false;
-
-        if(request.getLimit() > 0) {
-            int statusIndex = getStatusesStartingIndex(request.getLastTimestamp(), allStatuses);
-
-            for(int limitCounter = 0; statusIndex < allStatuses.size() && limitCounter < request.getLimit(); statusIndex++, limitCounter++) {
-                responseStatuses.add(allStatuses.get(statusIndex));
-            }
-
-            hasMorePages = statusIndex < allStatuses.size();
-        }
-
-        return new FeedResponse(responseStatuses, hasMorePages);
-    }
+//    public FeedResponse getFeed(FeedRequest request) {
+//        // Used in place of assert statements because Android does not support them
+//        if(BuildConfig.DEBUG) {
+//            if(request.getLimit() < 0) {
+//                throw new AssertionError();
+//            }
+//
+//            if(request.getAuthToken() == null) {
+//                throw new AssertionError();
+//            }
+//        }
+//
+//        List<Status> allStatuses = getDummyStatuses();
+//        List<Status> responseStatuses = new ArrayList<>(request.getLimit());
+//
+//        boolean hasMorePages = false;
+//
+//        if(request.getLimit() > 0) {
+//            int statusIndex = getStatusesStartingIndex(request.getLastTimestamp(), allStatuses);
+//
+//            for(int limitCounter = 0; statusIndex < allStatuses.size() && limitCounter < request.getLimit(); statusIndex++, limitCounter++) {
+//                responseStatuses.add(allStatuses.get(statusIndex));
+//            }
+//
+//            hasMorePages = statusIndex < allStatuses.size();
+//        }
+//
+//        return new FeedResponse(responseStatuses, hasMorePages);
+//    }
 
 }

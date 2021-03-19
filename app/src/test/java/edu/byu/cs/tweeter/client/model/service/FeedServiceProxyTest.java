@@ -13,10 +13,11 @@ import edu.byu.cs.tweeter.shared.model.domain.AuthToken;
 import edu.byu.cs.tweeter.shared.model.domain.Status;
 import edu.byu.cs.tweeter.shared.model.domain.User;
 import edu.byu.cs.tweeter.client.model.net.ServerFacade;
+import edu.byu.cs.tweeter.shared.model.net.TweeterRemoteException;
 import edu.byu.cs.tweeter.shared.model.request.FeedRequest;
 import edu.byu.cs.tweeter.shared.model.response.FeedResponse;
 
-public class FeedServiceTest {
+public class FeedServiceProxyTest {
 
     private FeedRequest validRequest;
     private FeedRequest invalidRequest;
@@ -24,10 +25,10 @@ public class FeedServiceTest {
     private FeedResponse successResponse;
     private FeedResponse failureResponse;
 
-    private FeedService feedServiceSpy;
+    private FeedServiceProxy feedServiceProxySpy;
 
     @BeforeEach
-    public void setup() {
+    public void setup() throws IOException, TweeterRemoteException {
         User user1 = new User("firstname1", "lastname1", "https://faculty.cs.byu.edu/~jwilkerson/cs340/tweeter/images/donald_duck.png");
         User user2 = new User("firstname2", "lastname2", "https://faculty.cs.byu.edu/~jwilkerson/cs340/tweeter/images/daisy_duck.png");
 
@@ -43,24 +44,24 @@ public class FeedServiceTest {
 
         successResponse = new FeedResponse(Arrays.asList(resultStatus1, resultStatus2, resultStatus3, resultStatus4), false);
         ServerFacade mockServerFacade = Mockito.mock(ServerFacade.class);
-        Mockito.when(mockServerFacade.getFeed(validRequest)).thenReturn(successResponse);
+        Mockito.when(mockServerFacade.getFeed(validRequest, "/view/feed")).thenReturn(successResponse);
 
         failureResponse = new FeedResponse("An exception occurred");
-        Mockito.when(mockServerFacade.getFeed(invalidRequest)).thenReturn(failureResponse);
+        Mockito.when(mockServerFacade.getFeed(invalidRequest, "/view/feed")).thenReturn(failureResponse);
 
-        feedServiceSpy = Mockito.spy(new FeedService());
-        Mockito.when(feedServiceSpy.getServerFacade()).thenReturn(mockServerFacade);
+        feedServiceProxySpy = Mockito.spy(new FeedServiceProxy());
+        Mockito.when(feedServiceProxySpy.getServerFacade()).thenReturn(mockServerFacade);
     }
 
     @Test
-    public void testGetFeed_validRequest_correctResponse() throws IOException {
-        FeedResponse response = feedServiceSpy.getFeed(validRequest);
+    public void testGetFeed_validRequest_correctResponse() throws IOException, TweeterRemoteException {
+        FeedResponse response = feedServiceProxySpy.getFeed(validRequest);
         Assertions.assertEquals(successResponse, response);
     }
 
     @Test
-    public void testGetFeed_validRequest_loadsUsers() throws IOException {
-        FeedResponse response = feedServiceSpy.getFeed(validRequest);
+    public void testGetFeed_validRequest_loadsUsers() throws IOException, TweeterRemoteException {
+        FeedResponse response = feedServiceProxySpy.getFeed(validRequest);
 
         for (Status status: response.getStatuses()) {
             Assertions.assertNotNull(status.getUser());
@@ -68,8 +69,8 @@ public class FeedServiceTest {
     }
 
     @Test
-    public void testGetFeed_invalidRequest_returnsNoStatuses() throws IOException {
-        FeedResponse response = feedServiceSpy.getFeed(invalidRequest);
+    public void testGetFeed_invalidRequest_returnsNoStatuses() throws IOException, TweeterRemoteException {
+        FeedResponse response = feedServiceProxySpy.getFeed(invalidRequest);
         Assertions.assertEquals(failureResponse, response);
     }
 }

@@ -8,6 +8,7 @@ import androidx.annotation.RequiresApi;
 import java.io.IOException;
 
 import edu.byu.cs.tweeter.client.presenter.FeedPresenter;
+import edu.byu.cs.tweeter.shared.model.net.TweeterRemoteException;
 import edu.byu.cs.tweeter.shared.model.request.FeedRequest;
 import edu.byu.cs.tweeter.shared.model.response.FeedResponse;
 
@@ -39,7 +40,7 @@ public class GetFeedTask extends AsyncTask<FeedRequest, Void, FeedResponse> {
 
         try {
             response = presenter.getFeed(feedRequests[0]);
-        } catch (IOException ex) {
+        } catch (IOException | TweeterRemoteException ex) {
             exception = ex;
         }
 

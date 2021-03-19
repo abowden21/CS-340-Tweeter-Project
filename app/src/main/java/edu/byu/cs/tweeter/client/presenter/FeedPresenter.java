@@ -6,7 +6,8 @@ import androidx.annotation.RequiresApi;
 
 import java.io.IOException;
 
-import edu.byu.cs.tweeter.client.model.service.FeedService;
+import edu.byu.cs.tweeter.client.model.service.FeedServiceProxy;
+import edu.byu.cs.tweeter.shared.model.net.TweeterRemoteException;
 import edu.byu.cs.tweeter.shared.model.request.FeedRequest;
 import edu.byu.cs.tweeter.shared.model.response.FeedResponse;
 
@@ -21,12 +22,12 @@ public class FeedPresenter {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public FeedResponse getFeed(FeedRequest request) throws IOException {
-        FeedService feedService = getFeedService();
-        return feedService.getFeed(request);
+    public FeedResponse getFeed(FeedRequest request) throws IOException, TweeterRemoteException {
+        FeedServiceProxy feedServiceProxy = getFeedService();
+        return feedServiceProxy.getFeed(request);
     }
 
-    FeedService getFeedService() {
-        return new FeedService();
+    FeedServiceProxy getFeedService() {
+        return new FeedServiceProxy();
     }
 }
