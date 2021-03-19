@@ -35,8 +35,6 @@ public class StoryServiceProxy extends ServiceBase implements StoryServiceInterf
     private void loadImages(StoryResponse response) throws IOException {
         for(Status status : response.getStatuses()) {
             //TODO: Fix hard coding the user
-            User user1 = new User("Allen", "Anderson", "https://faculty.cs.byu.edu/~jwilkerson/cs340/tweeter/images/donald_duck.png");
-            status.setUser(user1);
 
             byte [] bytes = ByteArrayUtils.bytesFromUrl(status.getUser().getImageUrl());
             status.getUser().setImageBytes(bytes);

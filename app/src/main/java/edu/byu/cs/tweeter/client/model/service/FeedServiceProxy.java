@@ -33,12 +33,6 @@ public class FeedServiceProxy extends ServiceBase implements FeedServiceInterfac
 
     private void loadImages(FeedResponse response) throws IOException {
         for(Status status : response.getStatuses()) {
-
-            //TODO: Fix hard coding the user
-            if (status.getUser() == null) {
-                User user1 = new User("Allen", "Anderson", "https://faculty.cs.byu.edu/~jwilkerson/cs340/tweeter/images/donald_duck.png");
-                status.setUser(user1);
-            }
             User user = status.getUser();
 
             if (user.getImageBytes() == null || user.getImageBytes().length == 0) {

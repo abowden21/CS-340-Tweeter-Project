@@ -10,32 +10,32 @@ public class Status {
     private String message;
     private List<String> urls;
     private List<String> mentions;
-    private User associatedUser;
+    private User user;
 
     public Status(){}
 
-    public Status(LocalDateTime timestamp, String message, User associatedUser) {
-        this(timestamp, message, new ArrayList<String>(), new ArrayList<String>(), associatedUser);
+    public Status(LocalDateTime timestamp, String message, User user) {
+        this(timestamp, message, new ArrayList<String>(), new ArrayList<String>(), user);
     }
 
-    public Status(String timestamp, String message, User associatedUser) {
-        this(timestamp, message, new ArrayList<String>(), new ArrayList<String>(), associatedUser);
+    public Status(String timestamp, String message, User user) {
+        this(timestamp, message, new ArrayList<String>(), new ArrayList<String>(), user);
     }
 
-    public Status(LocalDateTime timestamp, String message, List<String> urls, List<String> mentions, User associatedUser) {
+    public Status(LocalDateTime timestamp, String message, List<String> urls, List<String> mentions, User user) {
         setTimestamp(timestamp);
         this.message = message;
         this.urls = urls;
         this.mentions = mentions;
-        this.associatedUser = associatedUser;
+        this.user = user;
     }
 
-    public Status(String timestamp, String message, List<String> urls, List<String> mentions, User associatedUser) {
+    public Status(String timestamp, String message, List<String> urls, List<String> mentions, User user) {
         this.timestampString = timestamp;
         this.message = message;
         this.urls = urls;
         this.mentions = mentions;
-        this.associatedUser = associatedUser;
+        this.user = user;
     }
 
     public String getTimestampString() {
@@ -74,10 +74,10 @@ public class Status {
     }
 
     public User getUser() {
-        return associatedUser;
+        return user;
     }
     public void setUser(User user) {
-        this.associatedUser = user;
+        this.user = user;
     }
 
 }
