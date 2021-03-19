@@ -39,7 +39,8 @@ import edu.byu.cs.tweeter.shared.model.response.UserFollowCountResponse;
 /**
  * The main activity for the application. Contains tabs for feed, story, following, and followers.
  */
-public class MainActivity extends AppCompatActivity implements LoginPresenter.View, LogoutTask.Observer,
+public class
+MainActivity extends AppCompatActivity implements LoginPresenter.View, LogoutTask.Observer,
         PostStatusPresenter.Fragment, PostStatusTask.Observer, GetFollowCountPresenter.View, GetUserFollowCountTask.Observer {
     private static final String LOG_TAG = "MainActivity";
     public static final String CURRENT_USER_KEY = "CurrentUser";
@@ -111,7 +112,7 @@ public class MainActivity extends AppCompatActivity implements LoginPresenter.Vi
 
         followeeCount = findViewById(R.id.followeeCount);
         followerCount = findViewById(R.id.followerCount);
-        //TODO
+
         GetUserFollowCountTask userFollowCountTask = new GetUserFollowCountTask(fcPresenter, this);
         UserFollowCountRequest userFollowCountRequest = new UserFollowCountRequest(user.getAlias());
         userFollowCountTask.execute(userFollowCountRequest);

@@ -1,10 +1,14 @@
 package edu.byu.cs.tweeter.client.view.asyncTasks;
 
 import android.os.AsyncTask;
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
 
 import java.io.IOException;
 
 import edu.byu.cs.tweeter.client.presenter.FollowersPresenter;
+import edu.byu.cs.tweeter.shared.model.net.TweeterRemoteException;
 import edu.byu.cs.tweeter.shared.model.request.FollowersRequest;
 import edu.byu.cs.tweeter.shared.model.response.FollowersResponse;
 
@@ -48,6 +52,7 @@ public class GetFollowersTask extends AsyncTask<FollowersRequest, Void, Follower
      * @param followersRequests the request object (there will only be one).
      * @return the response.
      */
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected FollowersResponse doInBackground(FollowersRequest... followersRequests) {
 
@@ -55,7 +60,7 @@ public class GetFollowersTask extends AsyncTask<FollowersRequest, Void, Follower
 
         try {
             response = presenter.getFollowers(followersRequests[0]);
-        } catch (IOException ex) {
+        } catch (IOException | TweeterRemoteException ex) {
             exception = ex;
         }
 

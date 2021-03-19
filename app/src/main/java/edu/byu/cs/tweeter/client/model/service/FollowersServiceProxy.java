@@ -9,13 +9,17 @@ import java.io.IOException;
 import edu.byu.cs.tweeter.client.util.ByteArrayUtils;
 import edu.byu.cs.tweeter.shared.model.domain.User;
 import edu.byu.cs.tweeter.client.model.net.ServerFacade;
+import edu.byu.cs.tweeter.shared.model.net.TweeterRemoteException;
 import edu.byu.cs.tweeter.shared.model.request.FollowersRequest;
 import edu.byu.cs.tweeter.shared.model.response.FollowersResponse;
+import edu.byu.cs.tweeter.shared.model.service.FollowersServiceInterface;
 
 /**
  * Contains the business logic for getting the users a user is following.
  */
-public class FollowersService extends ServiceBase  {
+public class FollowersServiceProxy extends ServiceBase implements FollowersServiceInterface {
+
+    private static final String URL_PATH = "/follow/getfollowers";
 
     /**
      * Returns the users that the user specified in the request is following. Uses information in
@@ -27,8 +31,8 @@ public class FollowersService extends ServiceBase  {
      * @return the followees.
      */
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public FollowersResponse getFollowers(FollowersRequest request) throws IOException {
-        FollowersResponse response = getServerFacade().getFollowers(request);
+    public FollowersResponse getFollowers(FollowersRequest request) throws IOException, TweeterRemoteException {
+        FollowersResponse response = getServerFacade().getFollowers(request, URL_PATH);
 
         if(response.isSuccess()) {
             loadImages(response);

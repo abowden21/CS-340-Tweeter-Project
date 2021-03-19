@@ -59,7 +59,7 @@ public class FollowingResponse extends PagedResponse {
 
         FollowingResponse that = (FollowingResponse) param;
 
-        return (Objects.equals(followees, that.followees) &&
+        return (Objects.equals(followees, that.followees)  && getHasMorePages() == that.getHasMorePages() &&
                 Objects.equals(this.getMessage(), that.getMessage()) &&
                 this.isSuccess() == that.isSuccess());
     }

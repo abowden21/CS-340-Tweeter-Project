@@ -6,7 +6,8 @@ import androidx.annotation.RequiresApi;
 
 import java.io.IOException;
 
-import edu.byu.cs.tweeter.client.model.service.FollowersService;
+import edu.byu.cs.tweeter.client.model.service.FollowersServiceProxy;
+import edu.byu.cs.tweeter.shared.model.net.TweeterRemoteException;
 import edu.byu.cs.tweeter.shared.model.request.FollowersRequest;
 import edu.byu.cs.tweeter.shared.model.response.FollowersResponse;
 
@@ -40,19 +41,19 @@ public class FollowersPresenter {
      * @return the followees.
      */
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public FollowersResponse getFollowers(FollowersRequest request) throws IOException {
-        FollowersService followingService = getFollowersService();
+    public FollowersResponse getFollowers(FollowersRequest request) throws IOException, TweeterRemoteException {
+        FollowersServiceProxy followingService = getFollowersService();
         return followingService.getFollowers(request);
     }
 
     /**
-     * Returns an instance of {@link FollowersService}. Allows mocking of the FollowingService class
+     * Returns an instance of {@link FollowersServiceProxy}. Allows mocking of the FollowingService class
      * for testing purposes. All usages of FollowingService should get their FollowingService
      * instance from this method to allow for mocking of the instance.
      *
      * @return the instance.
      */
-    public FollowersService getFollowersService() {
-        return new FollowersService();
+    public FollowersServiceProxy getFollowersService() {
+        return new FollowersServiceProxy();
     }
 }

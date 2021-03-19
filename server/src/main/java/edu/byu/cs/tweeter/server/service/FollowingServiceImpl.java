@@ -31,7 +31,7 @@ public class FollowingServiceImpl implements FollowingServiceInterface {
      *
      * @return the instance.
      */
-    FollowingDAO getFollowingDAO() {
+    public FollowingDAO getFollowingDAO() {
         return new FollowingDAO();
     }
 }

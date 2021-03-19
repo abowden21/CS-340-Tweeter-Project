@@ -109,6 +109,17 @@ public class ServerFacade {
         }
     }
 
+    public FollowersResponse getFollowers(FollowersRequest request, String urlPath)
+            throws IOException, TweeterRemoteException {
+        FollowersResponse response = clientCommunicator.doPost(urlPath, request, null, FollowersResponse.class);
+
+        if(response.isSuccess()) {
+            return response;
+        } else {
+            throw new RuntimeException(response.getMessage());
+        }
+    }
+
     public FollowResponse setFollow(FollowRequest request, String urlPath) throws IOException, TweeterRemoteException {
         FollowResponse response = clientCommunicator.doPost(urlPath, request, null, FollowResponse.class);
 
@@ -303,66 +314,66 @@ public class ServerFacade {
                 user19, user20);
     }
 
-    public FollowersResponse getFollowers(FollowersRequest request) {
-
-        // Used in place of assert statements because Android does not support them
-        if(BuildConfig.DEBUG) {
-            if(request.getLimit() < 0) {
-                throw new AssertionError();
-            }
-
-            if(request.getFollowerAlias() == null) {
-                throw new AssertionError();
-            }
-        }
-
-        List<User> allFollowers = getDummyFollowers();
-        List<User> responseFollowers = new ArrayList<>(request.getLimit());
-
-        boolean hasMorePages = false;
-
-        if(request.getLimit() > 0) {
-            int followersIndex = getFollowersStartingIndex(request.getLastFolloweeAlias(), allFollowers);
-
-            for(int limitCounter = 0; followersIndex < allFollowers.size() && limitCounter < request.getLimit(); followersIndex++, limitCounter++) {
-                responseFollowers.add(allFollowers.get(followersIndex));
-            }
-
-            hasMorePages = followersIndex < allFollowers.size();
-        }
-
-        return new FollowersResponse(responseFollowers, hasMorePages);
-    }
-
-    /**
-     * Determines the index for the first followee in the specified 'allFollowees' list that should
-     * be returned in the current request. This will be the index of the next followee after the
-     * specified 'lastFollowee'.
-     *
-     * @param lastFollowerAlias the alias of the last followee that was returned in the previous
-     *                          request or null if there was no previous request.
-     * @param allFollowers the generated list of followees from which we are returning paged results.
-     * @return the index of the first followee to be returned.
-     */
-    private int getFollowersStartingIndex(String lastFollowerAlias, List<User> allFollowers) {
-
-        int followersIndex = 0;
-
-        if(lastFollowerAlias != null) {
-            // This is a paged request for something after the first page. Find the first item
-            // we should return
-            for (int i = 0; i < allFollowers.size(); i++) {
-                if(lastFollowerAlias.equals(allFollowers.get(i).getAlias())) {
-                    // We found the index of the last item returned last time. Increment to get
-                    // to the first one we should return
-                    followersIndex = i + 1;
-                    break;
-                }
-            }
-        }
-
-        return followersIndex;
-    }
+//    public FollowersResponse getFollowers(FollowersRequest request) {
+//
+//        // Used in place of assert statements because Android does not support them
+//        if(BuildConfig.DEBUG) {
+//            if(request.getLimit() < 0) {
+//                throw new AssertionError();
+//            }
+//
+//            if(request.getFollowerAlias() == null) {
+//                throw new AssertionError();
+//            }
+//        }
+//
+//        List<User> allFollowers = getDummyFollowers();
+//        List<User> responseFollowers = new ArrayList<>(request.getLimit());
+//
+//        boolean hasMorePages = false;
+//
+//        if(request.getLimit() > 0) {
+//            int followersIndex = getFollowersStartingIndex(request.getLastFolloweeAlias(), allFollowers);
+//
+//            for(int limitCounter = 0; followersIndex < allFollowers.size() && limitCounter < request.getLimit(); followersIndex++, limitCounter++) {
+//                responseFollowers.add(allFollowers.get(followersIndex));
+//            }
+//
+//            hasMorePages = followersIndex < allFollowers.size();
+//        }
+//
+//        return new FollowersResponse(responseFollowers, hasMorePages);
+//    }
+//
+//    /**
+//     * Determines the index for the first followee in the specified 'allFollowees' list that should
+//     * be returned in the current request. This will be the index of the next followee after the
+//     * specified 'lastFollowee'.
+//     *
+//     * @param lastFollowerAlias the alias of the last followee that was returned in the previous
+//     *                          request or null if there was no previous request.
+//     * @param allFollowers the generated list of followees from which we are returning paged results.
+//     * @return the index of the first followee to be returned.
+//     */
+//    private int getFollowersStartingIndex(String lastFollowerAlias, List<User> allFollowers) {
+//
+//        int followersIndex = 0;
+//
+//        if(lastFollowerAlias != null) {
+//            // This is a paged request for something after the first page. Find the first item
+//            // we should return
+//            for (int i = 0; i < allFollowers.size(); i++) {
+//                if(lastFollowerAlias.equals(allFollowers.get(i).getAlias())) {
+//                    // We found the index of the last item returned last time. Increment to get
+//                    // to the first one we should return
+//                    followersIndex = i + 1;
+//                    break;
+//                }
+//            }
+//        }
+//
+//        return followersIndex;
+//    }
 
     /**
      * Returns the list of dummy followee data. This is written as a separate method to allow

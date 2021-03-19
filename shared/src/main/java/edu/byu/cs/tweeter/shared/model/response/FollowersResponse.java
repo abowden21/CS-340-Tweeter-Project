@@ -13,6 +13,8 @@ public class FollowersResponse extends PagedResponse {
 
     private List<User> followers;
 
+    public FollowersResponse(){}
+
     /**
      * Creates a response indicating that the corresponding request was unsuccessful. Sets the
      * success and more pages indicators to false.
@@ -55,7 +57,7 @@ public class FollowersResponse extends PagedResponse {
 
         FollowersResponse that = (FollowersResponse) param;
 
-        return (Objects.equals(followers, that.followers) &&
+        return (Objects.equals(followers, that.followers) && getHasMorePages() == that.getHasMorePages() &&
                 Objects.equals(this.getMessage(), that.getMessage()) &&
                 this.isSuccess() == that.isSuccess());
     }
@@ -63,5 +65,9 @@ public class FollowersResponse extends PagedResponse {
     @Override
     public int hashCode() {
         return Objects.hash(followers);
+    }
+
+    public void setFollowers(List<User> followers) {
+        this.followers = followers;
     }
 }
