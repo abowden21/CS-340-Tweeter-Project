@@ -34,12 +34,16 @@ import edu.byu.cs.tweeter.shared.model.request.LoginRequest;
 import edu.byu.cs.tweeter.shared.model.response.LoginResponse;
 
 public class LoginServiceImpl implements LoginServiceInterface {
+
     AuthTokenDAO authTokenDao;
     UserDAO userDao;
 
     @Override
     public LoginResponse login(LoginRequest request) {
-        User user = userDao.getUser(request.getUsername());
+        if (request.getUsername().contains("fail")) {
+            return new LoginResponse("Error: Login Failed.");
+        }
+        User user = getUserDao().getUser(request.getUsername());
         String uniqueToken = "<Dummy unique token>";
         AuthToken authToken = new AuthToken(uniqueToken, user.getAlias());
         getAuthTokenDao().addAuthToken(authToken);

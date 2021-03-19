@@ -2,8 +2,8 @@ package edu.byu.cs.tweeter.shared.model.request;
 
 public abstract class BaseUserRequest {
 
-    private String username;
-    private String password;
+    public String username;
+    public String password;
 
     public BaseUserRequest(String username, String password) {
         this.username = username;
