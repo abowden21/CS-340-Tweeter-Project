@@ -177,7 +177,25 @@ public class ServerFacade {
         }
     }
 
-    // OLD DEPRECATED CODE. TODO DELETE
+    public GetUserResponse getUser(GetUserRequest request, String urlPath) throws IOException, TweeterRemoteException {
+
+        GetUserResponse response = clientCommunicator.doPost(urlPath, request, null, GetUserResponse.class);
+        if(response.isSuccess()) {
+            return response;
+        } else {
+            throw new RuntimeException(response.getMessage());
+        }
+
+    }
+
+
+
+
+
+
+
+
+    // OLD DEPRECATED CODE. TODO DELETE after confirming all tests pass.
 
     public PostStatusResponse sendStatus( PostStatusRequest postStatusRequest) {
         return new PostStatusResponse();
@@ -450,17 +468,6 @@ public class ServerFacade {
         return Arrays.asList(user1, user2, user3, user4, user5, user6, user7,
                 user8, user9, user10, user11, user12, user13, user14, user15, user16, user17, user18,
                 user19, user20, user21, user22, user23);
-    }
-
-    public GetUserResponse getUser(GetUserRequest request) {
-        List<User> allUsers = getDummyUsers();
-
-        for (User user : allUsers) {
-            if (user.getAlias().equals(request.getAlias())) {
-                return new GetUserResponse(user);
-            }
-        }
-        return new GetUserResponse(null);
     }
 
 //    public FollowResponse setFollow(FollowRequest request) {

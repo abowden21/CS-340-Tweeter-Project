@@ -17,7 +17,7 @@ import edu.byu.cs.tweeter.shared.model.response.PostStatusResponse;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class PostStatusServiceTest {
+public class PostStatusServiceProxyTest {
 
     PostStatusRequest postStatusRequestValid;
     PostStatusRequest postStatusRequestInvalid_authToken;
@@ -47,9 +47,9 @@ public class PostStatusServiceTest {
 
         serverFacadeMock = Mockito.mock(ServerFacade.class);
 
-        Mockito.when(serverFacadeMock.sendStatus(postStatusRequestValid)).thenReturn(postStatusResponseValid);
-        Mockito.when(serverFacadeMock.sendStatus(postStatusRequestInvalid_authToken)).thenReturn(postStatusResponseInvalid_authToken);
-        Mockito.when(serverFacadeMock.sendStatus(postStatusRequestInvalid_contentLength)).thenReturn(postStatusResponseInvalid_contentLength);
+        Mockito.when(serverFacadeMock.sendStatus(postStatusRequestValid, "/status/post")).thenReturn(postStatusResponseValid);
+        Mockito.when(serverFacadeMock.sendStatus(postStatusRequestInvalid_authToken, "/status/post")).thenReturn(postStatusResponseInvalid_authToken);
+        Mockito.when(serverFacadeMock.sendStatus(postStatusRequestInvalid_contentLength, "/status/post")).thenReturn(postStatusResponseInvalid_contentLength);
 
         postStatusServiceSpy = Mockito.spy(new PostStatusServiceProxy());
         Mockito.when(postStatusServiceSpy.getServerFacade()).thenReturn(serverFacadeMock);

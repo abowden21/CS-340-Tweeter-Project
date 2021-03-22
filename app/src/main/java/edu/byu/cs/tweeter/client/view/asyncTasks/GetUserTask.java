@@ -7,7 +7,8 @@ import androidx.annotation.RequiresApi;
 
 import java.io.IOException;
 
-import edu.byu.cs.tweeter.client.model.service.GetUserService;
+import edu.byu.cs.tweeter.client.model.service.GetUserServiceProxy;
+import edu.byu.cs.tweeter.shared.model.net.TweeterRemoteException;
 import edu.byu.cs.tweeter.shared.model.request.GetUserRequest;
 import edu.byu.cs.tweeter.shared.model.response.GetUserResponse;
 
@@ -40,9 +41,9 @@ public class GetUserTask extends AsyncTask<GetUserRequest, Void, GetUserResponse
         GetUserResponse response = null;
 
         try {
-            GetUserService getUserService = new GetUserService();
+            GetUserServiceProxy getUserService = new GetUserServiceProxy();
             response = getUserService.getUser(getUserRequests[0]);
-        } catch (IOException ex) {
+        } catch (IOException | TweeterRemoteException ex) {
             exception = ex;
         }
 
