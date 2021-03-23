@@ -27,7 +27,7 @@ public class FeedDAO {
     private final User user10 = new User("Elizabeth", "Engle", FEMALE_IMAGE_URL);
     private final User user11 = new User("Frank", "Frandson", MALE_IMAGE_URL);
     private final User user12 = new User("Fran", "Franklin", FEMALE_IMAGE_URL);
-    private final Status status1 = new Status(LocalDateTime.parse("2021-02-13T01:01:01"), user11.toString(), null ,null, user11);
+    private final Status status1 = new Status(LocalDateTime.parse("2021-02-13T01:01:01"), "message1", null ,null, user11);
     private final Status status2 = new Status(LocalDateTime.parse("2021-02-14T01:01:02"), "@TacoBell , Check out this cool website I found: www.google.com   How's it going @RyanBryson", null, null, user12);
     private final Status status3 = new Status(LocalDateTime.parse("2021-02-15T01:01:03"), "My daughter just learned she is accepted to BYU!\n" +
             "\n" +
