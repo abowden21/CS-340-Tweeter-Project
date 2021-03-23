@@ -6,7 +6,7 @@ import edu.byu.cs.tweeter.shared.model.response.FeedResponse;
 
 public class FeedServiceImpl {
 
-    public FeedResponse getStory(FeedRequest feedRequest) {
+    public FeedResponse getFeed(FeedRequest feedRequest) {
         return getFeedDAO().getFeed(feedRequest);
     }
 
