@@ -62,7 +62,7 @@ public class StoryServiceIntegrationTest {
 
         statuses = Arrays.asList(status1, status2, status3, status4, status5, status6, status7, status8, status9, status10);
 
-        validRequest = new StoryRequest(user1.getAlias(), 10, "2021-02-15T01:01:01");
+        validRequest = new StoryRequest(testUser.getAlias(), 10, "2021-02-15T01:01:01");
         successResponse = new StoryResponse(statuses, true);
         
         storyService = new StoryServiceProxy();
@@ -71,7 +71,7 @@ public class StoryServiceIntegrationTest {
     @Test
     public void testGetStory_validRequest_correctResponse() throws IOException, TweeterRemoteException {
         StoryResponse response = storyService.getStory(validRequest);
-        
+
         //No Equal Method for Status so we're comparing messages instead
         for (int i = 0; i < 10; ++i) {
             String expectedMessage = statuses.get(i).getMessage();
