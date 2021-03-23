@@ -47,19 +47,13 @@ public class StoryDAO {
 
 
     public StoryResponse getStory(StoryRequest request) {
+        if(request.getLimit() < 0) {
+            throw new AssertionError();
+        }
 
-        // MAJOR TODO: Implement pagination.
-
-        // Used in place of assert statements because Android does not support them
-        //if(BuildConfig.DEBUG) {
-            if(request.getLimit() < 0) {
-                throw new AssertionError();
-            }
-
-            if(request.getUserAlias() == null) {
-                throw new AssertionError();
-            }
-        //}
+        if(request.getUserAlias() == null) {
+            throw new AssertionError();
+        }
 
         List<Status> allStatuses = getDummyStatuses();
         List<Status> responseStatuses = new ArrayList<>(request.getLimit());

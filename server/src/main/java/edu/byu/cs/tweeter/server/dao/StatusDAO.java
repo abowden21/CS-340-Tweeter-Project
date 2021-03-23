@@ -15,4 +15,5 @@ public class StatusDAO {
 //    public void deleteStatus(String token) {}
 
     // TODO: solve pagination/identification for this class. (really more of a Milestone 4 issue)
+    // Use cursors instead of page numbers.
 }

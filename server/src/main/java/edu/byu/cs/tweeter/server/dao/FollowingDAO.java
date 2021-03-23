@@ -64,7 +64,6 @@ public class FollowingDAO {
         // TODO: Generates dummy data. Replace with a real implementation.
         assert request.getLimit() > 0;
         assert request.getFollowerAlias() != null;
-        System.out.println("sup boi");
 
         List<User> allFollowees = getDummyFollowees();
         List<User> responseFollowees = new ArrayList<>(request.getLimit());
@@ -77,7 +76,6 @@ public class FollowingDAO {
 
                 for(int limitCounter = 0; followeesIndex < allFollowees.size() && limitCounter < request.getLimit(); followeesIndex++, limitCounter++) {
                     responseFollowees.add(allFollowees.get(followeesIndex));
-                    System.out.println("adding something");
                 }
 
                 hasMorePages = followeesIndex < allFollowees.size();
