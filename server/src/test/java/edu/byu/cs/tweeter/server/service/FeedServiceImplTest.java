@@ -40,7 +40,7 @@ public class FeedServiceImplTest {
 
 
         validRequest = new FeedRequest(validToken, 2, LocalDateTime.parse("2021-02-15T01:01:01"));
-        invalidRequest = new FeedRequest(null, 0, null);
+        invalidRequest = new FeedRequest(null, 0, "");
 
         successResponse = new FeedResponse(Arrays.asList(status1, status2), false);
         FeedDAO feedDAO = Mockito.mock(FeedDAO.class);

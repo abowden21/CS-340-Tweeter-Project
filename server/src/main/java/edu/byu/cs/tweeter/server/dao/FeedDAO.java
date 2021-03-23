@@ -88,7 +88,7 @@ public class FeedDAO {
             // This is a paged request for something after the first page. Find the first item
             // we should return
             for (int i = 0; i < allStatuses.size(); i++) {
-                if(lastTimeStamp.equals(allStatuses.get(i).getTimestamp())) {
+                if(lastTimeStamp.toString().equals(allStatuses.get(i).getTimestamp().toString())) {
                     // We found the index of the last item returned last time. Increment to get
                     // to the first one we should return
                     statusIndex = i + 1;
