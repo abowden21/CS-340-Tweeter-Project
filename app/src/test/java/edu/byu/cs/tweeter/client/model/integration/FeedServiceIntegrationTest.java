@@ -63,7 +63,7 @@ public class FeedServiceIntegrationTest {
         statuses = Arrays.asList(status1, status2, status3, status4, status5, status6, status7, status8, status9, status10);
 
         AuthToken validAuthToken = new AuthToken("validToken", testUser.getAlias());
-        validRequest = new FeedRequest(validAuthToken, 10, LocalDateTime.parse("2021-02-13T01:01:01"));
+        validRequest = new FeedRequest(validAuthToken, 10, LocalDateTime.now());
         successResponse = new FeedResponse(statuses, true);
 
         feedService = new FeedServiceProxy();

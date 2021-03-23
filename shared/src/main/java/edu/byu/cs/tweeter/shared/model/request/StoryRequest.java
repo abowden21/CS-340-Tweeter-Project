@@ -7,7 +7,7 @@ public class StoryRequest {
     private final String userAlias;
     private final int limit;
     //private final LocalDateTime lastTimestamp;
-    private final String timestampString;
+    private String timestampString;
 
     public StoryRequest() {
         userAlias = "";
@@ -44,6 +44,10 @@ public class StoryRequest {
 
     public String getTimestampString() {
         return this.timestampString;
+    }
+
+    public void setTimestampString(String timestampString) {
+        this.timestampString = timestampString;
     }
 
 

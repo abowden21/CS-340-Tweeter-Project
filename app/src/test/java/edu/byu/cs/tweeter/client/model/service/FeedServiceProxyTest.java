@@ -39,8 +39,8 @@ public class FeedServiceProxyTest {
         AuthToken validToken = new AuthToken("validToken", "test");
         AuthToken invalidToken = new AuthToken("invalidToken", "test");
 
-        validRequest = new FeedRequest(validToken, 4, null);
-        invalidRequest = new FeedRequest(invalidToken, 0, null);
+        validRequest = new FeedRequest(validToken, 4, "");
+        invalidRequest = new FeedRequest(invalidToken, 0, "null");
 
         successResponse = new FeedResponse(Arrays.asList(resultStatus1, resultStatus2, resultStatus3, resultStatus4), false);
         ServerFacade mockServerFacade = Mockito.mock(ServerFacade.class);
