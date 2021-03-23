@@ -20,6 +20,7 @@ import java.time.LocalDateTime;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
+import edu.byu.cs.tweeter.server.DataAccessException;
 import edu.byu.cs.tweeter.server.dao.AuthTokenDAO;
 import edu.byu.cs.tweeter.server.dao.UserDAO;
 import edu.byu.cs.tweeter.shared.model.domain.AuthToken;
@@ -38,16 +39,25 @@ public class LoginServiceImpl implements LoginServiceInterface {
     AuthTokenDAO authTokenDao;
     UserDAO userDao;
 
+    private String loginFailedMessage = "Error: Login Failed.";
+    private String registerFailedMessage = "Error: Register Failed.";
+    private String logoutFailedMessage = "Error: Logout Failed.";
+
     @Override
     public LoginResponse login(LoginRequest request) {
         if (request.getUsername().contains("fail")) {
-            return new LoginResponse("Error: Login Failed.");
+            return new LoginResponse(loginFailedMessage);
         }
-        User user = getUserDao().getUser(request.getUsername());
-        String uniqueToken = "<Dummy unique token>";
-        AuthToken authToken = new AuthToken(uniqueToken, user.getAlias());
-        getAuthTokenDao().addAuthToken(authToken);
-        return new LoginResponse(user, authToken);
+        User user = null;
+        try {
+            user = getUserDao().getUser(request.getUsername());
+            String uniqueToken = "<Dummy unique token>";
+            AuthToken authToken = new AuthToken(uniqueToken, user.getAlias());
+            getAuthTokenDao().addAuthToken(authToken);
+            return new LoginResponse(user, authToken);
+        } catch (DataAccessException e) {
+            return new LoginResponse(loginFailedMessage);
+        }
     }
 
     @Override
@@ -70,18 +80,27 @@ public class LoginServiceImpl implements LoginServiceInterface {
         //
         User user = new User(registerRequest.getFirstName(), registerRequest.getLastName(),
                 registerRequest.getUsername(), imageUrl);
-        getUserDao().addUser(user);
-        String uniqueToken = "<Dummy unique token>";
-        AuthToken authToken = new AuthToken(uniqueToken, user.getAlias());
-        getAuthTokenDao().addAuthToken(authToken);
-        return new RegisterResponse(user, authToken);
+        try {
+            getUserDao().addUser(user);
+            String uniqueToken = "<Dummy unique token>";
+            AuthToken authToken = new AuthToken(uniqueToken, user.getAlias());
+            getAuthTokenDao().addAuthToken(authToken);
+            return new RegisterResponse(user, authToken);
+        } catch (DataAccessException e) {
+            return new RegisterResponse(registerFailedMessage);
+        }
     }
 
     @Override
     public LogoutResponse logout(LogoutRequest logoutRequest) {
-        String token = logoutRequest.getAuthToken().getToken();
-        getAuthTokenDao().deleteAuthToken(token);
-        return new LogoutResponse(true);
+        try {
+            String token = logoutRequest.getAuthToken().getToken();
+            getAuthTokenDao().deleteAuthToken(token);
+            return new LogoutResponse(true);
+        }
+        catch (DataAccessException e) {
+            return new LogoutResponse(logoutFailedMessage);
+        }
     }
 
     public AuthTokenDAO getAuthTokenDao() {

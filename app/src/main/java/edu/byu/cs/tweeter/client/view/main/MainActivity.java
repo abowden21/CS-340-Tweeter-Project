@@ -137,7 +137,7 @@ MainActivity extends AppCompatActivity implements LoginPresenter.View, LogoutTas
     @Override
     public void requestSendTweet(String message) {
         PostStatusTask postStatusTask = new PostStatusTask(this.postPresenter, this);
-        PostStatusRequest postStatusRequest = new PostStatusRequest(this.authToken, message);
+        PostStatusRequest postStatusRequest = new PostStatusRequest(this.authToken.getToken(), message);
         postStatusTask.execute(postStatusRequest);
         sendToast("Sending post...");
     }
