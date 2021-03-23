@@ -7,7 +7,7 @@ public class AuthTokenDAO {
 
     public void addAuthToken(AuthToken authToken) throws DataAccessException {}
     public AuthToken getAuthToken(String token) throws DataAccessException {
-        return new AuthToken("<DummyToken>", "fakeAlias");
+        return new AuthToken("<DummyToken>", "fakeAlias", 100);
     }
     public void updateAuthToken(String token, AuthToken authToken) throws DataAccessException {}
     public void deleteAuthToken(String token) throws DataAccessException {}

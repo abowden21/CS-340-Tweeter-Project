@@ -34,7 +34,7 @@ public class PostStatusPresenterTest {
         User user = new User("First", "Last", "https://faculty.cs.byu.edu/~jwilkerson/cs340/tweeter/images/donald_duck.png");
         Status status = new Status(timeStamp, message, user);
 
-        postStatusRequest = new PostStatusRequest(authToken, message);
+        postStatusRequest = new PostStatusRequest(authToken.getToken(), message);
         postStatusResponse = new PostStatusResponse(status);
 
         postStatusService = Mockito.mock(PostStatusServiceProxy.class);

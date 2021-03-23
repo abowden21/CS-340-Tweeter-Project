@@ -31,8 +31,8 @@ public class PostStatusServiceProxyTest {
 
     @BeforeEach
     public void setup() throws IOException, TweeterRemoteException {
-        AuthToken validAuthToken = new AuthToken("mockToken", "");
-        AuthToken invalidAuthToken = new AuthToken("invalidToken!", "");
+        String validAuthToken = "mockToken";
+        String invalidAuthToken = "invalidToken!";
         String validPost = "Post";
         String invalidPost = new String(new char[141]).replace("\0", "X"); // 141 characters of X - too long.
         User validUser = new User("mockFirst", "mockLast", "https://faculty.cs.byu.edu/~jwilkerson/cs340/tweeter/images/donald_duck.png");

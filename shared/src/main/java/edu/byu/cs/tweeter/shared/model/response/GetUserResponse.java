@@ -10,6 +10,7 @@ public class GetUserResponse extends Response {
         super(false, message);
     }
     public GetUserResponse(User retrievedUser) {
+        super(true);
         this.retrievedUser = retrievedUser;
     }
 

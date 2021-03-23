@@ -16,7 +16,7 @@ public class PostStatusServiceProxy extends ServiceBase implements PostStatusSer
 
     private static final String URL_PATH = "/status/post";
 
-    public PostStatusServiceProxy(){}
+    public PostStatusServiceProxy() {}
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public PostStatusResponse sendStatus(PostStatusRequest postStatusRequest) throws IOException, TweeterRemoteException {
