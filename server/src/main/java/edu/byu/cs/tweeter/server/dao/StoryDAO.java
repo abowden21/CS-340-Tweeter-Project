@@ -27,23 +27,23 @@ public class StoryDAO {
     private final User user10 = new User("Elizabeth", "Engle", FEMALE_IMAGE_URL);
     private final User user11 = new User("Frank", "Frandson", MALE_IMAGE_URL);
     private final User user12 = new User("Fran", "Franklin", FEMALE_IMAGE_URL);
-    private final Status status1 = new Status(LocalDateTime.parse("2021-02-13T01:01:01"), "message1", null ,null, user11);
-    private final Status status2 = new Status(LocalDateTime.parse("2021-02-14T01:01:02"), "@TacoBell , Check out this cool website I found: www.google.com   How's it going @RyanBryson", null, null, user12);
+    private final Status status1 = new Status(LocalDateTime.parse("2021-02-13T01:01:01"), "message1", user11);
+    private final Status status2 = new Status(LocalDateTime.parse("2021-02-14T01:01:02"), "@TacoBell , Check out this cool website I found: www.google.com   How's it going @RyanBryson", user12);
     private final Status status3 = new Status(LocalDateTime.parse("2021-02-15T01:01:03"), "My daughter just learned she is accepted to BYU!\n" +
             "\n" +
             "That's 3 children from my house. \n" +
             "Plus my wife and I met there, \n" +
             "my parents met there, \n" +
-            "and my wife's parents met there. ", null ,null, user1);
-    private final Status status4 = new Status(LocalDateTime.parse("2021-02-15T01:01:04"), "message4", null, null, user2);
-    private final Status status5 = new Status(LocalDateTime.parse("2021-02-15T01:01:05"), "message5", null ,null, user3);
-    private final Status status6 = new Status(LocalDateTime.parse("2021-02-15T01:01:06"), "message6", null, null, user4);
-    private final Status status7 = new Status(LocalDateTime.parse("2021-02-15T01:01:07"), "message7", null ,null, user5);
-    private final Status status8 = new Status(LocalDateTime.parse("2021-02-15T01:01:08"), "message8", null, null, user6);
-    private final Status status9 = new Status(LocalDateTime.parse("2021-02-15T01:01:09"), "message9", null ,null, user7);
-    private final Status status10 = new Status(LocalDateTime.parse("2021-02-15T01:01:10"), "message10", null, null, user8);
-    private final Status status11 = new Status(LocalDateTime.parse("2021-02-15T01:01:11"), "message11", null ,null, user9);
-    private final Status status12 = new Status(LocalDateTime.parse("2021-02-15T01:01:12"), "message12", null, null, user10);
+            "and my wife's parents met there. ", user1);
+    private final Status status4 = new Status(LocalDateTime.parse("2021-02-15T01:01:04"), "message4", user2);
+    private final Status status5 = new Status(LocalDateTime.parse("2021-02-15T01:01:05"), "message5", user3);
+    private final Status status6 = new Status(LocalDateTime.parse("2021-02-15T01:01:06"), "message6", user4);
+    private final Status status7 = new Status(LocalDateTime.parse("2021-02-15T01:01:07"), "message7", user5);
+    private final Status status8 = new Status(LocalDateTime.parse("2021-02-15T01:01:08"), "message8", user6);
+    private final Status status9 = new Status(LocalDateTime.parse("2021-02-15T01:01:09"), "message9", user7);
+    private final Status status10 = new Status(LocalDateTime.parse("2021-02-15T01:01:10"), "message10", user8);
+    private final Status status11 = new Status(LocalDateTime.parse("2021-02-15T01:01:11"), "message11", user9);
+    private final Status status12 = new Status(LocalDateTime.parse("2021-02-15T01:01:12"), "message12", user10);
 
 
     public StoryResponse getStory(StoryRequest request) {

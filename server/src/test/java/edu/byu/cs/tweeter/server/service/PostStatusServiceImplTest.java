@@ -14,6 +14,7 @@ import edu.byu.cs.tweeter.shared.model.request.PostStatusRequest;
 import edu.byu.cs.tweeter.shared.model.response.PostStatusResponse;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class PostStatusServiceImplTest {
@@ -58,7 +59,6 @@ public class PostStatusServiceImplTest {
     @Test
     void test_postStatusFail() throws DataAccessException {
         Mockito.doThrow(DataAccessException.class).when(authTokenDao).getAuthToken(invalidToken);
-        PostStatusResponse response = serviceSpy.sendStatus(invalidRequest);
-        assertFalse(response.isSuccess());
+        assertThrows(RuntimeException.class, ()-> serviceSpy.sendStatus(invalidRequest));
     }
 }

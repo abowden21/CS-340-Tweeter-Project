@@ -86,7 +86,7 @@ public abstract class StatusRecyclerViewAdapter<T_Holder> extends RecyclerView.A
     @RequiresApi(api = Build.VERSION_CODES.O)
     protected void addLoadingFooter() {
         User u = new User("Dummy", "User", "");
-        addItem(new Status(LocalDateTime.now(), "", new ArrayList<String>(), new ArrayList<String>(), u));
+        addItem(new Status(LocalDateTime.now(), "", u));
     }
 
     protected void removeLoadingFooter() {

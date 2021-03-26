@@ -33,9 +33,9 @@ public class FeedServiceImplTest {
         final User user2 = new User("FirstName2", "LastName2",
                 "https://faculty.cs.byu.edu/~jwilkerson/cs340/tweeter/images/donald_duck.png");
         final Status status1 = new Status(LocalDateTime.parse("2021-02-15T01:01:05"),
-                "message1", null ,null, user1);
+                "message1", user1);
         final Status status2 = new Status(LocalDateTime.parse("2021-02-15T01:01:06"),
-                "message2", null, null, user2);
+                "message2", user2);
         AuthToken validToken = new AuthToken("validToken", "FirstName1LastName1");
 
 
