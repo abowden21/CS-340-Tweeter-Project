@@ -21,6 +21,12 @@ public class AuthToken implements Serializable {
         this.setExpirationDateTime(LocalDateTime.now().plusDays(10));
     }
 
+    public AuthToken(String token, String userAlias, String expiration) {
+        this.token = token;
+        this.userAlias = userAlias;
+        this.expiration = expiration;
+    }
+
     public AuthToken(String token, String userAlias, int daysValid) {
         this.token = token;
         this.userAlias = userAlias;

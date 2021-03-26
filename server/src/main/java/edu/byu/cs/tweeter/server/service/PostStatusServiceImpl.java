@@ -20,7 +20,7 @@ public class PostStatusServiceImpl implements PostStatusServiceInterface {
     UserDAO userDao;
     AuthTokenDAO authTokenDao;
 
-    private String failedMessage = "Client Error: Failed to send status.";
+    private String failedMessage = "Client Error: Failed to send status. User may not be authenticated.";
     private String failedAuthTokenInvalidMessage = "Client Error: Failed to send status; auth token invalid.";
     private String failedServerMessage = "Server Error: Server failed";
 
