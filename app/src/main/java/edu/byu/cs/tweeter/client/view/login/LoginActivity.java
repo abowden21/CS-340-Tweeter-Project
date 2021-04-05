@@ -134,6 +134,7 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.V
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && null != data) {
             // Handle image selection.
+            this.imageBytes = null;
             this.imageUri = data.getData();
             updateButtonsEnabledStatus();
         }

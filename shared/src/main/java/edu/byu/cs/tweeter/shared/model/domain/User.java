@@ -14,26 +14,18 @@ public class User implements Comparable<User>, Serializable {
     private String alias;
     private String imageUrl;
     private byte [] imageBytes;
-    private Story story;
-    private Feed feed;
 
     public User() {}
 
     public User(String firstName, String lastName, String imageURL) {
-        this(firstName, lastName, String.format("@%s%s", firstName, lastName), imageURL, null, null);
+        this(firstName, lastName, String.format("@%s%s", firstName, lastName), imageURL);
     }
 
     public User(String firstName, String lastName, String alias, String imageURL) {
-        this(firstName, lastName, alias, imageURL, null, null);
-    }
-
-    public User(String firstName, String lastName, String alias, String imageURL, Story story, Feed feed) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.alias = alias;
         this.imageUrl = imageURL;
-        this.story = story;
-        this.feed = feed;
     }
 
     public String getFirstName() {
@@ -60,14 +52,6 @@ public class User implements Comparable<User>, Serializable {
         return imageBytes;
     }
 
-    public Story getStory() {
-        return story;
-    }
-
-    public Feed getFeed() {
-        return feed;
-    }
-
     public void setImageBytes(byte[] imageBytes) {
         this.imageBytes = imageBytes;
     }
@@ -86,14 +70,6 @@ public class User implements Comparable<User>, Serializable {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
-    }
-
-    public void setStory(Story story) {
-        this.story = story;
-    }
-
-    public void setFeed(Feed feed) {
-        this.feed = feed;
     }
 
     @Override

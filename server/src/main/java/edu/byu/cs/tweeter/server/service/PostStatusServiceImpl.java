@@ -28,8 +28,9 @@ public class PostStatusServiceImpl implements PostStatusServiceInterface {
     AmazonSQS sqs = AmazonSQSClientBuilder.defaultClient();
     String queueUrl = "https://sqs.us-west-2.amazonaws.com/137575193564/PostsQ";
 
-    private String failedMessage = "Failed to send status.";
-    private String failedAuthTokenInvalidMessage = "Failed to send status; auth token invalid.";
+    private String failedMessage = "Client Error: Failed to send status. User may not be authenticated.";
+    private String failedAuthTokenInvalidMessage = "Client Error: Failed to send status; auth token invalid.";
+    private String failedServerMessage = "Server Error: Server failed";
 
     @Override
     public PostStatusResponse sendStatus(PostStatusRequest postStatusRequest) {
@@ -39,7 +40,7 @@ public class PostStatusServiceImpl implements PostStatusServiceInterface {
             if (authToken.getExpirationDateTime().isBefore(LocalDateTime.now())) {
                 // AuthToken has expired; delete it and return a failed response.
                 getAuthTokenDao().deleteAuthToken(authToken.getToken());
-                return new PostStatusResponse(failedAuthTokenInvalidMessage);
+                throw new RuntimeException(failedAuthTokenInvalidMessage);
             }
             User user = getUserDao().getUser(authToken.getUserAlias());
             // Save status
@@ -57,7 +58,10 @@ public class PostStatusServiceImpl implements PostStatusServiceInterface {
             return response;
         }
         catch (DataAccessException e) {
-            return new PostStatusResponse(failedMessage);
+            throw new RuntimeException(failedMessage);
+        }
+        catch (Exception e) {
+            throw new RuntimeException(failedServerMessage);
         }
     }
 
