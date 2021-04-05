@@ -43,10 +43,18 @@ public class PostStatusServiceImplTest {
         userDao = Mockito.mock(UserDAO.class);
         Mockito.when(authTokenDao.getAuthToken("valid_token")).thenReturn(validAuthToken);
         // Mock/spy service
-        serviceSpy = Mockito.spy(PostStatusServiceImpl.class);
-        Mockito.when(serviceSpy.getStatusDao()).thenReturn(statusDao);
-        Mockito.when(serviceSpy.getAuthTokenDao()).thenReturn(authTokenDao);
-        Mockito.when(serviceSpy.getUserDao()).thenReturn(userDao);
+//        serviceSpy = Mockito.spy(PostStatusServiceImpl.class);
+//        Mockito.when(serviceSpy.getStatusDao()).thenReturn(statusDao);
+//        Mockito.when(serviceSpy.getAuthTokenDao()).thenReturn(authTokenDao);
+//        Mockito.when(serviceSpy.getUserDao()).thenReturn(userDao);
+    }
+
+
+    @Test
+    void test_deleteme() {
+        PostStatusServiceImpl service = new PostStatusServiceImpl();
+        PostStatusResponse response = service.sendStatus(validRequest);
+        assertTrue(response.isSuccess());
     }
 
     @Test

@@ -19,6 +19,9 @@ import edu.byu.cs.tweeter.shared.model.domain.Status;
 import edu.byu.cs.tweeter.shared.model.net.JsonSerializer;
 import edu.byu.cs.tweeter.shared.model.request.FollowersRequest;
 
+
+// Lambda Handler:      edu.byu.cs.tweeter.server.lambda.FollowFetcherHandler::handleRequest
+
 public class FollowFetcherHandler implements RequestHandler<SQSEvent, Void> {
 
     AmazonSQS sqs = AmazonSQSClientBuilder.defaultClient();
@@ -36,48 +39,28 @@ public class FollowFetcherHandler implements RequestHandler<SQSEvent, Void> {
             //Get list of all followers to update status for
             FollowDAO followDAO = new FollowDAO();
             List<String> followers = followDAO.getFollowers(status.getUser().getAlias());
-
-            int currentPosition = 0;
-
-            List<String> subList = new ArrayList<>();
-            for (;currentPosition < followers.size(); currentPosition++) {
-                subList.add(followers.get(currentPosition));
-
-                if (currentPosition % 25 == 0) {
-                    break;
-                }
-            }
-
-            for (int i = 0; i < followers.size(); i++) {
-                if ((i > 0 && i % 25) || i == followers.size() - 1) {
-                    FeedInsertionJob job = new FeedInsertionJob();
-                    int first = (i - 25 > 0) ? i - 25 : 0;
-                    int last = i;
-                    job.users = followers.sublist(first, last);
-                    job.alias = status.getUser().getAlias();
-                    // Timestamp
-                }
-            }
-
-
-            //Post the status to JobsQ
             List<FeedInsertionJob> feedInsertionJobs = new ArrayList<>();
 
-
-
-
-            for (FeedInsertionJob job : feedInsertionJobs) {
-                String messageBody = JsonSerializer.serialize(status);
-                SendMessageRequest sendMsgRequest = new SendMessageRequest()
-                        .withQueueUrl(queueUrl).withMessageBody(messageBody);
-                SendMessageResult sendMsgResult = sqs.sendMessage(sendMsgRequest);
+            // Partition followers into chunks of 25
+            int partitionSize = 25;
+            List<List<Integer>> partitions = new ArrayList<List<Integer>>();
+            for (int i = 0; i < followers.size(); i += partitionSize) {
+                FeedInsertionJob job = new FeedInsertionJob();
+                job.setAlias(status.getUser().getAlias());
+                job.setTimestamp(status.getTimestampString());
+                job.setListOfFollowers(followers.subList(i,
+                        Math.min(i + partitionSize, followers.size())));
+                feedInsertionJobs.add(job);
             }
 
-
-
-            //FeedInsertionJob Model
-            //StatusID
-            //List of follower Alias max 25
+            // Send all chunks of work to the job queue
+            for (FeedInsertionJob job : feedInsertionJobs) {
+                String jsonJob = JsonSerializer.serialize(job);
+                SendMessageRequest sendMsgRequest = new SendMessageRequest()
+                        .withQueueUrl(queueUrl).withMessageBody(jsonJob);
+                SendMessageResult sendMsgResult = sqs.sendMessage(sendMsgRequest);
+            }
         }
         return null;
-    }}
+    }
+}

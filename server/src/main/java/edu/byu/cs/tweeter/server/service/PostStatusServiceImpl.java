@@ -1,4 +1,5 @@
 package edu.byu.cs.tweeter.server.service;
+import com.amazonaws.ClientConfiguration;
 import com.amazonaws.services.sqs.AmazonSQS;
 import com.amazonaws.services.sqs.AmazonSQSClientBuilder;
 import com.amazonaws.services.sqs.model.SendMessageRequest;
@@ -25,12 +26,18 @@ public class PostStatusServiceImpl implements PostStatusServiceInterface {
     StatusDAO statusDao;
     UserDAO userDao;
     AuthTokenDAO authTokenDao;
-    AmazonSQS sqs = AmazonSQSClientBuilder.defaultClient();
+    AmazonSQS sqs;
     String queueUrl = "https://sqs.us-west-2.amazonaws.com/137575193564/PostsQ";
 
     private String failedMessage = "Client Error: Failed to send status. User may not be authenticated.";
     private String failedAuthTokenInvalidMessage = "Client Error: Failed to send status; auth token invalid.";
     private String failedServerMessage = "Server Error: Server failed";
+
+    public PostStatusServiceImpl() {
+        AmazonSQSClientBuilder builder = AmazonSQSClientBuilder.standard()
+                .withRegion("us-west-2");
+        sqs = builder.build();
+    }
 
     @Override
     public PostStatusResponse sendStatus(PostStatusRequest postStatusRequest) {
@@ -58,9 +65,11 @@ public class PostStatusServiceImpl implements PostStatusServiceInterface {
             return response;
         }
         catch (DataAccessException e) {
+            System.out.println(e.toString());
             throw new RuntimeException(failedMessage);
         }
         catch (Exception e) {
+            System.out.println(e.toString());
             throw new RuntimeException(failedServerMessage);
         }
     }
