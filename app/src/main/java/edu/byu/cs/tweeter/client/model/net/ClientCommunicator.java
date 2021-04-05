@@ -11,6 +11,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.Map;
 
+import edu.byu.cs.tweeter.shared.model.net.JsonSerializer;
 import edu.byu.cs.tweeter.shared.model.net.TweeterRemoteException;
 
 class ClientCommunicator {
