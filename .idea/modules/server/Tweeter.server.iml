@@ -27,7 +27,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" exported="" name="Gradle: Tweeter.server.server" level="project" />
+    <orderEntry type="library" exported="" name="Gradle: Tweeter.server.server-all" level="project" />
     <orderEntry type="module" module-name="Tweeter.shared" />
     <orderEntry type="library" name="Gradle: com.amazonaws:aws-lambda-java-core:1.2.0" level="project" />
     <orderEntry type="library" name="Gradle: com.amazonaws:aws-java-sdk-dynamodb:1.11.547" level="project" />

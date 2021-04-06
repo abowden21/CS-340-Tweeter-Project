@@ -30,11 +30,13 @@ public class AuthTokenDAO extends BaseDynamoDAO {
         if (item == null) {
             throw new DataAccessException("No access token exists for " + tokenValue);
         }
-        AuthToken returnToken = new AuthToken(
-                item.getString(tokenAttr),
-                item.getString(aliasAttr),
-                item.getString(expirationAttr));
-        return returnToken;
+//        AuthToken returnToken = new AuthToken(
+//                item.getString(tokenAttr),
+//                item.getString(aliasAttr),
+//                item.getString(expirationAttr));
+       // return returnToken;
+        //TODO Fix This
+        return null;
     }
     public void updateAuthToken(String token, AuthToken authToken) throws DataAccessException {}
 
