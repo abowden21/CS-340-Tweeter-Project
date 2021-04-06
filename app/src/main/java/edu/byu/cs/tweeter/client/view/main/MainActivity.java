@@ -201,7 +201,7 @@ MainActivity extends AppCompatActivity implements LoginPresenter.View, LogoutTas
 
     @Override
     public void userFollowCountRetrieved(UserFollowCountResponse followCountResponse) {
-        followerCount.setText(getString(R.string.followeeCount, followCountResponse.getFollowers()));
+        followerCount.setText(getString(R.string.followerCount, followCountResponse.getFollowers()));
         followeeCount.setText(getString(R.string.followeeCount, followCountResponse.getFollowees()));
     }
 
