@@ -9,7 +9,17 @@ public class UserDAO extends BaseDynamoDAO {
         super("user");
     }
 
+    User itemToUser(Item item) {
+        return new User(item.getString("firstName"),
+                item.getString("lastName"),
+                item.getString("alias"),
+                item.getString("imageUrl"));
+    }
+
     public void addUser(User user, String hashedPassword) throws DataAccessException {
+        Item existingUser = getTable().getItem("alias", user.getAlias());
+        if (existingUser != null)
+            throw new DataAccessException("Username taken.");
         Item userItem = new Item()
                 .withString("alias", user.getAlias())
                 .withString("firstName", user.getFirstName())
@@ -25,15 +35,13 @@ public class UserDAO extends BaseDynamoDAO {
     }
 
     public User getUser(String alias) throws DataAccessException {
-//        User user = new User("Test", "User",
-//                "https://faculty.cs.byu.edu/~jwilkerson/cs340/tweeter/images/donald_duck.png");
-//        return user;
+        Item item = getTable().getItem("alias", alias);
 
-        return null;
+        return itemToUser(item);
     }
 
     public String getHashedPassword(String userAlias) throws DataAccessException {
-        return null;
+        return getTable().getItem("alias", userAlias).getString("password");
     }
 
 //    public void storeHashedPassword(String userAlias, String password) throws DataAccessException {

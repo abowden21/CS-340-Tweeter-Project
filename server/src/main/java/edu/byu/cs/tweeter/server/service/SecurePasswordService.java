@@ -8,6 +8,8 @@ import java.util.Base64;
 
 public class SecurePasswordService {
 
+    private final byte[] salt = "jazzAreWinningTheFinals".getBytes();
+
     // TODO: consider switching to BCRYPT or something more secure than sha256
 
     public static class PasswordException extends Exception {
@@ -31,6 +33,7 @@ public class SecurePasswordService {
 
     private byte[] hash(byte[] plaintext) throws NoSuchAlgorithmException {
         MessageDigest digest = MessageDigest.getInstance("SHA-256");
+        digest.update(this.salt);
         byte[] hash = digest.digest(plaintext);
         return hash;
     }
@@ -44,13 +47,8 @@ public class SecurePasswordService {
     }
 
     public SecurePassword hash(String plaintext) throws NoSuchAlgorithmException {
-        byte salt[] = new byte[20];
-        SecureRandom random = new SecureRandom();
-        random.nextBytes(salt);
         byte[] plaintextBytes = stringToBytes(plaintext);
-        byte[] hash = this.hash(plaintextBytes);
-        String saltString = this.bytesToString(salt);
-        String hashString = this.bytesToString(hash);
+        String hashString = this.bytesToString(hash(plaintextBytes));
         return new SecurePassword(hashString);
     }
 

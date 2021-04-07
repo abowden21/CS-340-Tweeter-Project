@@ -35,13 +35,6 @@ public class SecurePasswordServiceTests {
     }
 
     @Test
-    void test_separatelySaltedHashesAreNotTheSame() throws NoSuchAlgorithmException {
-        String hashed1_1 = service.hash(password1).getHashedPassword();
-        String hashed1_2 = service.hash(password1).getHashedPassword();
-        assertNotEquals(hashed1_1, hashed1_2);
-    }
-
-    @Test
     void test_ableToVerifyPasswordOnceHashed() throws NoSuchAlgorithmException {
         SecurePasswordService.SecurePassword secure1 = service.hash(password1);
         assertTrue(service.check(password1, secure1.getHashedPassword()));

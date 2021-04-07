@@ -14,10 +14,20 @@ public class UserDaoTests {
         userDAO = new UserDAO();
     }
 
-    @Test
-    void dev_test() throws DataAccessException {
-        User testUser1 = new User("John", "Simmons-Test", "john1112", "https://image.com");
-        userDAO.addUser(testUser1);
+    // Warning: all of these persist data.
+    // Clean the user table afterwards, manually or with a takedown script.
 
+    @Test
+    void test_addUser() throws DataAccessException {
+        User testUser1 = new User("John", "Simmons-Test", "john1112", "https://image.com");
+        userDAO.addUser(testUser1, "password");
+        // warning: not a real test
+    }
+
+    @Test
+    void test_getUser() throws DataAccessException {
+        User user = userDAO.getUser("john1112");
+        System.out.println(user.toString());
+        // warning: not a real test
     }
 }
