@@ -15,6 +15,7 @@ import com.amazonaws.util.Base64;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.net.URL;
+import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.stream.IntStream;
@@ -77,9 +78,21 @@ public class LoginServiceImpl implements LoginServiceInterface {
             URL imageUrlObject = s3.getUrl(bucketName, imgKey);
             imageUrl = imageUrlObject.toString();
         }
-        //
+        // Hash the password
+        String hashedPassword;
+        String salt;
+        SecurePasswordService sps = new SecurePasswordService();
+        try {
+            SecurePasswordService.SecurePassword securePw = sps.hash(registerRequest.getPassword());
+            hashedPassword = securePw.getHashedPassword();
+            salt = securePw.getSalt();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        // Create and store user
         User user = new User(registerRequest.getFirstName(), registerRequest.getLastName(),
                 registerRequest.getUsername(), imageUrl);
+        // TODO: set password & salt in user object
         try {
             getUserDao().addUser(user);
             String uniqueToken = "<Dummy unique token>";
