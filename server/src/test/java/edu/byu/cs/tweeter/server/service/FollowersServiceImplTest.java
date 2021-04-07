@@ -46,15 +46,18 @@ public class FollowersServiceImplTest {
 
         // Setup a mock ServerFacade that will return known responses
         successResponse = new FollowersResponse(Arrays.asList(resultUser1, resultUser2, resultUser3), false);
-        FollowersDAO followerDAO = Mockito.mock(FollowersDAO.class);
-        Mockito.when(followerDAO.getFollowers(validRequest)).thenReturn(successResponse);
 
-        failureResponse = new FollowersResponse("An exception occurred");
-        Mockito.when(followerDAO.getFollowers(invalidRequest)).thenReturn(failureResponse);
+        // TODO: change this to use the FollowDao
 
-        // Create a FollowersService instance and wrap it with a spy that will use the mock service
-        followingServiceSpy = Mockito.spy(new FollowersServiceImpl());
-        Mockito.when(followingServiceSpy.getFollowersDAO()).thenReturn(followerDAO);
+        //        FollowersDAO followerDAO = Mockito.mock(FollowersDAO.class);
+//        Mockito.when(followerDAO.getFollowers(validRequest)).thenReturn(successResponse);
+//
+//        failureResponse = new FollowersResponse("An exception occurred");
+//        Mockito.when(followerDAO.getFollowers(invalidRequest)).thenReturn(failureResponse);
+//
+//        // Create a FollowersService instance and wrap it with a spy that will use the mock service
+//        followingServiceSpy = Mockito.spy(new FollowersServiceImpl());
+//        Mockito.when(followingServiceSpy.getFollowersDAO()).thenReturn(followerDAO);
     }
 
     @Test

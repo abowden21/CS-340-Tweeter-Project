@@ -44,12 +44,12 @@ public class SecurePasswordServiceTests {
     @Test
     void test_ableToVerifyPasswordOnceHashed() throws NoSuchAlgorithmException {
         SecurePasswordService.SecurePassword secure1 = service.hash(password1);
-        assertTrue(service.check(password1, secure1.getHashedPassword(), secure1.getSalt()));
+        assertTrue(service.check(password1, secure1.getHashedPassword()));
 
         SecurePasswordService.SecurePassword secure2 = service.hash(password2);
-        assertTrue(service.check(password2, secure2.getHashedPassword(), secure2.getSalt()));
+        assertTrue(service.check(password2, secure2.getHashedPassword()));
 
         SecurePasswordService.SecurePassword secure3 = service.hash(password3);
-        assertTrue(service.check(password3, secure3.getHashedPassword(), secure3.getSalt()));
+        assertTrue(service.check(password3, secure3.getHashedPassword()));
     }
 }

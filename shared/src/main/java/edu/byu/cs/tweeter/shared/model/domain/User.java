@@ -18,6 +18,7 @@ public class User implements Comparable<User>, Serializable {
     public User() {}
 
     public User(String firstName, String lastName, String imageURL) {
+        // This constructor should be used only for testing.
         this(firstName, lastName, String.format("@%s%s", firstName, lastName), imageURL);
     }
 
@@ -71,6 +72,7 @@ public class User implements Comparable<User>, Serializable {
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
+
 
     @Override
     public boolean equals(Object o) {

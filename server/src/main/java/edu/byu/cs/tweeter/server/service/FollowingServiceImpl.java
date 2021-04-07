@@ -1,5 +1,6 @@
 package edu.byu.cs.tweeter.server.service;
 
+import edu.byu.cs.tweeter.server.dao.FollowDAO;
 import edu.byu.cs.tweeter.shared.model.service.FollowingServiceInterface;
 import edu.byu.cs.tweeter.shared.model.request.FollowingRequest;
 import edu.byu.cs.tweeter.shared.model.response.FollowingResponse;
@@ -21,7 +22,9 @@ public class FollowingServiceImpl implements FollowingServiceInterface {
      */
     @Override
     public FollowingResponse getFollowees(FollowingRequest request) {
-        return getFollowingDAO().getFollowees(request);
+//        return getFollowDAO().getFollowees(request);
+        return null;
+        // TODO: implement.
     }
 
     /**
@@ -31,7 +34,7 @@ public class FollowingServiceImpl implements FollowingServiceInterface {
      *
      * @return the instance.
      */
-    public FollowingDAO getFollowingDAO() {
-        return new FollowingDAO();
+    public FollowDAO getFollowDAO() {
+        return new FollowDAO();
     }
 }

@@ -8,17 +8,20 @@ import java.util.Base64;
 
 public class SecurePasswordService {
 
+    // TODO: consider switching to BCRYPT or something more secure than sha256
+
+    public static class PasswordException extends Exception {
+        public PasswordException(String message) {
+            super(message);
+        }
+    }
+
     public class SecurePassword {
-        private String salt;
         private String hashedPassword;
-        private SecurePassword(String salt, String hashedPassword) {
-            this.salt = salt;
+        private SecurePassword(String hashedPassword) {
             this.hashedPassword = hashedPassword;
         }
 
-        public String getSalt() {
-            return this.salt;
-        }
         public String getHashedPassword() {
             return this.hashedPassword;
         }
@@ -26,9 +29,8 @@ public class SecurePasswordService {
 
     public SecurePasswordService() {}
 
-    private byte[] hash(byte[] plaintext, byte[] salt) throws NoSuchAlgorithmException {
+    private byte[] hash(byte[] plaintext) throws NoSuchAlgorithmException {
         MessageDigest digest = MessageDigest.getInstance("SHA-256");
-        digest.update(salt);
         byte[] hash = digest.digest(plaintext);
         return hash;
     }
@@ -46,16 +48,15 @@ public class SecurePasswordService {
         SecureRandom random = new SecureRandom();
         random.nextBytes(salt);
         byte[] plaintextBytes = stringToBytes(plaintext);
-        byte[] hash = this.hash(plaintextBytes, salt);
+        byte[] hash = this.hash(plaintextBytes);
         String saltString = this.bytesToString(salt);
         String hashString = this.bytesToString(hash);
-        return new SecurePassword(saltString, hashString);
+        return new SecurePassword(hashString);
     }
 
-    public boolean check(String plaintext, String storedHash, String salt) throws NoSuchAlgorithmException {
-        byte[] saltBytes = this.stringToBytes(salt);
+    public boolean check(String plaintext, String storedHash) throws NoSuchAlgorithmException {
         byte[] plaintextBytes = this.stringToBytes(plaintext);
-        byte[] hashedPassword = this.hash(plaintextBytes, saltBytes);
+        byte[] hashedPassword = this.hash(plaintextBytes);
         String hashedPasswordString = this.bytesToString(hashedPassword);
         return hashedPasswordString.equals(storedHash);
     }

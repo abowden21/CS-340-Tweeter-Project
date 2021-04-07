@@ -18,6 +18,7 @@ import java.net.URL;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.UUID;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
@@ -39,25 +40,42 @@ public class LoginServiceImpl implements LoginServiceInterface {
 
     AuthTokenDAO authTokenDao;
     UserDAO userDao;
+    SecurePasswordService secure;
 
-    private String loginFailedMessage = "Error: Login Failed.";
-    private String registerFailedMessage = "Error: Register Failed.";
-    private String logoutFailedMessage = "Error: Logout Failed.";
+    public LoginServiceImpl() {
+        secure = new SecurePasswordService();
+    }
+
+    private String loginFailedMessage = "Client Error: Login Failed.";
+    private String loginFailedUnknown = "Server Error: Login Failed Unexpectedly. See logs for details.";
+    private String registerFailedMessage = "Client Error: Register Failed.";
+    private String logoutFailedMessage = "Client Error: Logout Failed.";
+
+    private AuthToken createAndStoreAuthToken(String userAlias) throws DataAccessException {
+        String uniqueToken = UUID.randomUUID().toString();
+        AuthToken authToken = new AuthToken(uniqueToken, userAlias);
+        getAuthTokenDao().addAuthToken(authToken);
+        return authToken;
+    }
 
     @Override
     public LoginResponse login(LoginRequest request) {
-        if (request.getUsername().contains("fail")) {
+        try {
+            // Get user - exception will be thrown if not found
+            User user = getUserDao().getUser(request.getUsername());
+            // Verify password
+            if (!secure.check(request.password, getUserDao().getHashedPassword(request.getUsername())))
+                throw new SecurePasswordService.PasswordException("Password does not match.");
+            // Log user in; create and return auth token
+            AuthToken authToken = createAndStoreAuthToken(user.getAlias());
+            return new LoginResponse(user, authToken);
+        } catch (DataAccessException | SecurePasswordService.PasswordException ex) {
+            System.out.println(ex.toString());
             return new LoginResponse(loginFailedMessage);
         }
-        User user = null;
-        try {
-            user = getUserDao().getUser(request.getUsername());
-            String uniqueToken = "<Dummy unique token>";
-            AuthToken authToken = new AuthToken(uniqueToken, user.getAlias());
-            getAuthTokenDao().addAuthToken(authToken);
-            return new LoginResponse(user, authToken);
-        } catch (DataAccessException e) {
-            return new LoginResponse(loginFailedMessage);
+        catch (Exception ex) {
+            System.out.println(ex.toString());
+            return new LoginResponse(loginFailedUnknown);
         }
     }
 
@@ -79,25 +97,19 @@ public class LoginServiceImpl implements LoginServiceInterface {
             imageUrl = imageUrlObject.toString();
         }
         // Hash the password
-        String hashedPassword;
-        String salt;
-        SecurePasswordService sps = new SecurePasswordService();
+        String hashedPassword = ""; //todo: restructure try/catch blocks
         try {
-            SecurePasswordService.SecurePassword securePw = sps.hash(registerRequest.getPassword());
+            SecurePasswordService.SecurePassword securePw = secure.hash(registerRequest.getPassword());
             hashedPassword = securePw.getHashedPassword();
-            salt = securePw.getSalt();
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
         // Create and store user
         User user = new User(registerRequest.getFirstName(), registerRequest.getLastName(),
                 registerRequest.getUsername(), imageUrl);
-        // TODO: set password & salt in user object
         try {
-            getUserDao().addUser(user);
-            String uniqueToken = "<Dummy unique token>";
-            AuthToken authToken = new AuthToken(uniqueToken, user.getAlias());
-            getAuthTokenDao().addAuthToken(authToken);
+            getUserDao().addUser(user, hashedPassword);
+            AuthToken authToken = createAndStoreAuthToken(user.getAlias());
             return new RegisterResponse(user, authToken);
         } catch (DataAccessException e) {
             return new RegisterResponse(registerFailedMessage);
