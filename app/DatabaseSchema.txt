@@ -1,0 +1,24 @@
+Follow
+ - Already done
+ - Partition Key: follower_handle
+ - Sort Key: followee_handle
+ - Follow: String
+Feed
+ - Getting a page < 1000 ms
+ - Partition Key: (alias : String)
+ - statusOwnerAlias: String
+ - statusTimestamp: String
+Status
+ - Partition Key: (alias : String)
+ - Sort Key: (timeStampString : String)
+ - Status: Status // messageBody : String (stores a String, but our handlers return a Status)
+
+AuthToken
+ - Partition Key: (token : String)
+ - expiration : String
+ - userAlias : String
+User
+ - Partition Key: (alias : String)
+ - firstName : String
+ - lastName : String
+ - other stuff
