@@ -61,7 +61,8 @@ public class StoryServiceIntegrationTest {
 
         statuses = Arrays.asList(status1, status2, status3, status4, status5, status6, status7, status8, status9, status10);
 
-        validRequest = new StoryRequest(testUser.getAlias(), 10, LocalDateTime.now());
+        //TODO i changed this so check this
+        validRequest = new StoryRequest(testUser.getAlias(), 10, LocalDateTime.now().toString());
         successResponse = new StoryResponse(statuses, true);
         
         storyService = new StoryServiceProxy();
