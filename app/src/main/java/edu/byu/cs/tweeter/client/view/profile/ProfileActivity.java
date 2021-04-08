@@ -139,7 +139,7 @@ public class ProfileActivity  extends AppCompatActivity implements FollowTask.Ob
 
     @Override
     public void userFollowCountRetrieved(UserFollowCountResponse followCountResponse) {
-        followerCount.setText(getString(R.string.followeeCount, followCountResponse.getFollowers()));
+        followerCount.setText(getString(R.string.followerCount, followCountResponse.getFollowers()));
         followeeCount.setText(getString(R.string.followeeCount, followCountResponse.getFollowees()));
     }
 

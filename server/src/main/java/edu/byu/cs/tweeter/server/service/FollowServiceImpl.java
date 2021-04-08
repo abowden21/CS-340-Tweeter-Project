@@ -1,6 +1,8 @@
 package edu.byu.cs.tweeter.server.service;
 
+import edu.byu.cs.tweeter.server.DataAccessException;
 import edu.byu.cs.tweeter.server.dao.FollowDAO;
+import edu.byu.cs.tweeter.server.utils.AuthTokenValidator;
 import edu.byu.cs.tweeter.shared.model.request.FollowRequest;
 import edu.byu.cs.tweeter.shared.model.request.FollowStatusRequest;
 import edu.byu.cs.tweeter.shared.model.request.UserFollowCountRequest;
