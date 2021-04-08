@@ -34,15 +34,8 @@ public class FollowDAO extends BaseDynamoDAO {
     }
 
     public FollowResponse setFollow(FollowRequest request) {
-        try {
-            AuthTokenValidator.checkAuthToken(request.getAuthToken());
-
-            getTable().putItem(new Item().withPrimaryKey(followerHandleAttribute,
-                    request.getUserAlias(), followeeHandleAttribute, request.getFollowerAlias()));
-        }
-        catch (Exception e) {
-            return new FollowResponse(false, true);
-        }
+        getTable().putItem(new Item().withPrimaryKey(followerHandleAttribute,
+                request.getUserAlias(), followeeHandleAttribute, request.getFollowerAlias()));
 
         return new FollowResponse(true, true);
     }
@@ -53,20 +46,11 @@ public class FollowDAO extends BaseDynamoDAO {
                         request.getUserAlias(), followeeHandleAttribute, request.getFollowerAlias()));
 
 
-        try {
-            AuthTokenValidator.checkAuthToken(request.getAuthToken());
+        System.out.println("Attempting a conditional delete...");
+        getTable().deleteItem(deleteItemSpec);
+        System.out.println("DeleteItem succeeded");
 
-            System.out.println("Attempting a conditional delete...");
-            getTable().deleteItem(deleteItemSpec);
-            System.out.println("DeleteItem succeeded");
-
-            return new FollowResponse(true, false);
-        }
-        catch (Exception e) {
-            System.err.println(e.getMessage());
-            return new FollowResponse(false, false);
-        }
-
+        return new FollowResponse(true, false);
     }
 
     public FollowStatusResponse getFollowStatus(FollowStatusRequest request) {

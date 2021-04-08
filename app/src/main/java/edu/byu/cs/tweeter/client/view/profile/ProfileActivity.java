@@ -40,6 +40,7 @@ public class ProfileActivity  extends AppCompatActivity implements FollowTask.Ob
     private GetFollowCountPresenter fcPresenter;
     TextView followeeCount;
     TextView followerCount;
+    User currentUser;
     private boolean isFollowingUser;
 
     @Override
@@ -47,7 +48,7 @@ public class ProfileActivity  extends AppCompatActivity implements FollowTask.Ob
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         User loggedInUser = (User) getIntent().getSerializableExtra(LOGGED_IN_USER_KEY);
-        User currentUser = (User) getIntent().getSerializableExtra(CURRENT_USER_KEY);
+        currentUser = (User) getIntent().getSerializableExtra(CURRENT_USER_KEY);
         if(currentUser == null) {
             throw new RuntimeException("User not passed to activity");
         }
@@ -100,6 +101,10 @@ public class ProfileActivity  extends AppCompatActivity implements FollowTask.Ob
         followButton.setText("Following");
         followButton.setBackgroundColor(Color.RED);
         isFollowingUser = true;
+
+        GetUserFollowCountTask userFollowCountTask = new GetUserFollowCountTask(fcPresenter, this);
+        UserFollowCountRequest userFollowCountRequest = new UserFollowCountRequest(currentUser.getAlias());
+        userFollowCountTask.execute(userFollowCountRequest);
     }
 
     @Override
@@ -107,6 +112,10 @@ public class ProfileActivity  extends AppCompatActivity implements FollowTask.Ob
         followButton.setText("Follow");
         followButton.setBackgroundColor(Color.GRAY);
         isFollowingUser = false;
+
+        GetUserFollowCountTask userFollowCountTask = new GetUserFollowCountTask(fcPresenter, this);
+        UserFollowCountRequest userFollowCountRequest = new UserFollowCountRequest(currentUser.getAlias());
+        userFollowCountTask.execute(userFollowCountRequest);
     }
 
     @Override
