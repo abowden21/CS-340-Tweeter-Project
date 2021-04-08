@@ -1,53 +1,40 @@
 package edu.byu.cs.tweeter.shared.model.request;
 
-import java.time.LocalDateTime;
-
 public class StoryRequest {
 
-    private final String userAlias;
-    private final int limit;
-    //private final LocalDateTime lastTimestamp;
-    private String timestampString;
+    private String userAlias;
+    private int limit;
+    private String lastTimestampString;
+
+    public void setUserAlias(String userAlias) {
+        this.userAlias = userAlias;
+    }
+
+    public void setLimit(int limit) {
+        this.limit = limit;
+    }
 
     public StoryRequest() {
         userAlias = "";
         limit = 10;
-        timestampString = LocalDateTime.now().toString();
     }
 
-    public StoryRequest(String followerAlias, int limit, LocalDateTime lastTimestamp) {
+    public StoryRequest(String followerAlias, int limit, String lastTimestampString) {
         this.userAlias = followerAlias;
         this.limit = limit;
-        if (lastTimestamp != null) {
-            this.timestampString = lastTimestamp.toString();
-        }
-        else {
-            this.timestampString = LocalDateTime.now().toString();
-        }
+        this.lastTimestampString = lastTimestampString;
     }
-
-    public StoryRequest(String followerAlias, int limit, String timestampString) {
-        this.userAlias = followerAlias;
-        this.limit = limit;
-        this.timestampString = timestampString;
-    }
-
-
 
     public String getUserAlias() {
         return userAlias;
     }
 
-    public LocalDateTime getLastTimestamp() {
-        return LocalDateTime.parse(this.timestampString);
+    public String getLastTimestampString() {
+        return this.lastTimestampString;
     }
 
-    public String getTimestampString() {
-        return this.timestampString;
-    }
-
-    public void setTimestampString(String timestampString) {
-        this.timestampString = timestampString;
+    public void setLastTimestampString(String lastTimestampString) {
+        this.lastTimestampString = lastTimestampString;
     }
 
 

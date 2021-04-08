@@ -12,6 +12,11 @@ public class StoryResponse extends PagedResponse {
 
     public StoryResponse() {
         statuses = new ArrayList<>();
+        setSuccess(true);
+    }
+    public StoryResponse(List<Status> statuses) {
+        this.statuses = statuses;
+        setSuccess(true);
     }
 
     /**
@@ -37,6 +42,9 @@ public class StoryResponse extends PagedResponse {
 
     public List<Status> getStatuses() {
         return statuses;
+    }
+    public void setStatuses(List<Status> statuses) {
+        this.statuses = statuses;
     }
 
     @Override

@@ -142,7 +142,7 @@ public class StoryFragment extends Fragment implements StoryPresenter.View {
             userAlias.setText(status.getUser().getAlias());
             userName.setText(status.getUser().getName());
             statusBody.setText(storyRecyclerViewAdapter.makeSpannableString(status));
-            timestamp.setText(status.getTimestamp().toString());
+            timestamp.setText(status.prettyPrintTime());
             currentUser = status.getUser();
         }
     }
@@ -162,7 +162,7 @@ public class StoryFragment extends Fragment implements StoryPresenter.View {
             super.loadMoreItems();
 
             GetStoryTask getStoryTask = new GetStoryTask(presenter, this);
-            StoryRequest request = new StoryRequest(user.getAlias(), PAGE_SIZE, (lastStatus == null ? null : lastStatus.getTimestamp()));
+            StoryRequest request = new StoryRequest(user.getAlias(), PAGE_SIZE, (lastStatus == null ? null : lastStatus.getTimestampString()));
             getStoryTask.execute(request);
         }
 
