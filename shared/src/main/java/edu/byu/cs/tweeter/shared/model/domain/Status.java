@@ -4,8 +4,9 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.byu.cs.tweeter.shared.model.response.PostStatusResponse;
+
 public class Status {
-//    private LocalDateTime timestamp;
     private String timestampString;
     private String message;
     private User user;
@@ -35,10 +36,10 @@ public class Status {
         this.timestampString = ts;
     }
 
-    public LocalDateTime getTimestamp() {
+    private LocalDateTime getTimestamp() {
         return LocalDateTime.parse(this.timestampString);
     }
-    public void setTimestamp(LocalDateTime dateTime) {
+    private void setTimestamp(LocalDateTime dateTime) {
         this.timestampString = dateTime.toString();
     }
 
@@ -54,6 +55,11 @@ public class Status {
     }
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public String prettyPrintTime() {
+        return this.getTimestamp().toString();
+        // TODO: format this nicely.
     }
 
 }
