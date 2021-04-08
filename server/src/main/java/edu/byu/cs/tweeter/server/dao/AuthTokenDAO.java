@@ -20,8 +20,6 @@ public class AuthTokenDAO extends BaseDynamoDAO {
                 .withString(aliasAttr, authToken.getUserAlias())
                 .withString(expirationAttr, authToken.getExpiration());
         PutItemOutcome putItemOutcome = getTable().putItem(item);
-//        putItemOutcome.getPutItemResult().
-        // TODO: figure out if it worked
     }
 
     public AuthToken getAuthToken(String tokenValue) throws DataAccessException {
@@ -30,15 +28,15 @@ public class AuthTokenDAO extends BaseDynamoDAO {
         if (item == null) {
             throw new DataAccessException("No access token exists for " + tokenValue);
         }
-//        AuthToken returnToken = new AuthToken(
-//                item.getString(tokenAttr),
-//                item.getString(aliasAttr),
-//                item.getString(expirationAttr));
-       // return returnToken;
-        //TODO Fix This
-        return null;
+        AuthToken returnToken = new AuthToken(
+                item.getString(tokenAttr),
+                item.getString(aliasAttr),
+                item.getString(expirationAttr));
+        return returnToken;
     }
-    public void updateAuthToken(String token, AuthToken authToken) throws DataAccessException {}
+//    public void updateAuthToken(String token, AuthToken authToken) throws DataAccessException {}
 
-    public void deleteAuthToken(String token) throws DataAccessException {}
+    public void deleteAuthToken(String token) throws DataAccessException {
+        getTable().deleteItem("token", token);
+    }
 }

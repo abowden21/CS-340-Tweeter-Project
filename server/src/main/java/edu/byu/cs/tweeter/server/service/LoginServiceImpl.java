@@ -71,11 +71,11 @@ public class LoginServiceImpl implements LoginServiceInterface {
             return new LoginResponse(user, authToken);
         } catch (DataAccessException | SecurePasswordService.PasswordException ex) {
             System.out.println(ex.toString());
-            return new LoginResponse(loginFailedMessage);
+            throw new RuntimeException(loginFailedMessage);
         }
         catch (Exception ex) {
             System.out.println(ex.toString());
-            return new LoginResponse(loginFailedUnknown);
+            throw new RuntimeException(loginFailedUnknown);
         }
     }
 
@@ -103,6 +103,7 @@ public class LoginServiceImpl implements LoginServiceInterface {
             hashedPassword = securePw.getHashedPassword();
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
+            throw new RuntimeException();
         }
         // Create and store user
         User user = new User(registerRequest.getFirstName(), registerRequest.getLastName(),
@@ -112,7 +113,7 @@ public class LoginServiceImpl implements LoginServiceInterface {
             AuthToken authToken = createAndStoreAuthToken(user.getAlias());
             return new RegisterResponse(user, authToken);
         } catch (DataAccessException e) {
-            return new RegisterResponse(registerFailedMessage);
+            throw new RuntimeException(registerFailedMessage);
         }
     }
 

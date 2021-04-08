@@ -66,7 +66,7 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.V
             @Override
             public void onClick(View view) {
                 disableButtons();
-                statusToast = Toast.makeText(LoginActivity.this, "Logging in...", Toast.LENGTH_LONG);
+                statusToast = Toast.makeText(LoginActivity.this, "Logging in...", Toast.LENGTH_SHORT);
                 statusToast.show();
 
                 LoginRequest loginRequest = new LoginRequest(usernameText.getText().toString(), passwordText.getText().toString());
@@ -81,7 +81,7 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.V
             @Override
             public void onClick(View view) {
                 disableButtons();
-                statusToast = Toast.makeText(LoginActivity.this, "Creating new account...", Toast.LENGTH_LONG);
+                statusToast = Toast.makeText(LoginActivity.this, "Creating new account...", Toast.LENGTH_SHORT);
                 statusToast.show();
 
                 try {
@@ -198,7 +198,7 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.V
     public void loginUnsuccessful(LoginResponse loginResponse) {
         clearAllFields();
         updateButtonsEnabledStatus();
-        Toast.makeText(this, "Failed to login. " + loginResponse.getMessage(), Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Login failed.", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -210,7 +210,7 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.V
     @Override
     public void registerUnsuccessful(RegisterResponse registerResponse) {
         updateButtonsEnabledStatus();
-        Toast.makeText(this, "Failed to register. " + registerResponse.getMessage(), Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Failed to register. " + registerResponse.getMessage(), Toast.LENGTH_SHORT).show();
     }
 
     /**

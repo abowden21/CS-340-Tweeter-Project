@@ -94,7 +94,9 @@ public class LoginTask extends AsyncTask<LoginRequest, Void, LoginResponse> {
     @Override
     protected void onPostExecute(LoginResponse loginResponse) {
         if(exception != null) {
-            observer.handleException(exception);
+//            observer.handleException(exception);
+            // Login will handle all exceptions as a standard 'login failed' for now.
+            observer.loginUnsuccessful(loginResponse);
         } else if(loginResponse.isSuccess()) {
             observer.loginSuccessful(loginResponse);
         } else {

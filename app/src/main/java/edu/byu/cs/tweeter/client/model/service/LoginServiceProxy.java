@@ -45,7 +45,7 @@ public class LoginServiceProxy extends ServiceBase implements LoginServiceInterf
         RegisterResponse registerResponse = serverFacade.register(request, REGISTER_URL_PATH);
 
         if(registerResponse.isSuccess()) {
-            loadImage(registerResponse.getUser());
+//            loadImage(registerResponse.getUser());
         }
 
         return registerResponse;
