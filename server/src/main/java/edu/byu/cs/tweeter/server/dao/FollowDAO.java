@@ -15,6 +15,8 @@ import java.util.List;
 
 import javax.management.Query;
 
+import edu.byu.cs.tweeter.server.DataAccessException;
+import edu.byu.cs.tweeter.server.utils.AuthTokenValidator;
 import edu.byu.cs.tweeter.shared.model.request.FollowRequest;
 import edu.byu.cs.tweeter.shared.model.request.FollowStatusRequest;
 import edu.byu.cs.tweeter.shared.model.request.UserFollowCountRequest;
@@ -32,39 +34,23 @@ public class FollowDAO extends BaseDynamoDAO {
     }
 
     public FollowResponse setFollow(FollowRequest request) {
-        //TODO add authtoken validation
-
-        try {
-            getTable().putItem(new Item().withPrimaryKey(followerHandleAttribute,
-                    request.getUserAlias(), followeeHandleAttribute, request.getFollowerAlias()));
-        }
-        catch (Exception e) {
-            return new FollowResponse(false, true);
-        }
+        getTable().putItem(new Item().withPrimaryKey(followerHandleAttribute,
+                request.getUserAlias(), followeeHandleAttribute, request.getFollowerAlias()));
 
         return new FollowResponse(true, true);
     }
 
     public FollowResponse setUnfollow(FollowRequest request) {
-        //TODO add authtoken validation
-
         DeleteItemSpec deleteItemSpec = new DeleteItemSpec()
                 .withPrimaryKey(new PrimaryKey(followerHandleAttribute,
                         request.getUserAlias(), followeeHandleAttribute, request.getFollowerAlias()));
 
 
-        try {
-            System.out.println("Attempting a conditional delete...");
-            getTable().deleteItem(deleteItemSpec);
-            System.out.println("DeleteItem succeeded");
+        System.out.println("Attempting a conditional delete...");
+        getTable().deleteItem(deleteItemSpec);
+        System.out.println("DeleteItem succeeded");
 
-            return new FollowResponse(true, false);
-        }
-        catch (Exception e) {
-            System.err.println(e.getMessage());
-            return new FollowResponse(false, false);
-        }
-
+        return new FollowResponse(true, false);
     }
 
     public FollowStatusResponse getFollowStatus(FollowStatusRequest request) {

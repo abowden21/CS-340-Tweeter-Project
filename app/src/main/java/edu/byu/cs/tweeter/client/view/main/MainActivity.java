@@ -216,4 +216,13 @@ MainActivity extends AppCompatActivity implements LoginPresenter.View, LogoutTas
         Log.e(LOG_TAG, exception.getMessage(), exception);
         this.sendToast(exception.getMessage());
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        GetUserFollowCountTask userFollowCountTask = new GetUserFollowCountTask(fcPresenter, this);
+        UserFollowCountRequest userFollowCountRequest = new UserFollowCountRequest(user.getAlias());
+        userFollowCountTask.execute(userFollowCountRequest);
+    }
 }
