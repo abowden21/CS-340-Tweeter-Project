@@ -56,22 +56,18 @@ public class FollowDAO extends BaseDynamoDAO {
     public FollowStatusResponse getFollowStatus(FollowStatusRequest request) {
         GetItemSpec spec = new GetItemSpec().withPrimaryKey(followerHandleAttribute,
                 request.getLoggedInUserAlias(), followeeHandleAttribute, request.getOtherUserAlias());
-        try {
-            Item item = getTable().getItem(spec);
 
-            //No follow relationship exists
-            if (item == null) {
-                return new FollowStatusResponse(false, true);
-            }
+        Item item = getTable().getItem(spec);
 
-            //Follow exists and is correct
-            else if (item.getString(followerHandleAttribute).equals(request.getLoggedInUserAlias()) &&
-                    item.getString(followeeHandleAttribute).equals(request.getOtherUserAlias())) {
-                return new FollowStatusResponse(true, true);
-            }
+        //No follow relationship exists
+        if (item == null) {
+            return new FollowStatusResponse(false, true);
         }
-        catch (Exception e) {
-            return new FollowStatusResponse(false, false);
+
+        //Follow exists and is correct
+        else if (item.getString(followerHandleAttribute).equals(request.getLoggedInUserAlias()) &&
+                item.getString(followeeHandleAttribute).equals(request.getOtherUserAlias())) {
+            return new FollowStatusResponse(true, true);
         }
 
         return new FollowStatusResponse(false, false);

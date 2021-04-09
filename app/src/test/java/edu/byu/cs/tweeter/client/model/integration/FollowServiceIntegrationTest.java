@@ -77,9 +77,23 @@ public class FollowServiceIntegrationTest {
     }
 
     @Test
+    public void testSetFollow_invalidFollowRequest_throwsTweeterServerException() throws IOException, TweeterRemoteException {
+        Assertions.assertThrows(TweeterRemoteException.class, () -> {
+            mFollowServiceProxy.setFollow(invalidFollowRequest);
+        });
+    }
+
+    @Test
     public void testGetFollowStatus_validRequest_correctResponse() throws IOException, TweeterRemoteException {
         FollowStatusResponse response = mFollowServiceProxy.getFollowStatus(validFollowStatusRequest);
         Assertions.assertEquals(successFollowStatusResponse, response);
+    }
+
+    @Test
+    public void testGetFollowStatus_invalidGetFollowStatusRequest_throwsTweeterServerException() throws IOException, TweeterRemoteException {
+        Assertions.assertThrows(TweeterRemoteException.class, () -> {
+            mFollowServiceProxy.getFollowStatus(invalidFollowStatusRequest);
+        });
     }
 
     @Test
@@ -89,8 +103,22 @@ public class FollowServiceIntegrationTest {
     }
 
     @Test
+    public void testGetUserFollowCount_invalidGetFollowCountRequest_throwsTweeterServerException() throws IOException, TweeterRemoteException {
+        Assertions.assertThrows(TweeterRemoteException.class, () -> {
+            mFollowServiceProxy.getUserFollowCount(invalidUserFollowCountRequest);
+        });
+    }
+
+    @Test
     public void testSetFollow_validUnfollowRequest_correctResponse() throws IOException, TweeterRemoteException {
         FollowResponse response = mFollowServiceProxy.setFollow(validUnfollowRequest);
         Assertions.assertEquals(successUnfollowResponse, response);
+    }
+
+    @Test
+    public void testSetFollow_invalidUnfollowRequest_throwsTweeterServerException() throws IOException, TweeterRemoteException {
+        Assertions.assertThrows(TweeterRemoteException.class, () -> {
+            mFollowServiceProxy.setFollow(invalidUnfollowRequest);
+        });
     }
 }
