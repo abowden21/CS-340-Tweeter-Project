@@ -17,7 +17,7 @@ public class FollowDAOTests {
     @Test
     void test_dev() {
 
-        List<String> followers = followDAO.getFollowers("johnny");
+        List<String> followers = followDAO.getFollowers("doge");
 
 
         assert followers.size() == 2;

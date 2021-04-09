@@ -106,7 +106,7 @@ public class FollowDAO extends BaseDynamoDAO {
                 new QuerySpec().withHashKey(followeeHandleAttribute, userAlias)
                 .withAttributesToGet(followerHandleAttribute))) {
 
-            followers.add(item.getString(followeeHandleAttribute));
+            followers.add(item.getString(followerHandleAttribute));
         }
 
         return followers;

@@ -51,13 +51,18 @@ public class LoginPresenter {
     }
 
     public boolean validateFields(String username, String password, String firstName, String lastName) {
-        // Make sure all fields have at least 1 char
-        if (username.length() == 0 || password.length() == 0 || firstName.length() == 0 || lastName.length() == 0) {
+        // Make sure username is length > 1 and starts with @
+        if (!username.startsWith("@") || username.length() < 2) {
+            return false;
+        }
+
+        // Make sure all other fields have at least 1 char
+        if (password.length() == 0 || firstName.length() == 0 || lastName.length() == 0) {
             return false;
         }
 
         // More advanced password requirement => 8-20 characters, at least one number and uppercase
-        boolean requireNumAndUppercase = true;
+        boolean requireNumAndUppercase = false;
 
         if (password.length() < 8 || password.length() > 20) {
             // Reject if too short or long

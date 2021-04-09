@@ -20,18 +20,14 @@ public class StatusDAO extends BaseDynamoDAO {
     }
 
     public void addStatus(Status status){
-        // Log for now so we can inspect in CloudWatch
+        Item item = new Item()
+                .withString("alias", status.getUser().getAlias())
+                .withString("timestamp", status.getTimestampString())
+                .withString("message", status.getMessage());
+        getTable().putItem(item);
         System.out.println("Status posted " + status.getTimestampString() + ": " + status.getMessage());
     }
-//    public Status getStatus(LocalDateTime timestamp)
-//    public List<Status> getStatuses(String userAlias, int limit)
-//    public void updateStatus(String token, Status authToken) {}
-//    public void deleteStatus(String token) {}
 
-    // TODO: solve pagination/identification for this class. (really more of a Milestone 4 issue)
-    // Use cursors instead of page numbers.
-
-    // PAGINATION HERE WE COME
     public List<Status> getUserStory(String userAlias, String lastTimestamp, int limit) throws DataAccessException {
         // Note: reference this code when implementing the FeedDAO. Much of it will be the same, but
         // in addition to the three parameters listed above, you will also need the alias of the user who posted the tweet,

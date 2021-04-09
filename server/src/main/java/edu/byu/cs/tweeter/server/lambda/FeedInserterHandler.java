@@ -17,6 +17,7 @@ public class FeedInserterHandler implements RequestHandler<SQSEvent, Void> {
         FeedDAO feedDao = new FeedDAO();
 
         for (SQSEvent.SQSMessage msg : event.getRecords()) {
+            System.out.println(msg.getBody());
             FeedInsertionJob job = JsonSerializer.deserialize(msg.getBody(), FeedInsertionJob.class);
             // Take out all follower aliases, make a batch write to dynamo
             feedDao.batchAddStatusToFeed(job.getListOfFollowers(), job.getAlias(), job.getTimestamp());
