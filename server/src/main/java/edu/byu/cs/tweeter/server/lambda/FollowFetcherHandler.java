@@ -4,7 +4,6 @@ import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.amazonaws.services.lambda.runtime.events.SQSEvent;
 import com.amazonaws.services.sqs.AmazonSQS;
-import com.amazonaws.services.sqs.AmazonSQSClient;
 import com.amazonaws.services.sqs.AmazonSQSClientBuilder;
 import com.amazonaws.services.sqs.model.SendMessageRequest;
 import com.amazonaws.services.sqs.model.SendMessageResult;
@@ -13,12 +12,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.byu.cs.tweeter.server.dao.FollowDAO;
-import edu.byu.cs.tweeter.server.dao.FollowersDAO;
 import edu.byu.cs.tweeter.server.dao.StatusDAO;
 import edu.byu.cs.tweeter.shared.model.domain.FeedInsertionJob;
 import edu.byu.cs.tweeter.shared.model.domain.Status;
 import edu.byu.cs.tweeter.shared.model.net.JsonSerializer;
-import edu.byu.cs.tweeter.shared.model.request.FollowersRequest;
 
 
 // Lambda Handler:      edu.byu.cs.tweeter.server.lambda.FollowFetcherHandler::handleRequest
@@ -37,7 +34,7 @@ public class FollowFetcherHandler implements RequestHandler<SQSEvent, Void> {
 
         //Get list of all followers to update status for
         FollowDAO followDAO = new FollowDAO();
-        List<String> followers = followDAO.getFollowers(status.getUser().getAlias());
+        List<String> followers = followDAO.getAllFollowerNames(status.getUser().getAlias());
         List<FeedInsertionJob> feedInsertionJobs = new ArrayList<>();
 
         // Partition followers into chunks of 25

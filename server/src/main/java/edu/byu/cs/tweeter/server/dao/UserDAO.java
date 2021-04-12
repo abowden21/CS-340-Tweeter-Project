@@ -36,8 +36,10 @@ public class UserDAO extends BaseDynamoDAO {
 
     public User getUser(String alias) throws DataAccessException {
         Item item = getTable().getItem("alias", alias);
-
-        return itemToUser(item);
+        if (item != null) {
+            return itemToUser(item);
+        }
+        return null;
     }
 
     public String getHashedPassword(String userAlias) throws DataAccessException {

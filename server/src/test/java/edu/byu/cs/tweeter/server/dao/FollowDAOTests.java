@@ -10,11 +10,14 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.util.List;
 
+import edu.byu.cs.tweeter.server.DataAccessException;
+import edu.byu.cs.tweeter.server.service.FollowersServiceImpl;
 import edu.byu.cs.tweeter.shared.model.domain.AuthToken;
 import edu.byu.cs.tweeter.shared.model.domain.User;
 import edu.byu.cs.tweeter.shared.model.net.TweeterRemoteException;
 import edu.byu.cs.tweeter.shared.model.request.FollowRequest;
 import edu.byu.cs.tweeter.shared.model.request.FollowStatusRequest;
+import edu.byu.cs.tweeter.shared.model.request.FollowersRequest;
 import edu.byu.cs.tweeter.shared.model.request.UserFollowCountRequest;
 import edu.byu.cs.tweeter.shared.model.response.FollowResponse;
 import edu.byu.cs.tweeter.shared.model.response.FollowStatusResponse;
@@ -40,13 +43,14 @@ public class FollowDAOTests {
     private UserFollowCountRequest invalidUserFollowCountRequest;
     private UserFollowCountResponse successUserFollowCountResponse;
     private AuthToken authToken;
+    private User otherUser;
 
 
     @BeforeEach
     public void setup() throws IOException, TweeterRemoteException {
         followDAO = new FollowDAO();
         User currentUser = new User("FirstName", "LastName", null);
-        User otherUser =  new User("FirstName2", "LastName2", "alias1", null);
+        otherUser =  new User("FirstName2", "LastName2", "alias1", null);
         authToken = new AuthToken("<mockToken>", "test");
 
         validFollowStatusRequest = new FollowStatusRequest(currentUser.getAlias(), otherUser.getAlias());
@@ -135,11 +139,11 @@ public class FollowDAOTests {
         followDAO.setFollow(validFollowRequest);
         followRequest = new FollowRequest(authToken, true, "anotherUser", "alias1");
         followDAO.setFollow(followRequest);
-        List<String> followers = followDAO.getFollowers(validFollowRequest.getFollowerAlias());
+        List<String> followers = followDAO.getAllFollowerNames(validFollowRequest.getFollowerAlias());
         Assertions.assertEquals(3, followers.size());
 
         followDAO.setUnfollow(followRequest);
-        followers = followDAO.getFollowers(validFollowRequest.getFollowerAlias());
+        followers = followDAO.getAllFollowerNames(validFollowRequest.getFollowerAlias());
         Assertions.assertEquals(2, followers.size());
     }
 
@@ -150,13 +154,32 @@ public class FollowDAOTests {
         followDAO.setFollow(followRequest);
         followDAO.setFollow((followRequest2));
 
-        List<String> followers = followDAO.getFollowers(validFollowRequest.getFollowerAlias());
+        List<String> followers = followDAO.getAllFollowerNames(validFollowRequest.getFollowerAlias());
         Assertions.assertEquals(2, followers.size());
 
         followDAO.setUnfollow(followRequest);
 
-        followers = followDAO.getFollowers(validFollowRequest.getFollowerAlias());
+        followers = followDAO.getAllFollowerNames(validFollowRequest.getFollowerAlias());
         Assertions.assertEquals(1, followers.size());
 
+    }
+
+    @Test
+    public void testGetFollowersPaginated_validRequest_correctResponse() {
+
+        FollowersRequest followersRequest = new FollowersRequest("alias1", 2, null);
+        List<String> followers = followDAO.getFollowersPaginated(followersRequest);
+        Assertions.assertEquals(3, followers.size());
+    }
+
+    @Test
+    public void testGetFollowersPaginated_validRequest_correctResponse2() throws DataAccessException {
+
+        FollowersRequest followersRequest = new FollowersRequest("alias1", 2, null);
+//        List<String> followers = followDAO.getFollowersPaginated(followersRequest);
+        //new UserDAO().addUser(otherUser);
+        FollowersServiceImpl followersService = new FollowersServiceImpl();
+        followersService.getFollowers(followersRequest);
+       //Assertions.assertEquals(3, followers.size());
     }
 }

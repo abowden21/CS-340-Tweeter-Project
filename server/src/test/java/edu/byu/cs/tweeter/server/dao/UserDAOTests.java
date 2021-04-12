@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import edu.byu.cs.tweeter.server.DataAccessException;
 import edu.byu.cs.tweeter.shared.model.domain.User;
 
-public class UserDaoTests {
+public class UserDAOTests {
     UserDAO userDAO;
 
     @BeforeEach
