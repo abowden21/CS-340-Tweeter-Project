@@ -38,10 +38,13 @@ public class FollowFetcherHandler implements RequestHandler<SQSEvent, Void> {
         List<FeedInsertionJob> feedInsertionJobs = new ArrayList<>();
 
         // Partition followers into chunks of 25
+        int jobNum = 0;
         int partitionSize = 25;
         List<List<Integer>> partitions = new ArrayList<List<Integer>>();
         for (int i = 0; i < followers.size(); i += partitionSize) {
             FeedInsertionJob job = new FeedInsertionJob();
+            job.setJobNum(jobNum);
+            jobNum++;
             job.setAlias(status.getUser().getAlias());
             job.setTimestamp(status.getTimestampString());
             job.setListOfFollowers(followers.subList(i,
@@ -56,13 +59,18 @@ public class FollowFetcherHandler implements RequestHandler<SQSEvent, Void> {
                     .withQueueUrl(queueUrl).withMessageBody(jsonJob);
             SendMessageResult sendMsgResult = sqs.sendMessage(sendMsgRequest);
         }
+
+        System.out.println("Sent " + feedInsertionJobs.size() + " jobs to the JobsQueue");
     }
 
     @Override
     public Void handleRequest(SQSEvent event, Context context) {
+        int numTimesLooped = 0;
         for (SQSEvent.SQSMessage msg : event.getRecords()) {
-            Status status = JsonSerializer.deserialize(msg.getBody(), Status.class);
+            numTimesLooped++;
+            System.out.println("Loop num: " + numTimesLooped);
 
+            Status status = JsonSerializer.deserialize(msg.getBody(), Status.class);
             handleStatus(status);
         }
         return null;
