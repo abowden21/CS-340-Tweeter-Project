@@ -1,5 +1,6 @@
 package edu.byu.cs.tweeter.client.model.integration;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -9,10 +10,14 @@ import java.io.IOException;
 import java.util.Arrays;
 
 
+import edu.byu.cs.tweeter.client.model.service.FollowServiceProxy;
 import edu.byu.cs.tweeter.client.model.service.FollowingServiceProxy;
+import edu.byu.cs.tweeter.shared.model.domain.AuthToken;
 import edu.byu.cs.tweeter.shared.model.domain.User;
 import edu.byu.cs.tweeter.shared.model.net.TweeterRemoteException;
+import edu.byu.cs.tweeter.shared.model.request.FollowRequest;
 import edu.byu.cs.tweeter.shared.model.request.FollowingRequest;
+import edu.byu.cs.tweeter.shared.model.response.FollowersResponse;
 import edu.byu.cs.tweeter.shared.model.response.FollowingResponse;
 
 public class FollowingServiceIntegrationTest {
@@ -21,6 +26,8 @@ public class FollowingServiceIntegrationTest {
     private FollowingResponse successResponse;
 
     private FollowingServiceProxy followingService;
+    private FollowServiceProxy followServiceProxy = new FollowServiceProxy();
+    private AuthToken authToken = new AuthToken("<mockToken>", "test");
 
     /**
      * Create a FollowersService spy that uses a mock ServerFacade to return known responses to
@@ -29,19 +36,30 @@ public class FollowingServiceIntegrationTest {
     @BeforeEach
     public void setup() throws IOException, TweeterRemoteException {
 
-        final String MALE_IMAGE_URL = "https://faculty.cs.byu.edu/~jwilkerson/cs340/tweeter/images/donald_duck.png";
-        final String FEMALE_IMAGE_URL = "https://faculty.cs.byu.edu/~jwilkerson/cs340/tweeter/images/daisy_duck.png";
+        final String URL = "https://upload.wikimedia.org/wikipedia/en/0/00/The_Child_aka_Baby_Yoda_%28Star_Wars%29.jpg";
+
+        User resultUser1 = new User("Mr.", "Guy 2", "guy2", URL);
+        User resultUser2 = new User("Mr.", "Guy 3", "guy3", URL);
+        User resultUser3 = new User("Mr.",  "Guy 4", "guy4", URL);
+
+        followServiceProxy.setFollow(new FollowRequest(authToken, true, "guy1", "guy2"));
+        followServiceProxy.setFollow(new FollowRequest(authToken, true, "guy1", "guy3"));
+        followServiceProxy.setFollow(new FollowRequest(authToken, true, "guy1", "guy4"));
+
 
         User currentUser = new User("FirstName", "LastName", null);
 
-        User resultUser1 = new User("Allen", "Anderson", MALE_IMAGE_URL);
-        User resultUser2 = new User("Amy", "Ames", FEMALE_IMAGE_URL);
-        User resultUser3 = new User("Bob", "Bobson", MALE_IMAGE_URL);
-
-        validRequest = new FollowingRequest(currentUser.getAlias(), 3, null);
-        successResponse = new FollowingResponse(Arrays.asList(resultUser1, resultUser2, resultUser3), true);
+        validRequest = new FollowingRequest("guy1", 2, null);
+        successResponse = new FollowingResponse(Arrays.asList(resultUser1, resultUser2), true);
 
         followingService = new FollowingServiceProxy();
+    }
+
+    @AfterEach
+    public void cleanup() throws IOException, TweeterRemoteException {
+        followServiceProxy.setFollow(new FollowRequest(authToken, false, "guy1", "guy2"));
+        followServiceProxy.setFollow(new FollowRequest(authToken, false, "guy1", "guy3"));
+        followServiceProxy.setFollow(new FollowRequest(authToken, false, "guy1", "guy4"));
     }
 
     @Test

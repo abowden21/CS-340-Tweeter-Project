@@ -108,7 +108,7 @@ public class FollowDAO extends BaseDynamoDAO {
        Index index = getTable().getIndex("follows_index");
 
        QuerySpec querySpec = new QuerySpec().withHashKey(followeeHandleAttribute,
-               followersRequest.getFollowerAlias()).withMaxPageSize(followersRequest.getLimit());
+               followersRequest.getFollowerAlias()).withMaxResultSize(followersRequest.getLimit());
        if (followersRequest.getLastFolloweeAlias() != null) {
            querySpec.withExclusiveStartKey(followeeHandleAttribute, followersRequest.getFollowerAlias(), followerHandleAttribute, followersRequest.getLastFolloweeAlias());
        }
@@ -161,7 +161,7 @@ public class FollowDAO extends BaseDynamoDAO {
         List<String> followeeNames = new ArrayList<>();
 
         QuerySpec querySpec = new QuerySpec().withHashKey(followerHandleAttribute,
-                followeesRequest.getFollowerAlias()).withMaxPageSize(followeesRequest.getLimit());
+                followeesRequest.getFollowerAlias()).withMaxResultSize(followeesRequest.getLimit());
         if (followeesRequest.getLastFolloweeAlias() != null) {
             querySpec.withExclusiveStartKey(followerHandleAttribute, followeesRequest.getFollowerAlias(), followeeHandleAttribute, followeesRequest.getLastFolloweeAlias());
         }

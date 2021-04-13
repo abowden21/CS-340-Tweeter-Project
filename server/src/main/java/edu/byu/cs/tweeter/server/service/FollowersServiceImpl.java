@@ -36,7 +36,7 @@ public class FollowersServiceImpl implements FollowersServiceInterface {
         }
         if (followers.size() > request.getLimit() - 1) {
             hasMore = true;
-            followerNames.remove(followerNames.size() - 1);
+            followers.remove(followers.size() - 1);
         }
         return new FollowersResponse(followers, hasMore);
     }

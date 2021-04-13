@@ -8,7 +8,9 @@ import org.mockito.Mockito;
 import java.io.IOException;
 import java.util.Arrays;
 
+import edu.byu.cs.tweeter.server.dao.FollowDAO;
 import edu.byu.cs.tweeter.server.dao.FollowersDAO;
+import edu.byu.cs.tweeter.server.dao.FollowingDAO;
 import edu.byu.cs.tweeter.server.service.FollowersServiceImpl;
 import edu.byu.cs.tweeter.shared.model.domain.User;
 import edu.byu.cs.tweeter.shared.model.net.TweeterRemoteException;
@@ -22,8 +24,7 @@ public class FollowersServiceImplTest {
 
     private FollowersResponse successResponse;
     private FollowersResponse failureResponse;
-
-    private FollowersServiceImpl followingServiceSpy;
+    private FollowersServiceImpl followersService;
 
     /**
      * Create a FollowersService spy that uses a mock ServerFacade to return known responses to
@@ -47,28 +48,23 @@ public class FollowersServiceImplTest {
         // Setup a mock ServerFacade that will return known responses
         successResponse = new FollowersResponse(Arrays.asList(resultUser1, resultUser2, resultUser3), false);
 
-        // TODO: change this to use the FollowDao
+        followersService = Mockito.mock(FollowersServiceImpl.class);
+        Mockito.when(followersService.getFollowers(validRequest)).thenReturn(successResponse);
 
-        //        FollowersDAO followerDAO = Mockito.mock(FollowersDAO.class);
-//        Mockito.when(followerDAO.getFollowers(validRequest)).thenReturn(successResponse);
-//
-//        failureResponse = new FollowersResponse("An exception occurred");
-//        Mockito.when(followerDAO.getFollowers(invalidRequest)).thenReturn(failureResponse);
-//
-//        // Create a FollowersService instance and wrap it with a spy that will use the mock service
-//        followingServiceSpy = Mockito.spy(new FollowersServiceImpl());
-//        Mockito.when(followingServiceSpy.getFollowersDAO()).thenReturn(followerDAO);
+        failureResponse = new FollowersResponse("An exception occurred");
+        Mockito.when(followersService.getFollowers(invalidRequest)).thenReturn(failureResponse);
+
     }
 
     @Test
     public void testGetFollowers_validRequest_correctResponse() throws IOException, TweeterRemoteException {
-        FollowersResponse response = followingServiceSpy.getFollowers(validRequest);
+        FollowersResponse response = followersService.getFollowers(validRequest);
         Assertions.assertEquals(successResponse, response);
     }
 
     @Test
     public void testGetFollowers_invalidRequest_returnsNoFollowers() throws IOException, TweeterRemoteException {
-        FollowersResponse response = followingServiceSpy.getFollowers(invalidRequest);
+        FollowersResponse response = followersService.getFollowers(invalidRequest);
         Assertions.assertEquals(failureResponse, response);
     }
 }

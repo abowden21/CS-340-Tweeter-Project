@@ -47,7 +47,7 @@ public class FollowingServiceImpl implements FollowingServiceInterface {
         }
         if (followees.size() > request.getLimit() - 1) {
             hasMore = true;
-            followeeNames.remove(followeeNames.size() - 1);
+            followees.remove(followees.size() - 1);
         }
         return new FollowingResponse(followees, hasMore);
     }

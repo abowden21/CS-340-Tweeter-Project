@@ -21,6 +21,7 @@ import edu.byu.cs.tweeter.shared.model.request.FollowersRequest;
 import edu.byu.cs.tweeter.shared.model.request.UserFollowCountRequest;
 import edu.byu.cs.tweeter.shared.model.response.FollowResponse;
 import edu.byu.cs.tweeter.shared.model.response.FollowStatusResponse;
+import edu.byu.cs.tweeter.shared.model.response.FollowersResponse;
 import edu.byu.cs.tweeter.shared.model.response.UserFollowCountResponse;
 
 public class FollowDAOTests {
@@ -50,7 +51,7 @@ public class FollowDAOTests {
     public void setup() throws IOException, TweeterRemoteException {
         followDAO = new FollowDAO();
         User currentUser = new User("FirstName", "LastName", null);
-        otherUser =  new User("FirstName2", "LastName2", "alias1", null);
+        otherUser = new User("FirstName2", "LastName2", "alias1", null);
         authToken = new AuthToken("<mockToken>", "test");
 
         validFollowStatusRequest = new FollowStatusRequest(currentUser.getAlias(), otherUser.getAlias());
@@ -72,6 +73,11 @@ public class FollowDAOTests {
         successFollowResponse = new FollowResponse(true, true);
         successUnfollowResponse = new FollowResponse(true, false);
         successUserFollowCountResponse = new UserFollowCountResponse(1, 0);
+
+        followDAO.setFollow(new FollowRequest(authToken, true, "guy2", "guy1"));
+        followDAO.setFollow(new FollowRequest(authToken, true, "guy3", "guy1"));
+        followDAO.setFollow(new FollowRequest(authToken, true, "guy4", "guy1"));
+
     }
 
     @AfterEach
@@ -79,6 +85,10 @@ public class FollowDAOTests {
         followDAO.setUnfollow(followRequest);
         followDAO.setUnfollow(followRequest2);
         followDAO.setUnfollow(validFollowRequest);
+
+        followDAO.setUnfollow(new FollowRequest(authToken, false, "guy2", "guy1"));
+        followDAO.setUnfollow(new FollowRequest(authToken, false, "guy3", "guy1"));
+        followDAO.setUnfollow(new FollowRequest(authToken, false, "guy4", "guy1"));
     }
 
     @Test
@@ -145,6 +155,7 @@ public class FollowDAOTests {
         followDAO.setUnfollow(followRequest);
         followers = followDAO.getAllFollowerNames(validFollowRequest.getFollowerAlias());
         Assertions.assertEquals(2, followers.size());
+        followDAO.setFollow(followRequest);
     }
 
     @Test
@@ -166,20 +177,13 @@ public class FollowDAOTests {
 
     @Test
     public void testGetFollowersPaginated_validRequest_correctResponse() {
-
-        FollowersRequest followersRequest = new FollowersRequest("alias1", 2, null);
+        //there are 3 followers but tests that 2 are given
+        FollowersRequest followersRequest = new FollowersRequest("guy1", 2, null);
         List<String> followers = followDAO.getFollowersPaginated(followersRequest);
+        Assertions.assertEquals(2, followers.size());
+
+        followersRequest = new FollowersRequest("guy1", 3, null);
+        followers = followDAO.getFollowersPaginated(followersRequest);
         Assertions.assertEquals(3, followers.size());
-    }
-
-    @Test
-    public void testGetFollowersPaginated_validRequest_correctResponse2() throws DataAccessException {
-
-        FollowersRequest followersRequest = new FollowersRequest("alias1", 2, null);
-//        List<String> followers = followDAO.getFollowersPaginated(followersRequest);
-        //new UserDAO().addUser(otherUser);
-        FollowersServiceImpl followersService = new FollowersServiceImpl();
-        followersService.getFollowers(followersRequest);
-       //Assertions.assertEquals(3, followers.size());
     }
 }
