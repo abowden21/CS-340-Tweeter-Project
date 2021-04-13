@@ -39,7 +39,7 @@ public class StatusDAO extends BaseDynamoDAO {
 
         List<Status> statuses = new ArrayList<>();
 
-        QuerySpec querySpec = new QuerySpec().withHashKey("alias", userAlias).withMaxResultSize(limit);
+        QuerySpec querySpec = new QuerySpec().withHashKey("alias", userAlias).withMaxResultSize(limit).withScanIndexForward(false);
         if (lastTimestamp != null) {
             querySpec.withExclusiveStartKey("alias", userAlias, "timestamp", lastTimestamp);
         }
