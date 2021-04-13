@@ -163,6 +163,7 @@ public class FeedFragment extends Fragment implements FeedPresenter.View {
 
             GetFeedTask getFeedTask = new GetFeedTask(presenter, this);
             FeedRequest request = new FeedRequest(authToken, PAGE_SIZE, (lastStatus == null ? null : lastStatus.getTimestampString()));
+            System.out.println("lastStatus = " + lastStatus);
             getFeedTask.execute(request);
         }
 

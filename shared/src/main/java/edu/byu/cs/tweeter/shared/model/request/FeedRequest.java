@@ -6,8 +6,8 @@ import edu.byu.cs.tweeter.shared.model.domain.AuthToken;
 
 public class FeedRequest {
 
-    private final AuthToken authToken;
-    private final int limit;
+    private AuthToken authToken;
+    private int limit;
     //private final LocalDateTime lastTimestamp;
     private String timestampString;
 
@@ -34,20 +34,24 @@ public class FeedRequest {
         if (lastTimestamp != null) {
             this.timestampString = lastTimestamp;
         }
-        else {
-            this.timestampString = LocalDateTime.now().toString();
-        }
+//        else {
+//            this.timestampString = LocalDateTime.now().toString();
+//        }
     }
 
     public AuthToken getAuthToken() {
         return this.authToken;
     }
 
+    public void setAuthToken(AuthToken authToken) {
+        this.authToken = authToken;
+    }
+
     public LocalDateTime getLastTimestamp() {
         return LocalDateTime.parse(timestampString);
     }
 
-    public String getIimestampString() {
+    public String getTimestampString() {
         return timestampString;
     }
 
@@ -61,5 +65,9 @@ public class FeedRequest {
 
     public int getLimit() {
         return limit;
+    }
+
+    public void setLimit(int limit) {
+        this.limit = limit;
     }
 }
