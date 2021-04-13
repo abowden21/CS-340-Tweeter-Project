@@ -11,6 +11,7 @@ import edu.byu.cs.tweeter.shared.model.request.GetUserRequest;
 import edu.byu.cs.tweeter.shared.model.response.GetUserResponse;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class GetUserServiceIntegrationTest {
@@ -18,9 +19,11 @@ public class GetUserServiceIntegrationTest {
     GetUserRequest getUserRequestValid;
     GetUserServiceProxy service;
 
+    String testAlias = "@testUser";
+
     @BeforeEach
     void setup() {
-        getUserRequestValid = new GetUserRequest("userAlias");
+        getUserRequestValid = new GetUserRequest(testAlias);
         service = new GetUserServiceProxy();
     }
 
@@ -28,6 +31,9 @@ public class GetUserServiceIntegrationTest {
     void test_getUserSuccess() throws IOException, TweeterRemoteException {
         GetUserResponse response = service.getUser(getUserRequestValid);
         assertTrue(response.isSuccess());
-        assertEquals(response.getRetrievedUser().getAlias(), "@TestUser"); // That's what the lambda is currently returning (dummy data)
+        assertEquals(response.getRetrievedUser().getAlias(), testAlias);
+        assertNotNull(response.getRetrievedUser().getImageUrl());
+        assertEquals("first", response.getRetrievedUser().getFirstName());
+        assertEquals("last", response.getRetrievedUser().getLastName());
     }
 }

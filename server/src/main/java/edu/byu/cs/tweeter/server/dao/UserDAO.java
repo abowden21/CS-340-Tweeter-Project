@@ -11,6 +11,7 @@ import edu.byu.cs.tweeter.server.DataAccessException;
 import edu.byu.cs.tweeter.shared.model.domain.User;
 
 public class UserDAO extends BaseDynamoDAO {
+
     public UserDAO() {
         super("user");
     }
@@ -52,13 +53,9 @@ public class UserDAO extends BaseDynamoDAO {
         return getTable().getItem("alias", userAlias).getString("password");
     }
 
-//    public void storeHashedPassword(String userAlias, String password) throws DataAccessException {
-//
-//    }
 
-//    public void updateUser(String alias, User user) throws DataAccessException {}
-//
-//    public void deleteUser(String alias) throws DataAccessException {}
+
+    /* Batch methods are used only in Filler script (for adding 10k users at a time in DynamoDB) */
 
     public void addUserBatch(List<User> users) {
 

@@ -49,7 +49,7 @@ public class PostStatusServiceImpl implements PostStatusServiceInterface {
                 getAuthTokenDao().deleteAuthToken(authToken.getToken());
                 throw new RuntimeException(failedAuthTokenInvalidMessage);
             }
-            System.out.println("Auth token is valid: " + authToken.getToken());
+            System.out.println("Auth token is valid: " + authToken.getToken() + ". User alias: " + authToken.getUserAlias());
             User user = getUserDao().getUser(authToken.getUserAlias());
             System.out.println("Found user: " + user.getAlias());
             // Save status

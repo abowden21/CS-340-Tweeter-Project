@@ -63,6 +63,9 @@ public class LoginServiceImpl implements LoginServiceInterface {
         try {
             // Get user - exception will be thrown if not found
             User user = getUserDao().getUser(request.getUsername());
+            if (user == null) {
+                throw new Exception("User does not exist.");
+            }
             // Verify password
             if (!secure.check(request.password, getUserDao().getHashedPassword(request.getUsername())))
                 throw new SecurePasswordService.PasswordException("Password does not match.");
