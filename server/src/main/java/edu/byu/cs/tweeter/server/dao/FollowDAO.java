@@ -20,6 +20,7 @@ import edu.byu.cs.tweeter.shared.model.domain.User;
 import edu.byu.cs.tweeter.shared.model.request.FollowRequest;
 import edu.byu.cs.tweeter.shared.model.request.FollowStatusRequest;
 import edu.byu.cs.tweeter.shared.model.request.FollowersRequest;
+import edu.byu.cs.tweeter.shared.model.request.FollowingRequest;
 import edu.byu.cs.tweeter.shared.model.request.UserFollowCountRequest;
 import edu.byu.cs.tweeter.shared.model.response.FollowResponse;
 import edu.byu.cs.tweeter.shared.model.response.FollowStatusResponse;
@@ -125,40 +126,18 @@ public class FollowDAO extends BaseDynamoDAO {
        return followerNames;
     }
 
-//    public List<String> getFollowersPaginated(FollowersRequest followersRequest) {
-//        ItemCollection<QueryOutcome> items = null;
-//        Iterator<Item> iterator = null;
-//        Item item = null;
-//        Map<String, AttributeValue> lastItem = null;
-//        boolean moreItems = true;
-//        List<String> followerNames = new ArrayList<>();
-//        Index index = getTable().getIndex("follows_index");
-//
-//        while (moreItems) {
-//            QuerySpec querySpec= new QuerySpec().withHashKey(followeeHandleAttribute, followersRequest.getFollowerAlias())
-//                    .withMaxPageSize(followersRequest.getLimit()).withExclusiveStartKey(followersRequest.getLastFolloweeAlias());
-//
-//            try {
-//                items = index.query(querySpec.withScanIndexForward(true));
-//
-//                iterator = items.iterator();
-//                while (iterator.hasNext()) {
-//                    item = iterator.next();
-//                    followerNames.add(item.getString(followerHandleAttribute));
-//                    System.out.println(item.getString(followerHandleAttribute));
-//                }
-//
-//                QueryOutcome outcome = items.getLastLowLevelResult();
-//                QueryResult result = outcome.getQueryResult();
-//                lastItem = result.getLastEvaluatedKey();
-//                if (lastItem == null) {
-//                    moreItems = false;
-//                }
-//
-//            } catch (Exception e) {
-//                System.err.println(e.getMessage());
-//            }
-//        }
-//        return followerNames;
-//    }
+    public List<String> getFolloweesPaginated(FollowingRequest followeesRequest) {
+        List<String> followeeNames = new ArrayList<>();
+
+        QuerySpec querySpec = new QuerySpec().withHashKey(followerHandleAttribute,
+                followeesRequest.getFollowerAlias()).withMaxPageSize(followeesRequest.getLimit());
+        if (followeesRequest.getLastFolloweeAlias() != null) {
+            querySpec.withExclusiveStartKey(followerHandleAttribute, followeesRequest.getFollowerAlias(), followeeHandleAttribute, followeesRequest.getLastFolloweeAlias());
+        }
+
+        for (Item item : getTable().query(querySpec)) {
+            followeeNames.add(item.getString(followeeHandleAttribute));
+        }
+        return followeeNames;
+    }
 }

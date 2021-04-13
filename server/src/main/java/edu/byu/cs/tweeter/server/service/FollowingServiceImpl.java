@@ -1,6 +1,13 @@
 package edu.byu.cs.tweeter.server.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import edu.byu.cs.tweeter.server.DataAccessException;
 import edu.byu.cs.tweeter.server.dao.FollowDAO;
+import edu.byu.cs.tweeter.server.dao.UserDAO;
+import edu.byu.cs.tweeter.shared.model.domain.User;
+import edu.byu.cs.tweeter.shared.model.response.FollowersResponse;
 import edu.byu.cs.tweeter.shared.model.service.FollowingServiceInterface;
 import edu.byu.cs.tweeter.shared.model.request.FollowingRequest;
 import edu.byu.cs.tweeter.shared.model.response.FollowingResponse;
@@ -22,9 +29,27 @@ public class FollowingServiceImpl implements FollowingServiceInterface {
      */
     @Override
     public FollowingResponse getFollowees(FollowingRequest request) {
-//        return getFollowDAO().getFollowees(request);
-        return null;
-        // TODO: implement.
+        request.setLimit(request.getLimit() + 1);
+        List<String> followeeNames = getFollowDAO().getFolloweesPaginated(request);
+        List<User> followees = new ArrayList<>();
+        boolean hasMore = false;
+
+        for (String alias : followeeNames) {
+            try {
+                User foundUser = getUserDAO().getUser(alias);
+                if (foundUser != null) {
+                    followees.add(foundUser);
+                }
+
+            } catch (DataAccessException e) {
+                e.printStackTrace();
+            }
+        }
+        if (followees.size() > request.getLimit() - 1) {
+            hasMore = true;
+            followeeNames.remove(followeeNames.size() - 1);
+        }
+        return new FollowingResponse(followees, hasMore);
     }
 
     /**
@@ -36,5 +61,9 @@ public class FollowingServiceImpl implements FollowingServiceInterface {
      */
     public FollowDAO getFollowDAO() {
         return new FollowDAO();
+    }
+
+    public UserDAO getUserDAO() {
+        return new UserDAO();
     }
 }
