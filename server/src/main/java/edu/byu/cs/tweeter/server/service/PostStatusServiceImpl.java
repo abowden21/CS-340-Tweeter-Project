@@ -1,5 +1,4 @@
 package edu.byu.cs.tweeter.server.service;
-import com.amazonaws.ClientConfiguration;
 import com.amazonaws.services.sqs.AmazonSQS;
 import com.amazonaws.services.sqs.AmazonSQSClientBuilder;
 import com.amazonaws.services.sqs.model.SendMessageRequest;
@@ -7,23 +6,19 @@ import com.amazonaws.services.sqs.model.SendMessageResult;
 
 import java.time.LocalDateTime;
 
-import javax.xml.crypto.Data;
-
 import edu.byu.cs.tweeter.server.DataAccessException;
 import edu.byu.cs.tweeter.server.dao.AuthTokenDAO;
-import edu.byu.cs.tweeter.server.dao.StatusDAO;
 import edu.byu.cs.tweeter.server.dao.UserDAO;
 import edu.byu.cs.tweeter.shared.model.domain.AuthToken;
 import edu.byu.cs.tweeter.shared.model.domain.Status;
 import edu.byu.cs.tweeter.shared.model.domain.User;
 import edu.byu.cs.tweeter.shared.model.net.JsonSerializer;
-import edu.byu.cs.tweeter.shared.model.net.TweeterRemoteException;
 import edu.byu.cs.tweeter.shared.model.request.PostStatusRequest;
 import edu.byu.cs.tweeter.shared.model.response.PostStatusResponse;
 import edu.byu.cs.tweeter.shared.model.service.PostStatusServiceInterface;
 
 public class PostStatusServiceImpl implements PostStatusServiceInterface {
-    StatusDAO statusDao;
+//    StatusDAO statusDao;
     UserDAO userDao;
     AuthTokenDAO authTokenDao;
     AmazonSQS sqs;
@@ -34,9 +29,15 @@ public class PostStatusServiceImpl implements PostStatusServiceInterface {
     private String failedServerMessage = "Server Error: Server failed";
 
     public PostStatusServiceImpl() {
-        AmazonSQSClientBuilder builder = AmazonSQSClientBuilder.standard()
-                .withRegion("us-west-2");
-        sqs = builder.build();
+    }
+
+    public AmazonSQS getSqs() {
+        if (sqs == null) {
+            AmazonSQSClientBuilder builder = AmazonSQSClientBuilder.standard()
+                    .withRegion("us-west-2");
+            sqs = builder.build();
+        }
+        return sqs;
     }
 
     @Override
@@ -62,7 +63,7 @@ public class PostStatusServiceImpl implements PostStatusServiceInterface {
             SendMessageRequest sendMsgRequest = new SendMessageRequest()
                     .withQueueUrl(queueUrl).withMessageBody(messageBody);
 
-            SendMessageResult sendMsgResult = sqs.sendMessage(sendMsgRequest);
+            SendMessageResult sendMsgResult = getSqs().sendMessage(sendMsgRequest);
             System.out.println("Sent message to queue.");
 
             PostStatusResponse response = new PostStatusResponse(status);
@@ -76,12 +77,6 @@ public class PostStatusServiceImpl implements PostStatusServiceInterface {
             System.out.println(e.toString());
             throw new RuntimeException(failedServerMessage);
         }
-    }
-
-    public StatusDAO getStatusDao() {
-        if (this.statusDao == null)
-            this.statusDao = new StatusDAO();
-        return this.statusDao;
     }
 
     public UserDAO getUserDao() {
