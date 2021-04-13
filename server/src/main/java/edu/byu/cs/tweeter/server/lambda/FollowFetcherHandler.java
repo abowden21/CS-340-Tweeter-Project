@@ -35,6 +35,7 @@ public class FollowFetcherHandler implements RequestHandler<SQSEvent, Void> {
         //Get list of all followers to update status for
         FollowDAO followDAO = new FollowDAO();
         List<String> followers = followDAO.getAllFollowerNames(status.getUser().getAlias());
+        System.out.println("Found " + followers.size() + " for " + status.getUser().getAlias());
         List<FeedInsertionJob> feedInsertionJobs = new ArrayList<>();
 
         // Partition followers into chunks of 25

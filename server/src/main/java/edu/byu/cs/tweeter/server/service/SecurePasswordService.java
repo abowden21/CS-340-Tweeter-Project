@@ -18,9 +18,9 @@ public class SecurePasswordService {
         }
     }
 
-    public class SecurePassword {
+    public static class SecurePassword {
         private String hashedPassword;
-        private SecurePassword(String hashedPassword) {
+        protected SecurePassword(String hashedPassword) {
             this.hashedPassword = hashedPassword;
         }
 

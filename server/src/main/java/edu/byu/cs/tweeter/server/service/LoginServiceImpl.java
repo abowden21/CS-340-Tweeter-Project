@@ -42,8 +42,12 @@ public class LoginServiceImpl implements LoginServiceInterface {
     UserDAO userDao;
     SecurePasswordService secure;
 
-    public LoginServiceImpl() {
-        secure = new SecurePasswordService();
+    public LoginServiceImpl() {}
+
+    public SecurePasswordService getSecurePasswordService() {
+        if (secure == null)
+            secure = new SecurePasswordService();
+        return secure;
     }
 
     private String loginFailedMessage = "Client Error: Login Failed.";
@@ -67,7 +71,7 @@ public class LoginServiceImpl implements LoginServiceInterface {
                 throw new Exception("User does not exist.");
             }
             // Verify password
-            if (!secure.check(request.password, getUserDao().getHashedPassword(request.getUsername())))
+            if (!getSecurePasswordService().check(request.password, getUserDao().getHashedPassword(request.getUsername())))
                 throw new SecurePasswordService.PasswordException("Password does not match.");
             // Log user in; create and return auth token
             AuthToken authToken = createAndStoreAuthToken(user.getAlias());
@@ -102,7 +106,7 @@ public class LoginServiceImpl implements LoginServiceInterface {
         // Hash the password
         String hashedPassword = ""; //todo: restructure try/catch blocks
         try {
-            SecurePasswordService.SecurePassword securePw = secure.hash(registerRequest.getPassword());
+            SecurePasswordService.SecurePassword securePw = getSecurePasswordService().hash(registerRequest.getPassword());
             hashedPassword = securePw.getHashedPassword();
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
@@ -116,6 +120,7 @@ public class LoginServiceImpl implements LoginServiceInterface {
             AuthToken authToken = createAndStoreAuthToken(user.getAlias());
             return new RegisterResponse(user, authToken);
         } catch (DataAccessException e) {
+            e.printStackTrace();
             throw new RuntimeException(registerFailedMessage);
         }
     }
