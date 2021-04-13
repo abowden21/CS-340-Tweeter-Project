@@ -49,17 +49,21 @@ public class PostStatusServiceImpl implements PostStatusServiceInterface {
                 getAuthTokenDao().deleteAuthToken(authToken.getToken());
                 throw new RuntimeException(failedAuthTokenInvalidMessage);
             }
+            System.out.println("Auth token is valid: " + authToken.getToken());
             User user = getUserDao().getUser(authToken.getUserAlias());
+            System.out.println("Found user: " + user.getAlias());
             // Save status
             LocalDateTime timestamp = LocalDateTime.now();
             Status status = new Status(timestamp, postStatusRequest.getMessage(), user);
 
             String messageBody = JsonSerializer.serialize(status);
+            System.out.println("Serialized message for queue: " + messageBody);
 
             SendMessageRequest sendMsgRequest = new SendMessageRequest()
                     .withQueueUrl(queueUrl).withMessageBody(messageBody);
 
             SendMessageResult sendMsgResult = sqs.sendMessage(sendMsgRequest);
+            System.out.println("Sent message to queue.");
 
             PostStatusResponse response = new PostStatusResponse(status);
             return response;

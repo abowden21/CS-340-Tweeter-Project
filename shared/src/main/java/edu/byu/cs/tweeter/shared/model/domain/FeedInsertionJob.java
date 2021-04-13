@@ -3,6 +3,7 @@ package edu.byu.cs.tweeter.shared.model.domain;
 import java.util.List;
 
 public class FeedInsertionJob {
+    private int jobNum;
     private String alias;
     private String timestamp;
     private List<String> listOfFollowers;
@@ -13,6 +14,14 @@ public class FeedInsertionJob {
         this.alias = alias;
         this.timestamp = timestamp;
         this.listOfFollowers = listOfFollowers;
+    }
+
+    public int getJobNum() {
+        return jobNum;
+    }
+
+    public void setJobNum(int jobNum) {
+        this.jobNum = jobNum;
     }
 
     public String getAlias() {

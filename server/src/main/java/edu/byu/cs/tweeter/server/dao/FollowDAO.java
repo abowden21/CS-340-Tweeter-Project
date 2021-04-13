@@ -1,22 +1,16 @@
 package edu.byu.cs.tweeter.server.dao;
-
+import com.amazonaws.services.dynamodbv2.document.BatchWriteItemOutcome;
 import com.amazonaws.services.dynamodbv2.document.Index;
 import com.amazonaws.services.dynamodbv2.document.Item;
-import com.amazonaws.services.dynamodbv2.document.ItemCollection;
 import com.amazonaws.services.dynamodbv2.document.PrimaryKey;
-import com.amazonaws.services.dynamodbv2.document.QueryOutcome;
 import com.amazonaws.services.dynamodbv2.document.spec.DeleteItemSpec;
 import com.amazonaws.services.dynamodbv2.document.spec.GetItemSpec;
 import com.amazonaws.services.dynamodbv2.document.spec.QuerySpec;
-import com.amazonaws.services.dynamodbv2.model.AttributeValue;
-import com.amazonaws.services.dynamodbv2.model.QueryResult;
-
+import com.amazonaws.services.dynamodbv2.document.TableWriteItems;
+import com.amazonaws.services.dynamodbv2.model.WriteRequest;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
-import edu.byu.cs.tweeter.shared.model.domain.User;
 import edu.byu.cs.tweeter.shared.model.request.FollowRequest;
 import edu.byu.cs.tweeter.shared.model.request.FollowStatusRequest;
 import edu.byu.cs.tweeter.shared.model.request.FollowersRequest;
@@ -24,7 +18,6 @@ import edu.byu.cs.tweeter.shared.model.request.FollowingRequest;
 import edu.byu.cs.tweeter.shared.model.request.UserFollowCountRequest;
 import edu.byu.cs.tweeter.shared.model.response.FollowResponse;
 import edu.byu.cs.tweeter.shared.model.response.FollowStatusResponse;
-import edu.byu.cs.tweeter.shared.model.response.FollowersResponse;
 import edu.byu.cs.tweeter.shared.model.response.UserFollowCountResponse;
 
 public class FollowDAO extends BaseDynamoDAO {
@@ -124,6 +117,44 @@ public class FollowDAO extends BaseDynamoDAO {
            followerNames.add(item.getString(followerHandleAttribute));
        }
        return followerNames;
+    }
+    public void addFollowersBatch(List<String> followers, String userToBeFollowed) {
+
+        String tableName = "follows";
+        TableWriteItems items = new TableWriteItems(tableName);
+
+        // Add each user into the TableWriteItems object
+        for (String f : followers) {
+            Item followItem = new Item()
+                    .withString(followerHandleAttribute, f)
+                    .withString(followeeHandleAttribute, userToBeFollowed);
+            items.addItemToPut(followItem);
+
+            // 25 is the maximum number of items allowed in a single batch write.
+            // Attempting to write more than 25 items will result in an exception being thrown
+            if (items.getItemsToPut() != null && items.getItemsToPut().size() == 25) {
+                loopBatchWrite(items);
+                items = new TableWriteItems(tableName);
+            }
+        }
+
+        // Write any leftover items
+        if (items.getItemsToPut() != null && items.getItemsToPut().size() > 0) {
+            loopBatchWrite(items);
+        }
+    }
+
+    private void loopBatchWrite(TableWriteItems items) {
+
+        // The 'dynamoDB' object is of type DynamoDB and is declared statically in this example
+        BatchWriteItemOutcome outcome = getDatabase().batchWriteItem(items);
+
+        // Check the outcome for items that didn't make it onto the table
+        // If any were not added to the table, try again to write the batch
+        while (outcome.getUnprocessedItems().size() > 0) {
+            Map<String, List<WriteRequest>> unprocessedItems = outcome.getUnprocessedItems();
+            outcome = getDatabase().batchWriteItemUnprocessed(unprocessedItems);
+        }
     }
 
     public List<String> getFolloweesPaginated(FollowingRequest followeesRequest) {
