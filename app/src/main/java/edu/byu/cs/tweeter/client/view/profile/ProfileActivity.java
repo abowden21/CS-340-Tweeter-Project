@@ -46,6 +46,7 @@ public class ProfileActivity  extends AppCompatActivity implements FollowTask.Ob
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        System.out.println("entered new profile");
         setContentView(R.layout.activity_profile);
         User loggedInUser = (User) getIntent().getSerializableExtra(LOGGED_IN_USER_KEY);
         currentUser = (User) getIntent().getSerializableExtra(CURRENT_USER_KEY);

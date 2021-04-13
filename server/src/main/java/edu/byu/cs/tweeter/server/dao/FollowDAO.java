@@ -1,24 +1,20 @@
 package edu.byu.cs.tweeter.server.dao;
-
-import com.amazonaws.services.dynamodbv2.document.GetItemOutcome;
+import com.amazonaws.services.dynamodbv2.document.BatchWriteItemOutcome;
 import com.amazonaws.services.dynamodbv2.document.Index;
 import com.amazonaws.services.dynamodbv2.document.Item;
 import com.amazonaws.services.dynamodbv2.document.PrimaryKey;
-import com.amazonaws.services.dynamodbv2.document.PutItemOutcome;
 import com.amazonaws.services.dynamodbv2.document.spec.DeleteItemSpec;
 import com.amazonaws.services.dynamodbv2.document.spec.GetItemSpec;
 import com.amazonaws.services.dynamodbv2.document.spec.QuerySpec;
-
+import com.amazonaws.services.dynamodbv2.document.TableWriteItems;
+import com.amazonaws.services.dynamodbv2.model.WriteRequest;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-
-import javax.management.Query;
-
-import edu.byu.cs.tweeter.server.DataAccessException;
-import edu.byu.cs.tweeter.server.utils.AuthTokenValidator;
+import java.util.Map;
 import edu.byu.cs.tweeter.shared.model.request.FollowRequest;
 import edu.byu.cs.tweeter.shared.model.request.FollowStatusRequest;
+import edu.byu.cs.tweeter.shared.model.request.FollowersRequest;
+import edu.byu.cs.tweeter.shared.model.request.FollowingRequest;
 import edu.byu.cs.tweeter.shared.model.request.UserFollowCountRequest;
 import edu.byu.cs.tweeter.shared.model.response.FollowResponse;
 import edu.byu.cs.tweeter.shared.model.response.FollowStatusResponse;
@@ -74,13 +70,13 @@ public class FollowDAO extends BaseDynamoDAO {
     }
 
     public UserFollowCountResponse getUserFollowCount(UserFollowCountRequest request) {
-        int followerCount = getFollowers(request.getAlias()).size();
-        int followeeCount = getFollowees(request.getAlias()).size();
+        int followerCount = getAllFollowerNames(request.getAlias()).size();
+        int followeeCount = getAllFolloweeNames(request.getAlias()).size();
 
         return new UserFollowCountResponse(followerCount, followeeCount);
     }
 
-    public List<String> getFollowers(String userAlias) {
+    public List<String> getAllFollowerNames(String userAlias) {
         List<String> followers = new ArrayList<>();
 
         Index index = getTable().getIndex("follows_index");
@@ -94,7 +90,7 @@ public class FollowDAO extends BaseDynamoDAO {
         return followers;
     }
 
-    public List<String> getFollowees(String userAlias) {
+    public List<String> getAllFolloweeNames(String userAlias) {
         List<String> followees = new ArrayList<>();
 
         for (Item item : getTable().query(
@@ -105,5 +101,74 @@ public class FollowDAO extends BaseDynamoDAO {
         }
 
         return followees;
+    }
+
+    public List<String> getFollowersPaginated(FollowersRequest followersRequest) {
+       List<String> followerNames = new ArrayList<>();
+       Index index = getTable().getIndex("follows_index");
+
+       QuerySpec querySpec = new QuerySpec().withHashKey(followeeHandleAttribute,
+               followersRequest.getFollowerAlias()).withMaxResultSize(followersRequest.getLimit());
+       if (followersRequest.getLastFolloweeAlias() != null) {
+           querySpec.withExclusiveStartKey(followeeHandleAttribute, followersRequest.getFollowerAlias(), followerHandleAttribute, followersRequest.getLastFolloweeAlias());
+       }
+
+       for (Item item : index.query(querySpec)) {
+           followerNames.add(item.getString(followerHandleAttribute));
+       }
+       return followerNames;
+    }
+    public void addFollowersBatch(List<String> followers, String userToBeFollowed) {
+
+        String tableName = "follows";
+        TableWriteItems items = new TableWriteItems(tableName);
+
+        // Add each user into the TableWriteItems object
+        for (String f : followers) {
+            Item followItem = new Item()
+                    .withString(followerHandleAttribute, f)
+                    .withString(followeeHandleAttribute, userToBeFollowed);
+            items.addItemToPut(followItem);
+
+            // 25 is the maximum number of items allowed in a single batch write.
+            // Attempting to write more than 25 items will result in an exception being thrown
+            if (items.getItemsToPut() != null && items.getItemsToPut().size() == 25) {
+                loopBatchWrite(items);
+                items = new TableWriteItems(tableName);
+            }
+        }
+
+        // Write any leftover items
+        if (items.getItemsToPut() != null && items.getItemsToPut().size() > 0) {
+            loopBatchWrite(items);
+        }
+    }
+
+    private void loopBatchWrite(TableWriteItems items) {
+
+        // The 'dynamoDB' object is of type DynamoDB and is declared statically in this example
+        BatchWriteItemOutcome outcome = getDatabase().batchWriteItem(items);
+
+        // Check the outcome for items that didn't make it onto the table
+        // If any were not added to the table, try again to write the batch
+        while (outcome.getUnprocessedItems().size() > 0) {
+            Map<String, List<WriteRequest>> unprocessedItems = outcome.getUnprocessedItems();
+            outcome = getDatabase().batchWriteItemUnprocessed(unprocessedItems);
+        }
+    }
+
+    public List<String> getFolloweesPaginated(FollowingRequest followeesRequest) {
+        List<String> followeeNames = new ArrayList<>();
+
+        QuerySpec querySpec = new QuerySpec().withHashKey(followerHandleAttribute,
+                followeesRequest.getFollowerAlias()).withMaxResultSize(followeesRequest.getLimit());
+        if (followeesRequest.getLastFolloweeAlias() != null) {
+            querySpec.withExclusiveStartKey(followerHandleAttribute, followeesRequest.getFollowerAlias(), followeeHandleAttribute, followeesRequest.getLastFolloweeAlias());
+        }
+
+        for (Item item : getTable().query(querySpec)) {
+            followeeNames.add(item.getString(followeeHandleAttribute));
+        }
+        return followeeNames;
     }
 }

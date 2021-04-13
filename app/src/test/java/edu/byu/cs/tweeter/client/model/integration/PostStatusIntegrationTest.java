@@ -21,7 +21,7 @@ public class PostStatusIntegrationTest {
     @BeforeEach
     void setup() {
         // Dummy data, allows for everything right now.
-        validRequest = new PostStatusRequest("token", "status");
+        validRequest = new PostStatusRequest("integration_test_token", "<integration_test_status>");
         service = new PostStatusServiceProxy();
     }
 
