@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import edu.byu.cs.tweeter.server.DataAccessException;
@@ -37,7 +38,7 @@ public class StatusDAOTests {
     @Test
     void test_addStatus() {
         // Confirm a status can be added
-        Status testStatus1 = new Status("<test_token>", "<dao test message!>", userMock);
+        Status testStatus1 = new Status(LocalDateTime.now().toString(), "<dao test message!>", userMock);
         // Part of this test is making sure no exceptions are thrown.
         statusDAOSpy.addStatus(testStatus1);
         // Also verify appropriate methods were called on the table object.
