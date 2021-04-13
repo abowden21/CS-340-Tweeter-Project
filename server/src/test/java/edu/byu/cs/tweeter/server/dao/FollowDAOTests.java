@@ -10,8 +10,6 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.util.List;
 
-import edu.byu.cs.tweeter.server.DataAccessException;
-import edu.byu.cs.tweeter.server.service.FollowersServiceImpl;
 import edu.byu.cs.tweeter.shared.model.domain.AuthToken;
 import edu.byu.cs.tweeter.shared.model.domain.User;
 import edu.byu.cs.tweeter.shared.model.net.TweeterRemoteException;
@@ -21,7 +19,6 @@ import edu.byu.cs.tweeter.shared.model.request.FollowersRequest;
 import edu.byu.cs.tweeter.shared.model.request.UserFollowCountRequest;
 import edu.byu.cs.tweeter.shared.model.response.FollowResponse;
 import edu.byu.cs.tweeter.shared.model.response.FollowStatusResponse;
-import edu.byu.cs.tweeter.shared.model.response.FollowersResponse;
 import edu.byu.cs.tweeter.shared.model.response.UserFollowCountResponse;
 
 public class FollowDAOTests {
