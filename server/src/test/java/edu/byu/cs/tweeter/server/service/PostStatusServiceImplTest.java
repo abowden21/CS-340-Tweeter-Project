@@ -1,5 +1,8 @@
 package edu.byu.cs.tweeter.server.service;
 
+import com.amazonaws.services.sqs.AmazonSQS;
+import com.amazonaws.services.sqs.model.SendMessageRequest;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -10,12 +13,14 @@ import edu.byu.cs.tweeter.server.dao.StatusDAO;
 import edu.byu.cs.tweeter.server.dao.UserDAO;
 import edu.byu.cs.tweeter.shared.model.domain.AuthToken;
 import edu.byu.cs.tweeter.shared.model.domain.Status;
+import edu.byu.cs.tweeter.shared.model.domain.User;
 import edu.byu.cs.tweeter.shared.model.request.PostStatusRequest;
 import edu.byu.cs.tweeter.shared.model.response.PostStatusResponse;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.verify;
 
 public class PostStatusServiceImplTest {
 
@@ -23,6 +28,7 @@ public class PostStatusServiceImplTest {
     StatusDAO statusDao;
     AuthTokenDAO authTokenDao;
     UserDAO userDao;
+    AmazonSQS sqsMock;
 
     String validToken;
     String invalidToken;
@@ -38,30 +44,27 @@ public class PostStatusServiceImplTest {
         validRequest = new PostStatusRequest(validToken, "valid_message");
         invalidRequest = new PostStatusRequest(invalidToken, "invalid_message");
         // Mock dao
-        statusDao = Mockito.mock(StatusDAO.class);
         authTokenDao = Mockito.mock(AuthTokenDAO.class);
-        userDao = Mockito.mock(UserDAO.class);
         Mockito.when(authTokenDao.getAuthToken("valid_token")).thenReturn(validAuthToken);
+        userDao = Mockito.mock(UserDAO.class);
+        Mockito.when(userDao.getUser("userAlias")).thenReturn(new User("First", "Last", "userAlias", "http://image.com"));
+
         // Mock/spy service
-//        serviceSpy = Mockito.spy(PostStatusServiceImpl.class);
-//        Mockito.when(serviceSpy.getStatusDao()).thenReturn(statusDao);
-//        Mockito.when(serviceSpy.getAuthTokenDao()).thenReturn(authTokenDao);
-//        Mockito.when(serviceSpy.getUserDao()).thenReturn(userDao);
-    }
+        serviceSpy = Mockito.spy(PostStatusServiceImpl.class);
+        Mockito.when(serviceSpy.getAuthTokenDao()).thenReturn(authTokenDao);
+        Mockito.when(serviceSpy.getUserDao()).thenReturn(userDao);
 
+        sqsMock = Mockito.mock(AmazonSQS.class);
+        Mockito.when(sqsMock.sendMessage(Mockito.any())).thenReturn(null);
+        Mockito.when(serviceSpy.getSqs()).thenReturn(sqsMock);
 
-    @Test
-    void test_deleteme() {
-        PostStatusServiceImpl service = new PostStatusServiceImpl();
-        PostStatusResponse response = service.sendStatus(validRequest);
-        assertTrue(response.isSuccess());
     }
 
     @Test
     void test_postStatusSuccess() {
-        Mockito.doNothing().when(statusDao).addStatus(Mockito.any(Status.class));
         PostStatusResponse response = serviceSpy.sendStatus(validRequest);
         assertTrue(response.isSuccess());
+        verify(sqsMock).sendMessage(Mockito.any());
     }
 
     @Test
