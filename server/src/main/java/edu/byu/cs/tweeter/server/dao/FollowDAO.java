@@ -14,6 +14,7 @@ import java.util.Map;
 import edu.byu.cs.tweeter.shared.model.request.FollowRequest;
 import edu.byu.cs.tweeter.shared.model.request.FollowStatusRequest;
 import edu.byu.cs.tweeter.shared.model.request.FollowersRequest;
+import edu.byu.cs.tweeter.shared.model.request.FollowingRequest;
 import edu.byu.cs.tweeter.shared.model.request.UserFollowCountRequest;
 import edu.byu.cs.tweeter.shared.model.response.FollowResponse;
 import edu.byu.cs.tweeter.shared.model.response.FollowStatusResponse;
@@ -154,5 +155,20 @@ public class FollowDAO extends BaseDynamoDAO {
             Map<String, List<WriteRequest>> unprocessedItems = outcome.getUnprocessedItems();
             outcome = getDatabase().batchWriteItemUnprocessed(unprocessedItems);
         }
+    }
+
+    public List<String> getFolloweesPaginated(FollowingRequest followeesRequest) {
+        List<String> followeeNames = new ArrayList<>();
+
+        QuerySpec querySpec = new QuerySpec().withHashKey(followerHandleAttribute,
+                followeesRequest.getFollowerAlias()).withMaxPageSize(followeesRequest.getLimit());
+        if (followeesRequest.getLastFolloweeAlias() != null) {
+            querySpec.withExclusiveStartKey(followerHandleAttribute, followeesRequest.getFollowerAlias(), followeeHandleAttribute, followeesRequest.getLastFolloweeAlias());
+        }
+
+        for (Item item : getTable().query(querySpec)) {
+            followeeNames.add(item.getString(followeeHandleAttribute));
+        }
+        return followeeNames;
     }
 }
