@@ -6,14 +6,10 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import java.io.IOException;
-import java.util.Arrays;
 
-import edu.byu.cs.tweeter.server.dao.FollowingDAO;
-import edu.byu.cs.tweeter.server.service.FollowingServiceImpl;
 import edu.byu.cs.tweeter.shared.model.domain.User;
 import edu.byu.cs.tweeter.shared.model.net.TweeterRemoteException;
 import edu.byu.cs.tweeter.shared.model.request.FollowingRequest;
-import edu.byu.cs.tweeter.shared.model.response.FollowersResponse;
 import edu.byu.cs.tweeter.shared.model.response.FollowingResponse;
 
 public class FollowingServiceImplTest {

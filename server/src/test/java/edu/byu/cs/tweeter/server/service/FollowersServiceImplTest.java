@@ -8,10 +8,6 @@ import org.mockito.Mockito;
 import java.io.IOException;
 import java.util.Arrays;
 
-import edu.byu.cs.tweeter.server.dao.FollowDAO;
-import edu.byu.cs.tweeter.server.dao.FollowersDAO;
-import edu.byu.cs.tweeter.server.dao.FollowingDAO;
-import edu.byu.cs.tweeter.server.service.FollowersServiceImpl;
 import edu.byu.cs.tweeter.shared.model.domain.User;
 import edu.byu.cs.tweeter.shared.model.net.TweeterRemoteException;
 import edu.byu.cs.tweeter.shared.model.request.FollowersRequest;

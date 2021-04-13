@@ -7,11 +7,9 @@ import edu.byu.cs.tweeter.server.DataAccessException;
 import edu.byu.cs.tweeter.server.dao.FollowDAO;
 import edu.byu.cs.tweeter.server.dao.UserDAO;
 import edu.byu.cs.tweeter.shared.model.domain.User;
-import edu.byu.cs.tweeter.shared.model.response.FollowersResponse;
 import edu.byu.cs.tweeter.shared.model.service.FollowingServiceInterface;
 import edu.byu.cs.tweeter.shared.model.request.FollowingRequest;
 import edu.byu.cs.tweeter.shared.model.response.FollowingResponse;
-import edu.byu.cs.tweeter.server.dao.FollowingDAO;
 
 /**
  * Contains the business logic for getting the users a user is following.

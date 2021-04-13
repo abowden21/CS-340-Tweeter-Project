@@ -4,7 +4,6 @@ import java.util.List;
 
 import edu.byu.cs.tweeter.server.DataAccessException;
 import edu.byu.cs.tweeter.server.dao.StatusDAO;
-import edu.byu.cs.tweeter.server.dao.StoryDAO;
 import edu.byu.cs.tweeter.shared.model.domain.Status;
 import edu.byu.cs.tweeter.shared.model.request.StoryRequest;
 import edu.byu.cs.tweeter.shared.model.response.StoryResponse;
