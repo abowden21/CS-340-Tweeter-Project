@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -142,6 +143,7 @@ public class FeedFragment extends Fragment implements FeedPresenter.View {
             userAlias.setText(status.getUser().getAlias());
             userName.setText(status.getUser().getName());
             statusBody.setText(feedRecyclerViewAdapter.makeSpannableString(status));
+            statusBody.setMovementMethod(LinkMovementMethod.getInstance());
             timestamp.setText(status.prettyPrintTime());
             currentUser = status.getUser();
         }

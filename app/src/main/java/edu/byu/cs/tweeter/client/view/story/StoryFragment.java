@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -142,6 +143,7 @@ public class StoryFragment extends Fragment implements StoryPresenter.View {
             userAlias.setText(status.getUser().getAlias());
             userName.setText(status.getUser().getName());
             statusBody.setText(storyRecyclerViewAdapter.makeSpannableString(status));
+            statusBody.setMovementMethod(LinkMovementMethod.getInstance());
             timestamp.setText(status.prettyPrintTime());
             currentUser = status.getUser();
         }
